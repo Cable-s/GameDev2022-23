@@ -1,0 +1,115 @@
+<html>
+<head>
+<style>
+ body {background-color: #1ecbe1}
+</style>
+</head>
+<body>
+
+
+Version 1.1.0
+
+<h2 align=center>T3A08-Loops-by-Caleb</h2>
+
+<a href="">Good reference to Javascript Loops</a><br>
+
+
+<h4> Example input output code</h4>
+<pre>
+
+</pre>
+
+<h4> Example working code</h4>
+
+Max loops: <input id="myNum01" type=number value="4" ><br> 
+
+<input type=button value="Basic For loop with Decisions" onclick="{
+    document.getElementById('myDiv01').innerHTML = ''
+    let myTemp = ''
+    let myMax = parseInt(document.getElementById('myNum01').value)
+    for (let myLoop = 0; myLoop < myMax; myLoop++ ){
+       if (myLoop * 2 > myMax){
+          myTemp += ' cool '
+      }
+      myTemp += 'Loop number: ' + myLoop + '<br>'
+    }
+    document.getElementById('myDiv01').innerHTML = myTemp 
+}">
+
+
+<input type=button value="Basic For loop only" onclick="{
+    let myTemp = ''
+    let myMax = parseInt(document.getElementById('myNum01').value)
+    for (let myLoop = 0; myLoop < myMax; myLoop++ ){
+      myTemp += 'Loop number: ' + myLoop + '<br>'
+    }
+    document.getElementById('myDiv01').innerHTML = myTemp 
+}">
+
+
+
+<input type=button value="Even number identifier" onclick="{
+    document.getElementById('myDiv01').innerHTML = ''
+    let myTemp = ''
+    let myMax = parseInt(document.getElementById('myNum01').value)
+    for (let myLoop = 0; myLoop < myMax; myLoop++ ){
+       if (myLoop % 2 == 0){
+          myTemp += '<font style=\'color:red;\'> Even </font>'
+      }
+      myTemp += 'Loop number: ' + myLoop + '<br>'
+    }
+    document.getElementById('myDiv01').innerHTML = myTemp 
+}">
+
+
+<input type=button value="Odd number identifier" onclick="{
+    document.getElementById('myDiv01').innerHTML = ''
+    let myTemp = ''
+    let myMax = parseInt(document.getElementById('myNum01').value)
+    for (let myLoop = 0; myLoop < myMax; myLoop++ ){
+       if (myLoop % 2 == 1){
+          myTemp += '<font style=\'color:red;\'> Odd </font>'
+      }
+      myTemp += 'Loop number: ' + myLoop + '<br>'
+    }
+    document.getElementById('myDiv01').innerHTML = myTemp 
+}">
+
+<input type=button value="Multiple of 3s" onclick="{
+    document.getElementById('myDiv01').innerHTML = ''
+    let myTemp = ''
+    let myMax = parseInt(document.getElementById('myNum01').value)
+    for (let myLoop = 0; myLoop < myMax; myLoop++ ){
+       if (myLoop % 3 == 0){
+          myTemp += '<font style=\'color:red;\'> Multiple of 3: </font>'
+      }
+      myTemp += myLoop + '<br>'
+    }
+    document.getElementById('myDiv01').innerHTML = myTemp 
+}">
+
+<div id="myDiv01"><font color=red>...</font></div>
+
+<h2> Find the multiples of a number</h2>
+<h5>(Up to 1000)</h5>
+Find the Multiples Of: <input id="myNum03" type=number value="0" ><br> 
+<input type=button value="Go" onclick="{
+     document.getElementById('Div2').innerHTML = ''
+     let myTemp2 = ''
+    
+     let myMax2 = 1000
+     let myMax3 = parseInt(document.getElementById('myNum03').value)
+     for (let myLoop2 = 0; myLoop2 <= myMax2; myLoop2++){
+       if (myLoop2 % myMax3 == 0){
+          myTemp2 += myLoop2 + '<br>'
+     } else {
+      myTemp2 += ''
+     }
+     }
+     document.getElementById('Div2').innerHTML = myTemp2
+}">
+
+<div id="Div2">..</div>
+
+</body>
+</html>
