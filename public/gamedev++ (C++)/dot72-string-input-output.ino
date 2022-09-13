@@ -37,14 +37,14 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-  Serial.println("write a sentence with GMAN, FREEMAN, and CALHOUN in it!");
+  Serial.println("write a sentence with GMAN, FREEMAN, and/or CALHOUN in it!");
   while (Serial.available() == 0){} //waits until enter key pushed
   
   myIncoming = Serial.readString();
   Serial.println("----------------------------------");
   
   Serial.println("You entered : " + String(myIncoming));
-
+  delay(1000);
   // other string funcitons at 
   // https://www.arduino.cc/reference/en/language/variables/data-types/stringobject/
   myIncoming.toUpperCase();
