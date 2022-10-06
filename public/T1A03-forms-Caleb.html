@@ -1,0 +1,92 @@
+<html>
+ <head>
+  <style>
+    body {background-color: #943df8}
+  </style>
+ </head>
+ <body>
+
+<h1 align="center">Caleb's Questoinare</h1>
+
+
+    <forms>
+      <fieldset>
+          <legend>
+            Personal Infomation
+          </legend>
+          Your Name: <br>
+          <input type="text" id="fname" name="fname" value="" placeholder="Your Name Here"><br><br>
+          Credit card Information..<br>
+          
+          <input type="text" id="cardnum" name="cardnum" value="" placeholder="XXXX XXXX XXXX XXXX">
+          <input type="text" id="threenum" name="threenum" value="" placeholder="XXX" style="width: 50px;">
+          <br>
+          <select value="" id="exri">
+            <option value="0">month</option>
+            <option value="1">Jan</option>
+            <option value="2">Feb</option>
+            <option value="3">Mar</option>
+            <option value="4">Apr</option>
+            <option value="5">May</option>
+            <option value="6">Jun</option>
+            <option value="7">Jul</option>
+            <option value="8">Aug</option>
+            <option value="9">Sept</option>
+            <option value="10">Oct</option>
+            <option value="11">Nov</option>
+            <option value="12">Dec</option>
+          </select>
+          <input type="number" id="date" min="1" max="31" placeholder="date">
+        </fieldset>
+        
+
+      <fieldset>
+        <legend>
+          General IQ
+        </legend>
+        Before we can move forward you have to pass a general IQ test
+        <br>
+        What is the best car manufacturer?
+          <select value="" id="Car">
+            <option value="1">Toyota</option>
+            <option value="2">Honda</option>
+            <option value="3">Ford</option>
+            <option value="4">Mercedes</option>
+            <option value="5">Subaru</option>
+          </select><br><br>
+
+        What is the square root of 2116 (√2116)?
+          <input type="number" id="math" value="" min="0" max="100">
+          <Br><Br>
+
+        Thoughts on the Capybara? <Br>
+          Awesome dope swag <input type=radio name="radio" value="1" onclick="document.getElementById('radio').value = 1"><br>
+          dope swag <input type=radio name="radio" value="2" onclick="document.getElementById('radio').value = 2"><br>
+          swag <input type=radio name="radio" value="3" onclick="document.getElementById('radio').value = 3"><br>
+          anti-swag <input type=radio name="radio" value="4" onclick="document.getElementById('radio').value = 4"><br>
+          <div id="radio"></div>
+          <button type="button" onClick="GeneralIQ();" id="getAnswer">Get Results</button>
+          <div id="answer">...</div>
+      </fieldset>
+    </forms>
+
+    <script>
+      function GeneralIQ() {
+        let a = document.getElementById('Car').value
+        let b = 0
+        let c = document.getElementById('math').value
+        let d = document.getElementById('radio').value
+
+        if (a == 2 && c == 46 && d == 1|| a == 1 && c == 46 && d == 1) {
+          document.getElementById('answer').innerHTML = "Correct you may procede"
+          b = 1
+        } else {
+          document.getElementById('answer').innerHTML = "Unfortunatly you didn't pass the general IQ test :("
+        }
+        if (b == 1) {
+
+        }
+      }
+    </script>
+ </body>
+</html>
