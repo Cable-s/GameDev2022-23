@@ -6,7 +6,7 @@
  </head>
  <body>
 
-<h1 align="center">Caleb's Questoinare</h1>
+<h1 align="center">Caleb's Questionare</h1>
 
 
     <forms>
@@ -72,7 +72,7 @@
           <fieldset>
               <legend> Math </legend>
 
-              What is the square root of 2116 (√2116)?
+              What is the square root of 2116 (√2116)?<Br>
               <input type="number" id="math1" value="" min="0" max="100">
               <Br><Br>
 
@@ -89,9 +89,45 @@
               <div id="math2.9"></div>
               <div id="math2.10"></div>
 
-              <button type="button" onClick="GeneralIQ();" id="getAnswer">Get Results</button>
-              <div id="answer">...</div>
+
           </fieldset>
+          <fieldset>
+            <legend>
+                Science
+            </legend>
+                v=Δd/t is the equation to calculate what? <br>
+                Velocity<input type=radio name="radio1" value="1" onclick="document.getElementById('radio1').value = 1"><br>
+                Accleration<input type=radio name="radio1" value="2" onclick="document.getElementById('radio1').value = 2"><br>
+                Kinetic energy<input type=radio name="radio1" value="3" onclick="document.getElementById('radio1').value = 3"><br>
+                Frequency<input type=radio name="radio1" value="4" onclick="document.getElementById('radio1').value = 4"><br>
+                <div id="radio1"></div>
+
+                <Br><br>
+                    What are the Newton's 3 Laws of Motion? <br>
+                    F=MA^2<input type="checkbox" id="sci1.1" value="1" onclick="document.getElementById('sci1.6').value = 1"><br>
+                    F=MA<input type="checkbox" id="sci1.2" value="0" onclick="document.getElementById('sci1.7').value = 1"><br>
+                    Objects that are moving want to stop moving<input type="checkbox" id="sci1.3" value="1" onclick="document.getElementById('sci1.8').value = 1"><br>
+                    Every action has an equal and opposite reaction<input type="checkbox" id="sci1.4" value="0" onclick="document.getElementById('sci1.9').value = 1"><br>
+                    Intertia<input type="checkbox" id="sci1.5" value="0" onclick="document.getElementById('sci1.10').value = 1"><br>
+                    <div id="sci1.6"></div>
+                    <div id="sci1.7"></div>
+                    <div id="sci1.8"></div>
+                    <div id="sci1.9"></div>
+                    <div id="sci1.10"></div>
+          </fieldset>
+          <fieldset>
+            <legend>
+                History
+            </legend>
+                What Year Did WWII end?<br>
+                <input type="number" id="his1" value="" min="0000" max="9999">
+<br><Br>
+                What island was Napoleon first exiled to? (lowercase only)<Br>
+                <input type="text" id="his2" value="" placeholder="Your answer here"><br><br>
+                
+          </fieldset><br>
+          <button type="button" onClick="GeneralIQ();" id="getAnswer">Get Results</button>
+          <div id="answer">...</div> reset:<input type =reset><br>
       </fieldset>
     </forms>
 
@@ -108,11 +144,24 @@
            let cp = 0
           let d = 0
             let dp = 0
+          let e = document.getElementById('radio1').value
+            let ep = 0
+          let f = 0
+            let fp = 0
+          let g = document.getElementById('his1').value
+            let gp = 0
+          let h = document.getElementById('his2').value
+            let hp = 0
           let ans1 = document.getElementById('math2.7').value
           let ans2 = document.getElementById('math2.6').value
           let ans3 = document.getElementById('math2.8').value
           let ans4 = document.getElementById('math2.9').value
           let ans5 = document.getElementById('math2.10').value
+          let ans6 = document.getElementById('sci1.6').value
+          let ans7 = document.getElementById('sci1.7').value
+          let ans8 = document.getElementById('sci1.8').value
+          let ans9 = document.getElementById('sci1.9').value
+          let ans10 = document.getElementById('sci1.10').value
 
 
 
@@ -142,7 +191,7 @@
 
           if (ans1 && ans2 == 1) {
               d = 2
-          } else if (ans1 || ans2 == 1) {
+          } else if (ans1 == 1 || ans2 == 1) {
               d = 1
           } else if (ans3 && ans1 == 1 || ans4 && ans1 == 1 || and5 && and1 == 1){
               d = 0
@@ -159,7 +208,35 @@
           } else {
               dp = 0
           }
-          document.getElementById('answer').innerHTML = parseFloat((ap + bp + cp + dp) / 4).toFixed(2) + '%'
+
+          if (e == 1) {
+            ep = 100
+          } else {
+            ep = 0
+          }
+
+          if (h == 'elba') {
+            hp = 100
+          } else {
+            hp = 0
+          }
+
+          if (ans7 && ans9 && ans10 == 1 && ans6 != 1 && ans8 != 1) {
+            fp = 100
+          } else if (ans7 && ans9 == 1 && ans10 != 1 && ans6 != 1 && ans8 != 1|| ans7 && ans10 == 1 && ans9 != 1 && ans6 != 1 && ans8 != 1|| ans9 && ans10 == 1 && ans7 != 1 && ans6 != 1 && ans8 != 1) {
+            fp = 66.66
+          } else if (ans7 == 1 && ans9 != 1 && ans10 != 1  && ans6 != 1 && ans8 != 1|| ans9 == 1 && ans7 != 1 && ans10 != 1 && ans6 != 1 && ans8 != 1|| ans10 == 1 && ans9 != 1 && ans10 != 1 && ans6 != 1 && ans8 != 1) {
+            fp = 33.33
+          }else {
+            fp = 0
+          }
+
+          if (g == 1945) {
+            gp = 100
+          } else {
+            gp = 0
+          }
+          document.getElementById('answer').innerHTML = parseFloat((ap + bp + cp + dp + ep + fp + gp + hp) / 8).toFixed(2) + '%'
       } 
     </script>
 
