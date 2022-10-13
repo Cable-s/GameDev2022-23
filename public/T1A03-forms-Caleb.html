@@ -199,7 +199,7 @@
               d = 0
           } else if (ans3 && ans2 && ans1 == 1 || ans4 && ans2 && ans1 == 1 || and5 && and2 && ans1 == 1) {
               d = 0
-          }
+          } 
 
           if (d == 2) {
               dp = 100
@@ -238,7 +238,12 @@
           } else {
             gp = 0
           }
+
+          if (ap || bp || cp || dp || ep || fp || gp || hp == undefined) {
+            document.getElementById('answer').innerHTML = "you have somehow made the percentage a NaN, good job."
+          }else {
           document.getElementById('answer').innerHTML = parseFloat((ap + bp + cp + dp + ep + fp + gp + hp) / 8).toFixed(2) + '%'
+        }
       } 
     </script>
 
