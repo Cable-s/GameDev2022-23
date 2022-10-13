@@ -239,11 +239,9 @@
             gp = 0
           }
 
-          if (ap || bp || cp || dp || ep || fp || gp || hp == undefined) {
-            document.getElementById('answer').innerHTML = "you have somehow made the percentage a NaN, good job."
-          }else {
+
           document.getElementById('answer').innerHTML = parseFloat((ap + bp + cp + dp + ep + fp + gp + hp) / 8).toFixed(2) + '%'
-        }
+
       } 
     </script>
 
