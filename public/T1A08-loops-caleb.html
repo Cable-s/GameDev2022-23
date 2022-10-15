@@ -6,7 +6,7 @@
   </style>
   </head>
   <body onload="lines()">
-  <h2 align=center >T3AXX graph by Caleb</h2>
+  <h2 align=center >T3A08 loops by Caleb</h2>
 
 
 
@@ -21,8 +21,8 @@ p = <input type="number" id="p" value="1" onchange="equation()"> <br><Br>
 your equation: <br><br>
 <div id="equation">..</div>
 <br>
-<input type="button" id="start" onclick="start()" value="graph"><br>
-  <canvas id="canvas" width="500" height="500" style="border:1px solid #000000; background-color: rgb(230, 230, 230); float:"></canvas>
+<input type="button" id="start" onclick="start()" value="graph"><input type="button" id="tableb" onclick="table()" value="table"> <br>
+  <canvas id="canvas" width="500" height="500" style="border:1px solid #000000; background-color: rgb(230, 230, 230)""></canvas>
 
 
 
@@ -80,7 +80,11 @@ your equation: <br><br>
       console.log(range.length)
       console.log(range[0], range[99])
       myContext.translate(canvas.width/2,canvas.height/2);
+
       function start() {
+
+        document.getElementById('table').style.display = "none"
+        document.getElementById('canvas').style.display = "block"
 
         myContext.clearRect(-500, -500, 1000, 1000)
         a = -1 * parseInt(document.getElementById('a').value)
@@ -105,8 +109,40 @@ your equation: <br><br>
          }
       }
 
+      function table() {
+        document.getElementById('canvas').style.display = "none"
+        document.getElementById('table').style.display = "block"
+        a = document.getElementById('a').value
+        b = document.getElementById('b').value
+        h = document.getElementById('h').value
+        k = document.getElementById('k').value
+        p = document.getElementById('p').value
+        let x2 = document.getElementById('valx').value
+        document.getElementById('xvals').innerHTML = "x = " + x2
+        let y2 = parseInt(a) * ((parseInt(b) * parseInt(x2) + parseInt(h)) ** parseInt(p)) + parseInt(k)
+        document.getElementById('yvals').innerHTML = "y = " + y2
+      }
+
+
   </script>
   
+  <table id="table">
+      <tr>
+        <td>Input values of X to get Y</td>
+        <td><input type="number" id="valx" onchange="table()"> </td>
+        <td> <input type="button" onclick="table()" value="Get Results"> </td>
+      </tr>
+      <tr>
+        <td>
+          <div id="xvals">...</div>
+        </td>
+        <td>
+          <div id="yvals">...</div>
+        </td>
+      </tr>
+
+
+  </table>
   
   </body>
   </html>
