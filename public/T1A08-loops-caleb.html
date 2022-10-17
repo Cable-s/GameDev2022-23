@@ -10,9 +10,9 @@
 
 
 
+<h2>Write an equation with the number areas below and graph it</h2>
 
-
-equation: y = a(bx - h)^p + k<br>
+equation in the form: y = a(bx - h)^p + k<br>
 a = <input type="number" id="a" value="1" onchange="equation()"> <br>
 b = <input type="number" id="b" value="1" onchange="equation()"> <br>
 h = <input type="number" id="h" value="0" onchange="equation()" > <br>
@@ -33,6 +33,8 @@ your equation: <br><br>
 
       let y1
       let x1
+      let x2
+      let y2
 
       let p
       let a
@@ -93,19 +95,24 @@ your equation: <br><br>
         k = -1 * parseInt(document.getElementById('k').value)
         p = document.getElementById('p').value
             for (x = -500; x < 500; x++) {
-            x1 = (parseInt(b) * parseInt(x) - parseInt(h))
+            x1 = ((parseInt(b) * parseInt(x) - parseInt(h)))
             y1 =  parseInt(a) * ((parseInt(b) * parseInt(x1) + parseInt(h)) ** parseInt(p)) + parseInt(k)
             console.log(range[x1])
             console.log('x1: ', x1)
             console.log('y1: ', y1)
+            console.log('x2: ', x2)
+            console.log('y2: ', y2)
 
             lines()
 
             myContext2.beginPath();
             myContext2.lineWidth = 1;
             myContext2.strokeStyle = 'black';
-            myContext2.arc(x1, y1, 0.5, 0, 2 * Math.PI);
+            myContext2.moveTo(x1, y1)
+            myContext2.lineTo(x2, y2);
             myContext2.stroke();
+            x2 = x1
+            y2 = y1
          }
       }
 
