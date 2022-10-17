@@ -91,12 +91,12 @@ your equation: <br><br>
         myContext.clearRect(-500, -500, 1000, 1000)
         a = -1 * parseInt(document.getElementById('a').value)
         b = document.getElementById('b').value
-        h = -1 * parseInt(document.getElementById('h').value)
+        h = parseInt(document.getElementById('h').value)
         k = -1 * parseInt(document.getElementById('k').value)
         p = document.getElementById('p').value
             for (x = -500; x < 500; x++) {
-            x1 = ((parseInt(b) * parseInt(x) - parseInt(h)))
-            y1 =  parseInt(a) * ((parseInt(b) * parseInt(x) - parseInt(h))) ** parseInt(p)) + parseInt(k)
+            x1 = (((parseInt(b) * parseInt(x)) - parseInt(h)))
+            y1 =  parseInt(a) * (((parseInt(b) * parseInt(x1) - parseInt(h))) ** parseInt(p)) + parseInt(k)
             console.log(range[x1])
             console.log('x1: ', x1)
             console.log('y1: ', y1)
