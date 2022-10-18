@@ -1,99 +1,179 @@
+
 <html>
-<head>
-    <link rel="stylesheet" href="css.css">
-<style>
-</style>
-</head>
-<body>
-<h2 align=center >T3A18 Canvas by Caleb</h2>
- <br><br>
-
-<div id="thickness1">...</div>  <input type="range" max="10" min="1" id="thickness" value="1" onchange="thick = document.getElementById('thickness').value; document.getElementById('thickness1').innerHTML = 'Thickness: ' + thick">
-<input type="button" id="restart" onclick="x1 = undefined; y1 = undefined; x2 = undefined; y2 = undefined" value="start new line">
-<input type="button" id="clear" value="clear the board" onclick=" myContext.clearRect(0, 0, myCanvas.width, myCanvas.height); document.getElementById('restart').click()">
-<br><br>
-
-<div id="coords">...</div>
-<canvas id="canvas" width="1000" height="600" style="border:1px solid #000000; background-color: rgb(230, 230, 230)" onclick="line(event)"></canvas>
-
-<script>
-   // set up global variables
-   let myCanvas=document.getElementById('canvas');
-   let myContext=myCanvas.getContext('2d');
-   var mousedown = false
-   var bool = false
-   var bool2 = 1
-   var x
-   var y
-   var x1
-   var y1
-   var x2
-   var y2
-   var thick = 1
-
-function line() {
+   <head>
+       <link rel="stylesheet" href="css.css">
+   <style>
+   </style>
+   </head>
+   <body>
+   <h2 align=center >T3A18 Canvas by Caleb</h2>
+    <br><br>
    
-if (bool == false) {
-   x1 = parseInt(event.clientX) - 9;
-   y1 = parseInt(event.clientY) - 177;
-   bool = true
-} else if (bool == true) {
-    x2 = parseInt(event.clientX) - 9
-    y2 = parseInt(event.clientY) - 177
-    bool = false
-    bool2 = 2
-}
+   <div id="thickness1">...</div>  <input type="range" max="10" min="1" id="thickness" value="1" onchange="thick = document.getElementById('thickness').value; document.getElementById('thickness1').innerHTML = 'Thickness: ' + thick">
+   <input type="button" id="draw" onclick="drawtool = 0; console.log(drawtool)" value="Draw Tool">
+   <input type="button" id="restart" onclick="drawtool = 1; x1 = undefined; y1 = undefined; x2 = undefined; y2 = undefined; console.log(drawtool)" value="Line Tool">
+   <input type="button" id="circle" onclick="drawtool = 2; x1 = undefined; y1 = undefined; x2 = undefined; y2 = undefined; console.log(drawtool)" value="Circle Tool">
+   <input type="button" id="clear" value="clear the board" onclick=" myContext.clearRect(0, 0, myCanvas.width, myCanvas.height); x1 = undefined; y1 = undefined; x2 = undefined; y2 = undefined">
+  <br>
+  <div id="toolselected">...</div>
+   <br><br>
+   
+   <div id="coords">...</div>
+   <canvas id="canvas" width="1000" height="600" style="border:1px solid #000000; background-color: rgb(230, 230, 230)" onclick="line(event)"></canvas>
+   
+   <script>
+      // set up global variables
+      let myCanvas=document.getElementById('canvas');
+      let myContext=myCanvas.getContext('2d');
+      var mousedownevent = false
+      var bool = false
+      var bool2 = 1
+      var x
+      var y
+      var x1
+      var y1
+      var x2
+      var y2
+      var x3
+      var y3
+      var r
+      var thick = 1
+      var drawtool = 0
+   
+function line() {
+      
+ if (drawtool == 1) {     
+   if (bool == false) {
+      x1 = parseInt(event.clientX) - 9;
+      y1 = parseInt(event.clientY) - 177;
+      bool = true
+   } else if (bool == true) {
+       x2 = parseInt(event.clientX) - 9
+       y2 = parseInt(event.clientY) - 177
+       bool = false
+       x1 = undefined
+       y1 = undefined
+   }
+   
+      console.log("drawtool = ", drawtool)
+   
+      myContext.beginPath();
+      myContext.lineWidth = thick;   
+      myContext.moveTo(x1,y1);
+      myContext.lineTo(x2,y2);
+      myContext.stroke();
 
-   console.log(x1, y1, x2, y2, thick, bool, bool2)
-
-   myContext.beginPath();
-   myContext.lineWidth = thick;   
-   myContext.moveTo(x1,y1);
-   myContext.lineTo(x2,y2);
-   myContext.stroke();
-}
+   } else if (drawtool == 0) {  
 
 
-document.addEventListener('mousemove', mouseCoords);
 document.addEventListener('mousedown', mouseDown);
 document.addEventListener('mouseup', mouseUp);
 
-function mouseCoords() {
-    x = parseInt(event.clientX) - 9;
-    y = parseInt(event.clientY) - 177;
 
-    if (x >= 1001 || x <= -1) {
-        x = 0
-        y = 0
-    } 
-    if (y >= 601 || y <= -1){
-        y = 0
-        x = 0
-    }
-
-    document.getElementById('coords').innerHTML = x + ', ' + y
+function mouseDown() {
+   mousedownevent = true
+   console.log(mousedownevent)
+   mouseCoords()
+   console.log(x, y)
+   intervals()
 
 }
 
-function mouseDown(){
-   mousedown = true
+function mouseUp() {
+   mousedownevent = false
+   console.log(mousedownevent)
+    intervals()
 }
 
-function mouseUp(){
-   mousedown = false
-
+function intervals() {
+   if (mousedownevent == true) {
+      var myInterval = setInterval(draw, 1)
+   } else if (mousedownevent == false) {
+      clearInterval(myInterval)
+   }
 }
- 
-
 
 function draw() {
-    if (mousedown == true) {
-        setInterval(line, 50)
-    }
+   if (mousedownevent == true) {
+      myContext.beginPath();
+      myContext.lineWidth = thick;
+      myContext.lineCap = 'round';
+      myContext.moveTo(x, y)
+      myContext.lineTo(x3, y3)
+      myContext.stroke();
+      x3 = x
+      y3 = y
+   } else {
+      y3 = undefined
+      x3 = undefined
+   }
+   }
+} else if (drawtool == 2) {
+
+   if (bool == false) {
+      x1 = parseInt(event.clientX) - 9;
+      y1 = parseInt(event.clientY) - 177;
+      bool = true
+   } else if (bool == true) {
+       x2 = parseInt(event.clientX) - 9
+       y2 = parseInt(event.clientY) - 177
+       bool = false
+       x1 = undefined
+       y1 = undefined
+   }
+   let x4 = parseInt(x2) - parseInt(x1)
+   let y4 = parseInt(y2) - parseInt(y1)
+
+   r = Math.sqrt((parseInt(x4) ** 2) + (Math.sqrt(parseInt(y4) ** 2)))
+
+   myContext.beginPath();
+      myContext.lineWidth = thick;   
+      myContext.arc(x1, y1, r, 0, 2 * Math.PI)
+      myContext.stroke();
 }
 
-</script>
+toolselect()
+}
 
+function toolselect() {
+   if (drawtool == 0) {
+      document.getElementById('toolselected').innerHTML = 'draw tool'
+   }
+   if (drawtool == 1) {
+      document.getElementById('toolselected').innerHTML = 'line tool'
+   }
+   if (drawtool == 2) {
+      document.getElementById('toolselected').innerHTML = 'circle tool'
+   }
+}
 
-</body>
-</html>
+   
+   document.addEventListener('mousemove', mouseCoords);
+
+   
+   function mouseCoords() {
+       x = parseInt(event.clientX) - 9;
+       y = parseInt(event.clientY) - 177;
+   
+       if (x >= 1001 || x <= -1) {
+           x = 0
+           y = 0
+       } 
+       if (y >= 601 || y <= -1){
+           y = 0
+           x = 0
+       }
+   
+       document.getElementById('coords').innerHTML = x + ', ' + y
+   
+   }
+   
+   
+    
+
+   </script>
+   
+   
+   </body>
+   </html>
+   
