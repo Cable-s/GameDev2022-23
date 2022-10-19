@@ -1,0 +1,84 @@
+<htlm>
+ <head>
+  <style>
+   body {background-color: #a250ff}
+
+
+</style>
+</head>
+<body>
+<h1 align="center"> T1A12-14 classes and objects </h1>
+start<input type="button" id="start" onclick="start()"><Br><br>
+<br><br><Br>
+
+<input type="range" id="slide" max="1200" min="100" style="width: 1100px; position:absolute; left:100px; display:block">
+<br><br><br>
+    <img src="block.png" id="block1" style="position:absolute; left: 50px; height:75px; width:75px">
+    <img src="block.png" id="block2" style="position:absolute; left: 200px; height:75px; width:75px">
+    <img src="line.png" id="line" style="position:absolute; left:700px">
+
+
+<script>
+
+
+class block {
+    constructor (v, m) {
+        this.v = v
+        this.m = m
+    }
+}
+
+const block1 = new block(1, 1)
+const block2 = new block(-1, 1)
+let slide2
+
+function start() {
+setInterval(update, 1)
+
+}
+
+function update() {
+     slide2 = document.getElementById('slide').value
+     document.getElementById('line').style.left = parseInt(slide2) + 'px'
+
+     x1 = parseInt(document.getElementById('block1').style.left)
+     x2 = parseInt(document.getElementById('block2').style.left)
+     y1 = parseInt(document.getElementById('block1').style.left) + parseInt(document.getElementById('block1').style.width)
+     y2 = parseInt(document.getElementById('block2').style.left) + parseInt(document.getElementById('block2').style.width)
+    document.getElementById('block2').style.left = parseInt(document.getElementById('block2').style.left) + block2.v + 'px'
+    document.getElementById('block1').style.left = parseInt(document.getElementById('block1').style.left) + block1.v + 'px'
+    collision()
+}
+
+function collision() {
+    console.log(block1.v, block2.v, block1.m, block2.m);
+
+    if (x1 <= 0) {
+        block1.v = 1
+    }
+    if ( y1 > x2) {
+        math()
+    }
+    if (y2 >= slide2) {
+        block2.v = -1
+    }
+}
+
+function math() {
+    // m1 = 1, m2 = 1, v1 = 1, v2 = -1
+    let sum = block1.m + block2.m // 2
+    let dif = block1.m - block2.m // 0
+    let dbl1 = 2 * block1.m // 2
+    let dbl2 = 2 * block2.m // 2
+    let div1 = dbl1 / sum // 1
+    let div2 = dbl2 / sum // 1
+    let div3 = dif / sum // 0
+    
+    block2.v = 1 // 1 - 0 = 1, v2 = 1 parseInt((div1 * v1) - (div3 * v2))
+    block1.v = -1 // 0 + -1 = -1, v1 = -1 parseInt((div3 * v1) + (div2 * v2))
+}
+
+</script>
+
+</body>
+</html>
