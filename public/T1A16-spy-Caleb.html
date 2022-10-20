@@ -1,0 +1,92 @@
+<htlm>
+    <head>
+     <style>
+      body {background-color: #a250ff}
+   
+   
+   </style>
+   </head>
+   <body>
+   <h1 align="center"> T1A16 spy and objects </h1>
+   
+   <textarea id="input" placeholder="Put Stuff you wish to encrypt here"></textarea>
+
+    <input type="button" id="encrypt" value="Encrypt" onclick="encrypt()">
+
+
+
+   <script>
+
+
+function encrypt() {
+    let temp = ''
+    console.log(document.getElementById('input').innerHTML)
+    x = document.getElementById('input').value.toLowerCase().split('')
+    for (y = 0; y < x.length; y++) {
+                var random = Math.floor(Math.random() * 26);
+                temp = x[y]
+                console.log(random)
+                if (random == 0) {
+                    temp = "a"
+                } else if (random == 1) {
+                    temp = "b"
+                }else if (random == 2) {
+                    temp = 'c'
+                }else if (random == 3) {
+                    temp = 'd'
+                }else if (random == 4) {
+                    temp = 'e'
+                }else if (random == 5) {
+                    temp = 'f'
+                }else if (random == 6) {
+                    temp = 'g'
+                }else if (random == 7) {
+                    temp = 'h'
+                }else if (random == 8) {
+                    temp = 'i'
+                }else if (random == 9) {
+                    temp = 'j'
+                }else if (random == 10) {
+                    temp = 'k'
+                }else if (random == 11) {
+                    temp = 'l'
+                }else if (random == 12) {
+                    temp = 'm'
+                }else if (random == 13) {
+                    temp = 'n'
+                }else if (random == 14) {
+                    temp = 'o'
+                }else if (random == 15) {
+                    temp = 'p'
+                }else if (random == 16) {
+                    temp = 'q'
+                }else if (random == 17) {
+                    temp = 'r'
+                }else if (random == 18) {
+                    temp = 's'
+                }else if (random == 19) {
+                    temp = 't'
+                }else if (random == 20) {
+                    temp = 'u'
+                }else if (random == 21) {
+                    temp = 'v'
+                }else if (random == 22) {
+                    temp = 'w'
+                }else if (random == 23) {
+                    temp = 'x'
+                }else if (random == 24) {
+                    temp = 'y'
+                }else if (random == 25) {
+                    temp = 'z'
+                }
+                x[y] = temp
+                console.log(x[y])
+    }
+    document.getElementById('div').innerHTML = x.join('')
+}
+
+   </script>
+   <div id="div">...</div>
+   </body>
+   </html>
+   
