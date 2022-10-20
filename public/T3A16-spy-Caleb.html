@@ -1,0 +1,181 @@
+<htlm>
+    <head>
+     <style>
+      body {background-color: #a250ff}
+   
+   
+   </style>
+   </head>
+   <body onload="reset();    
+
+   myStorage = localStorage.getItem('myStoredText');  
+
+   if(myStorage  != null){
+    document.getElementById('key').value = myStorage 
+  }   ">
+
+   <h1 align="center"> T1A16 spy and objects </h1>
+
+   <h2>Encrytion</h2>
+   <textarea id="key" placeholder="Create a private key that only you know" rows="4" cols="70"></textarea><br>
+<input type="button" id="keybtn" value="set key" onclick="keysave()">
+
+<Br>
+
+    <textarea id="input" placeholder="Put Stuff you wish to encrypt here" rows="4" cols="70" onfocus="document.getElementById('encrypt').style.display = 'block'"></textarea><BR>
+
+
+
+        <input type="button" id="encrypt" value="Encrypt" onclick="key(); document.getElementById('encrypt').style.display = 'none' ">
+
+        <div id="div">...</div>
+        <Br><br>
+        <h2>Decryption</h2>
+        <textarea id="output" placeholder="Put Stuff you wish to decrypt here" rows="4" cols="70" onfocus="document.getElementById('decrypt').style.display = 'block'"></textarea><BR>
+        <input type="button" id="decrypt" value="decrypt" onclick="passwordask(); document.getElementById('decrypt').style.display = 'none' "><br>
+        <textarea id="ask" placeholder="What is your key word" rows="4" cols="70" style="display:none" onclick="document.getElementById('decryptfr').style.display = 'block'"></textarea>
+        <input type="button" id="decryptfr" value="decrypt" onclick="yek(); document.getElementById('decryptfr').style.display = 'none' " style="display:none"><br>
+
+
+   <script>
+function reset() {
+    // console.log('hi')
+}
+
+function keysave() {
+    localStorage.setItem('myStoredText', document.getElementById('key').value)
+}
+
+
+var temp2;
+var x
+var number = 0
+var number2 = 0
+
+    function key() {
+        z = document.getElementById('key').value.toLowerCase().split('')
+    for (w = 0; w < z.length; w++) {
+        temp2 = z[w]
+        if (z[w] == 'a' ) {temp2 = 01}
+        else if (z[w] == 'b') {temp2 = 02}
+        else if (z[w] == 'c') {temp2 = 03}
+        else if (z[w] == 'd') {temp2 = 04}
+        else if (z[w] == 'e') {temp2 = 05}
+        else if (z[w] == 'f') {temp2 = 06}
+        else if (z[w] == 'g') {temp2 = 07}
+        else if (z[w] == 'h') {temp2 = 08}
+        else if (z[w] == 'i') {temp2 = 09}
+        else if (z[w] == 'j') {temp2 = 10}
+        else if (z[w] == 'k') {temp2 = 11}
+        else if (z[w] == 'l') {temp2 = 12}
+        else if (z[w] == 'm') {temp2 = 13}
+        else if (z[w] == 'n') {temp2 = 14}
+        else if (z[w] == 'o') {temp2 = 15}
+        else if (z[w] == 'p') {temp2 = 16}
+        else if (z[w] == 'q') {temp2 = 17}
+        else if (z[w] == 'r') {temp2 = 18}
+        else if (z[w] == 's') {temp2 = 19}
+        else if (z[w] == 't') {temp2 = 20}
+        else if (z[w] == 'u') {temp2 = 21}
+        else if (z[w] == 'v') {temp2 = 22}
+        else if (z[w] == 'w') {temp2 = 23}
+        else if (z[w] == 'x') {temp2 = 24}
+        else if (z[w] == 'y') {temp2 = 25}
+        else if (z[w] == 'z') {temp2 = 26}
+        z[w] = temp2
+        // console.log(z[w])
+        number += temp2
+        console.log(number)
+    }
+    console.log('done')
+    encrypt()
+}
+
+function encrypt() {
+
+
+    let key = number
+    if (key >= 26) {
+        ReducedKey = key % 26
+    } else {
+        ReducedKey = key
+    }
+    const str = document.getElementById('input').value
+    const input = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz';
+    const output = 'ABCDEFGHIJKLMNOPQRSTUVWXYZABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyz';
+    let myEncoded = '';
+    let myIndex ='';
+    for (let myLoop = 0; myLoop < str.length; myLoop++) {
+        const index = input.indexOf(str[myLoop]);
+        const indexShifted = parseInt(index) + parseInt(ReducedKey)
+        // console.log(indexShifted)
+        myEncoded += output[indexShifted]
+    }
+    document.getElementById('div').innerHTML = myEncoded;
+}
+
+function passwordask() {
+    document.getElementById('ask').style.display = 'block'
+}
+
+
+function yek() {
+    k = document.getElementById('ask').value.toLowerCase().split('')
+    for (h = 0; h < k.length; h++) {
+        temp3 = k[h]
+        if (k[h] == 'a' ) {temp3 = 01}
+        else if (k[h] == 'b') {temp3 = 02}
+        else if (k[h] == 'c') {temp3 = 03}
+        else if (k[h] == 'd') {temp3 = 04}
+        else if (k[h] == 'e') {temp3 = 05}
+        else if (k[h] == 'f') {temp3 = 06}
+        else if (k[h] == 'g') {temp3 = 07}
+        else if (k[h] == 'h') {temp3 = 08}
+        else if (k[h] == 'i') {temp3 = 09}
+        else if (k[h] == 'j') {temp3 = 10}
+        else if (k[h] == 'k') {temp3 = 11}
+        else if (k[h] == 'l') {temp3 = 12}
+        else if (k[h] == 'm') {temp3 = 13}
+        else if (k[h] == 'n') {temp3 = 14}
+        else if (k[h] == 'o') {temp3 = 15}
+        else if (k[h] == 'p') {temp3 = 16}
+        else if (k[h] == 'q') {temp3 = 17}
+        else if (k[h] == 'r') {temp3 = 18}
+        else if (k[h] == 's') {temp3 = 19}
+        else if (k[h] == 't') {temp3 = 20}
+        else if (k[h] == 'u') {temp3 = 21}
+        else if (k[h] == 'v') {temp3 = 22}
+        else if (k[h] == 'w') {temp3 = 23}
+        else if (k[h] == 'x') {temp3 = 24}
+        else if (k[h] == 'y') {temp3 = 25}
+        else if (k[h] == 'z') {temp3 = 26}
+        z[w] = temp3
+        // console.log(z[w])
+        number2 += temp3
+        console.log(number2)
+    }
+    let key1 = number2
+    if (key1 >= 26) {
+        ReducedKey1 = key1 % 26
+    } else {
+        ReducedKey1 = key1
+    }
+    const str = document.getElementById('output').value
+    const input = 'zyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBAZYXWVUTSRQPONMLKJIHGFEDCBA';
+    const output = 'zyxwvutsrqponmlkjihgfedcbazyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBAZYXWVUTSRQPONMLKJIHGFEDCBA';
+    let myEncoded = '';
+    for (let myLoop = 0; myLoop < str.length; myLoop++) {
+        const index = input.indexOf(str[myLoop]);
+        const indexShifted = parseInt(index) + parseInt(ReducedKey1)
+        myEncoded += output[indexShifted];
+    }
+    document.getElementById('div2').innerHTML = myEncoded;
+}
+
+   </script>
+ 
+   <div id="div2">...</div>
+
+   </body>
+   </html>
+   
