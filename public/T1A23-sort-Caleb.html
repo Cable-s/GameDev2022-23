@@ -1,0 +1,163 @@
+
+<html>
+  <head>
+      <link rel="stylesheet" href="css.css">
+  <style>
+    
+  </style>
+  </head>
+  <body>
+  <h2 align=center >T1A08 loops by Caleb</h2>
+
+
+
+<input type="button" onclick="startsin()" value="Sine"> <input type="button" onclick="startcos()" value="Cosine"><input type="button" onclick="startcos(), startsin()" value="Both"> <br>
+<div id="deg"></div> <div id="rad"></div>
+<br><br>
+  <canvas id="canvas" width="500" height="500" style="border:1px solid #000000; background-color: rgb(230, 230, 230)"></canvas>
+  <canvas id="canvas2" width="500" height="500" style="border:1px solid #000000; background-color: rgb(230, 230, 230)"></canvas>  
+
+  <script>
+   let myCanvas=document.getElementById('canvas');
+   let myContext=myCanvas.getContext('2d');
+   
+   let myCanvas2=document.getElementById('canvas2');
+   let myContext2=myCanvas2.getContext('2d');
+   let x1
+   let x2
+   let y1
+   let y2
+
+
+      myContext.translate(canvas.width/2,canvas.height/2);
+      myContext2.translate(canvas2.width/10 , canvas2.height/2);
+
+
+      function startsin() {
+
+        myContext.beginPath();
+        myContext.lineWidth = 1;   
+        myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+        myContext.stroke();
+
+
+
+
+
+        linesin()
+         }
+      
+function linesin() {
+
+const sleep = (time) => {
+    return new Promise((resolve) => setTimeout(resolve, 1))
+}
+
+const something = async () => {
+    for (let i = 1; i < 361; i++) {
+        await sleep(1)
+        console.log('i: ', i)
+
+    let r = 75
+    let theta = (i * Math.PI) / 180
+    let x = r * Math.cos(theta)
+    let y = r * Math.sin(theta)
+    console.log('theta: ', theta)
+
+        
+        myContext.clearRect(-500, -500, 1000, 1000)
+        myContext.beginPath();
+        myContext.lineWidth = 1;   
+        myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+        myContext.stroke();
+    
+        myContext.beginPath();
+        myContext.lineWidth = 1;   
+        myContext.moveTo(0,0);
+        myContext.lineTo(x, -1 * y);
+        myContext.stroke();
+
+        document.getElementById('deg').innerHTML = 'Degrees: ' + i
+        document.getElementById('rad').innerHTML = 'Radians: ' + theta
+
+let f = i
+
+        myContext2.beginPath();
+        myContext2.lineWidth = 1;   
+        myContext2.arc(f,-1 * y,1,0,2*Math.PI);
+        myContext2.stroke();
+
+        if (i == 360) {
+            linesin()
+        }
+    }
+
+}
+something()
+}
+
+function startcos() {
+
+myContext.beginPath();
+myContext.lineWidth = 1;   
+myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+myContext.stroke();
+
+
+
+
+
+linecos()
+ }
+
+function linecos() {
+
+const sleep = (time) => {
+return new Promise((resolve) => setTimeout(resolve, 1))
+}
+
+const something = async () => {
+for (let i = 1; i < 361; i++) {
+await sleep(1)
+console.log('i: ', i)
+
+let r = 75
+let theta = (i * Math.PI) / 180
+let x = r * Math.cos(theta)
+let y = r * Math.sin(theta)
+console.log('theta: ', theta)
+
+
+myContext.clearRect(-500, -500, 1000, 1000)
+myContext.beginPath();
+myContext.lineWidth = 1;   
+myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+myContext.stroke();
+
+myContext.beginPath();
+myContext.lineWidth = 1;   
+myContext.moveTo(0,0);
+myContext.lineTo(x,-1 * y);
+myContext.stroke();
+
+let f = i
+
+myContext2.beginPath();
+myContext2.lineWidth = 1;   
+myContext2.arc(f,-1 *x,1,0,2*Math.PI);
+myContext2.stroke();
+
+if (i == 360) {
+    linecos()
+}
+}
+
+}
+something()
+}
+  </script>
+  
+
+  
+  </body>
+  </html>
