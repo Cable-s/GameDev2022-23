@@ -14,12 +14,12 @@
 <input type="button" id="autosin" onclick="startsin()" value="Sine" style="display:block"> 
 <input type="button" id="autocos" onclick="startcos()" value="Cosine" style="display:block"> 
 <input type="button" id="autotan" onclick="starttan()" value="tangent" style="display:block"> 
-<input type="button" id="autosc" onclick="startcos(), startsin()" value="Sin/Cos" style="display:block"> 
-<input type="button" id="autost" onclick="startsin(), starttan()" value="Sin/Tan" style="display:block"> 
-<input type="button" id="autoct" onclick="startcos(), starttan()" value="Cos/Tan" style="display:block"> 
-<input type="button" id="autosct" onclick="startcos(), startsin(), starttan()" value="All" style="display:block">
+<input type="button" id="autosc" onclick="startsincos()" value="Sin/Cos" style="display:block"> 
+<input type="button" id="autost" onclick="startsintan()" value="Sin/Tan" style="display:block"> 
+<input type="button" id="autoct" onclick="startcostan()" value="Cos/Tan" style="display:block"> 
+<input type="button" id="autosct" onclick="startsincostan()" value="All" style="display:block">
 
-<input type="button" id="mansin" onclick="startsinM()" value="Sine" style="display:none"> 
+<!-- <input type="button" id="mansin" onclick="startsinM()" value="Sine" style="display:none"> 
 <input type="button" id="mancos" onclick="startcosM()" value="Cosine" style="display:none"> 
 <input type="button" id="mantan" onclick="starttanM()" value="tangent" style="display:none"> 
 <input type="button" id="mansc" onclick="startcosM(), startsinM()" value="Sin/Cos" style="display:none"> 
@@ -28,7 +28,7 @@
 <input type="button" id="mansct" onclick="startcosM(), startsinM(), starttanM()" value="All" style="display:none">
 <input type="range" min="-60" max="720" id="degreeslide" style="display:none; width:200px" value="0">
 
-<br>Auto Draw<input type="checkbox" id="auto" onclick="boolean()">
+<br>Auto Draw<input type="checkbox" id="auto" onclick="boolean()"> -->
 
 <div id="deg"></div> <div id="rad"></div>
 <br><br>
@@ -45,49 +45,53 @@
    let x2
    let y1
    let y2
+   let x3
+   let x4
+   let y3
+   let y4
    let bool = false
 
       myContext.translate(canvas.width/2,canvas.height/2);
       myContext2.translate(canvas2.width/10 , canvas2.height/2);
 
-function boolean() {
+// function boolean() {
 
-    if (bool == true) {
-        document.getElementById('autosin').style.display = "block"
-        document.getElementById('autocos').style.display = "block"
-        document.getElementById('autotan').style.display = "block"
-        document.getElementById('autosc').style.display = "block"
-        document.getElementById('autost').style.display = "block"
-        document.getElementById('autoct').style.display = "block"
-        document.getElementById('autosct').style.display = "block"
-        document.getElementById('mansin').style.display = "none"
-        document.getElementById('mancos').style.display = "none"
-        document.getElementById('mantan').style.display = "none"
-        document.getElementById('mansc').style.display = "none"
-        document.getElementById('manst').style.display = "none"
-        document.getElementById('manct').style.display = "none"
-        document.getElementById('mansct').style.display = "none"
-        document.getElementById('degreeslide').style.display = "none"
-        bool = false
-    } else if (bool == false) {
-        document.getElementById('autosin').style.display = "none"
-        document.getElementById('autocos').style.display = "none"
-        document.getElementById('autotan').style.display = "none"
-        document.getElementById('autosc').style.display = "none"
-        document.getElementById('autost').style.display = "none"
-        document.getElementById('autoct').style.display = "none"
-        document.getElementById('autosct').style.display = "none"
-        document.getElementById('mansin').style.display = "block"
-        document.getElementById('mancos').style.display = "block"
-        document.getElementById('mantan').style.display = "block"
-        document.getElementById('mansc').style.display = "block"
-        document.getElementById('manst').style.display = "block"
-        document.getElementById('manct').style.display = "block"
-        document.getElementById('mansct').style.display = "block"
-        document.getElementById('degreeslide').style.display = "block"
-        bool = true
-    }
-}
+//     if (bool == true) {
+//         document.getElementById('autosin').style.display = "block"
+//         document.getElementById('autocos').style.display = "block"
+//         document.getElementById('autotan').style.display = "block"
+//         document.getElementById('autosc').style.display = "block"
+//         document.getElementById('autost').style.display = "block"
+//         document.getElementById('autoct').style.display = "block"
+//         document.getElementById('autosct').style.display = "block"
+//         document.getElementById('mansin').style.display = "none"
+//         document.getElementById('mancos').style.display = "none"
+//         document.getElementById('mantan').style.display = "none"
+//         document.getElementById('mansc').style.display = "none"
+//         document.getElementById('manst').style.display = "none"
+//         document.getElementById('manct').style.display = "none"
+//         document.getElementById('mansct').style.display = "none"
+//         document.getElementById('degreeslide').style.display = "none"
+//         bool = false
+//     } else if (bool == false) {
+//         document.getElementById('autosin').style.display = "none"
+//         document.getElementById('autocos').style.display = "none"
+//         document.getElementById('autotan').style.display = "none"
+//         document.getElementById('autosc').style.display = "none"
+//         document.getElementById('autost').style.display = "none"
+//         document.getElementById('autoct').style.display = "none"
+//         document.getElementById('autosct').style.display = "none"
+//         document.getElementById('mansin').style.display = "block"
+//         document.getElementById('mancos').style.display = "block"
+//         document.getElementById('mantan').style.display = "block"
+//         document.getElementById('mansc').style.display = "block"
+//         document.getElementById('manst').style.display = "block"
+//         document.getElementById('manct').style.display = "block"
+//         document.getElementById('mansct').style.display = "block"
+//         document.getElementById('degreeslide').style.display = "block"
+//         bool = true
+//     }
+// }
       
 
 
@@ -311,67 +315,8 @@ if (i == 270 || i == 90) {
 something()
 }
 
-      function startsinM() {
 
-        myContext.beginPath();
-        myContext.lineWidth = 1;   
-        myContext.arc(0, 0, 75, 0, 2 * Math.PI);
-        myContext.stroke();
-
-
-
-
-
-        setInterval(linesinM, 1)
-         }
-     
-         
-
-
-function linesinM() {
-
-    let j
-    
-    
-    j = document.getElementById('degreeslide').value
-    console.log(j)
-
-    let r = 75
-    let theta = (j * Math.PI) / 180
-    let x = r * Math.cos(theta)
-    let y = r * Math.sin(theta)
-    console.log('theta: ', theta)
-
-        
-        myContext.clearRect(-500, -500, 1000, 1000)
-        myContext.beginPath();
-        myContext.lineWidth = 1;   
-        myContext.arc(0, 0, 75, 0, 2 * Math.PI);
-        myContext.stroke();
-    
-        myContext.beginPath();
-        myContext.lineWidth = 1;   
-        myContext.moveTo(0,0);
-        myContext.lineTo(x, -1 * y);
-        myContext.stroke();
-
-        document.getElementById('deg').innerHTML = 'Degrees: ' + j
-        document.getElementById('rad').innerHTML = 'Radians: ' + theta
-
-let f = j
-
-        myContext2.beginPath();
-        myContext2.lineWidth = 1;   
-        myContext2.arc(f,-1 * y,1,0,2*Math.PI);
-        myContext2.stroke();
-
-        // if (i == 360) {
-        //     linesin()
-        // }
-    }
-
-
-function startcosM() {
+function startsincos() {
 
 myContext.beginPath();
 myContext.lineWidth = 1;   
@@ -381,18 +326,23 @@ myContext.stroke();
 
 
 
-setInterval(linecosM, 1)
+
+linesincos()
  }
 
-function linecosM() {
-    let j
-    
-    
-    j = document.getElementById('degreeslide').value
-    console.log(j)
+function linesincos() {
+
+const sleep = (time) => {
+return new Promise((resolve) => setTimeout(resolve, 1))
+}
+
+const something = async () => {
+for (let i = -90; i < 721; i++) {
+await sleep(1)
+console.log('i: ', i)
 
 let r = 75
-let theta = (j * Math.PI) / 180
+let theta = (i * Math.PI) / 180
 let x = r * Math.cos(theta)
 let y = r * Math.sin(theta)
 console.log('theta: ', theta)
@@ -410,21 +360,41 @@ myContext.moveTo(0,0);
 myContext.lineTo(x, -1 * y);
 myContext.stroke();
 
-document.getElementById('deg').innerHTML = 'Degrees: ' + j
+document.getElementById('deg').innerHTML = 'Degrees: ' + i
 document.getElementById('rad').innerHTML = 'Radians: ' + theta
 
-let f = j
+let f = i
+let k = x + y
+
+
 
 myContext2.beginPath();
 myContext2.lineWidth = 1;   
-myContext2.arc(f,-1 * x, 1, 0, 2*Math.PI);
+myContext2.strokeStyle = "red"   
+myContext2.arc(f,-1 * x,0.5,0,2*Math.PI);
 myContext2.stroke();
 
+myContext2.beginPath();
+myContext2.lineWidth = 1;
+myContext2.strokeStyle = "red"   
+myContext2.arc(f,-1 * y,0.5,0,2*Math.PI);
+myContext2.stroke();
 
+myContext2.beginPath();
+myContext2.lineWidth = 1;   
+myContext2.strokeStyle = "black"
+myContext2.arc(f,-1 * k,1,0,2*Math.PI);
+myContext2.stroke();   
+// if (i == 360) {
+//     linesin()
+// }
 }
 
+}
+something()
+}
 
-function starttanM() {
+function startsintan() {
 
 myContext.beginPath();
 myContext.lineWidth = 1;   
@@ -433,25 +403,27 @@ myContext.stroke();
 
 
 
-setInterval(linetanM, 1)
+
+
+linesintan()
  }
 
-function linetanM() {
+function linesintan() {
 
-    
+const sleep = (time) => {
+return new Promise((resolve) => setTimeout(resolve, 1))
+}
 
-
-let j
-    
-    
-    j = document.getElementById('degreeslide').value
-    console.log(j)
+const something = async () => {
+for (let i = -90; i < 721; i++) {
+await sleep(1)
+console.log('i: ', i)
 
 let r = 75
-let theta = (j * Math.PI) / 180
+let theta = (i * Math.PI) / 180
 let x = r * Math.cos(theta)
 let y = r * Math.sin(theta)
-let z = r * Math.tan(theta)
+let z = r * Math.tan(theta);
 console.log('theta: ', theta)
 
 
@@ -479,22 +451,533 @@ myContext.moveTo(-75, -300);
 myContext.lineTo(-75, 300);
 myContext.stroke();
 
-document.getElementById('deg').innerHTML = 'Degrees: ' + j
+document.getElementById('deg').innerHTML = 'Degrees: ' + i
 document.getElementById('rad').innerHTML = 'Radians: ' + theta
 
-let x1 = j
+let f = i
+let k = y + z
+
+myContext2.beginPath();
+myContext2.lineWidth = 1;
+myContext2.strokeStyle = "red"   
+myContext2.arc(f,-1 * y,0.5,0,2*Math.PI);
+myContext2.stroke();
+
+let x1 = i
 let y1 = -1 * z
 
 
 
+if (i == 270 || i == 90) {
+    x1 = 4000
+    y1 = 4000
+    y2 = y1
+    x2 = x1
+    myContext2.beginPath();
+    myContext2.lineWidth = 1.5;   
+    myContext2.strokeStyle = "red"
+    myContext2.moveTo(x1, y1);
+    myContext2.lineTo(x2, y2)
+    myContext2.stroke();
+} else {
+    myContext2.beginPath();
+    myContext2.lineWidth = 1.5;   
+    myContext2.strokeStyle = "red"
+    myContext2.moveTo(x1, y1);
+    myContext2.lineTo(x2, y2)
+    myContext2.stroke();
+    x2 = x1
+    y2 = y1
+}
 
+let x3 = i
+let y3 = -1 * k
+
+if (i == 270 || i == 90) {
+    x3 = 4000
+    y3 = 4000
+    y4 = y3
+    x4 = x3
     myContext2.beginPath();
     myContext2.lineWidth = 3;   
-    myContext2.arc(x1, y1, 1, 0 , 2 * Math.PI)
+    myContext2.strokeStyle = "black"
+    myContext2.moveTo(x3, y3);
+    myContext2.lineTo(x4, y4)
     myContext2.stroke();
+} else {
+    myContext2.beginPath();
+    myContext2.lineWidth = 3;   
+    myContext2.strokeStyle = "black"
+    myContext2.moveTo(x3, y3);
+    myContext2.lineTo(x4, y4)
+    myContext2.stroke();
+    x4 = x3
+    y4 = y3
+}
 
+// if (i == 360) {
+//     linesin()
+// }
+}
 
 }
+something()
+}
+
+function startcostan() {
+
+myContext.beginPath();
+myContext.lineWidth = 1;   
+myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+myContext.stroke();
+
+
+
+
+
+linecostan()
+ }
+
+function linecostan() {
+
+const sleep = (time) => {
+return new Promise((resolve) => setTimeout(resolve, 1))
+}
+
+const something = async () => {
+for (let i = -90; i < 721; i++) {
+await sleep(1)
+console.log('i: ', i)
+
+let r = 75
+let theta = (i * Math.PI) / 180
+let x = r * Math.cos(theta)
+let y = r * Math.sin(theta)
+let z = r * Math.tan(theta);
+console.log('theta: ', theta)
+
+
+myContext.clearRect(-500, -500, 1000, 1000)
+myContext.beginPath();
+myContext.lineWidth = 1;   
+myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+myContext.stroke();
+
+myContext.beginPath();
+myContext.lineWidth = 1;   
+myContext.moveTo(0,0);
+myContext.lineTo(x * 4,-1 * y * 4);
+myContext.stroke();
+
+myContext.beginPath();
+myContext.lineWidth = 1;
+myContext.moveTo(75, -300);
+myContext.lineTo(75, 300);
+myContext.stroke();
+
+myContext.beginPath();
+myContext.lineWidth = 1;
+myContext.moveTo(-75, -300);
+myContext.lineTo(-75, 300);
+myContext.stroke();
+
+document.getElementById('deg').innerHTML = 'Degrees: ' + i
+document.getElementById('rad').innerHTML = 'Radians: ' + theta
+
+let f = i
+let k = x + z
+let x1 = i
+let y1 = -1 * z
+
+myContext2.beginPath();
+myContext2.lineWidth = 1;
+myContext2.strokeStyle = "red"   
+myContext2.arc(f,-1 * x,0.5,0,2*Math.PI);
+myContext2.stroke();
+
+if (i == 270 || i == 90) {
+    x1 = 4000
+    y1 = 4000
+    y2 = y1
+    x2 = x1
+    myContext2.beginPath();
+    myContext2.lineWidth = 1.5;   
+    myContext2.strokeStyle = "red"
+    myContext2.moveTo(x1, y1);
+    myContext2.lineTo(x2, y2)
+    myContext2.stroke();
+} else {
+    myContext2.beginPath();
+    myContext2.lineWidth = 1.5;   
+    myContext2.strokeStyle = "red"
+    myContext2.moveTo(x1, y1);
+    myContext2.lineTo(x2, y2)
+    myContext2.stroke();
+    x2 = x1
+    y2 = y1
+}
+
+let x3 = i
+let y3 = -1 * k
+
+if (i == 270 || i == 90) {
+    x3 = 4000
+    y3 = 4000
+    y4 = y3
+    x4 = x3
+    myContext2.beginPath();
+    myContext2.lineWidth = 3;   
+    myContext2.strokeStyle = "black"
+    myContext2.moveTo(x3, y3);
+    myContext2.lineTo(x4, y4)
+    myContext2.stroke();
+} else {
+    myContext2.beginPath();
+    myContext2.lineWidth = 3;   
+    myContext2.strokeStyle = "black"
+    myContext2.moveTo(x3, y3);
+    myContext2.lineTo(x4, y4)
+    myContext2.stroke();
+    x4 = x3
+    y4 = y3
+}
+
+
+
+
+
+// if (i == 360) {
+//     linesin()
+// }
+}
+
+}
+something()
+}
+
+function startsincostan() {
+
+myContext.beginPath();
+myContext.lineWidth = 1;   
+myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+myContext.stroke();
+
+
+
+
+
+linesincostan()
+ }
+
+function linesincostan() {
+
+const sleep = (time) => {
+return new Promise((resolve) => setTimeout(resolve, 1))
+}
+
+const something = async () => {
+for (let i = -90; i < 721; i++) {
+await sleep(1)
+console.log('i: ', i)
+
+let r = 75
+let theta = (i * Math.PI) / 180
+let x = r * Math.cos(theta)
+let y = r * Math.sin(theta)
+let z = r * Math.tan(theta);
+console.log('theta: ', theta)
+
+
+myContext.clearRect(-500, -500, 1000, 1000)
+myContext.beginPath();
+myContext.lineWidth = 1;   
+myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+myContext.stroke();
+
+myContext.beginPath();
+myContext.lineWidth = 1;   
+myContext.moveTo(0,0);
+myContext.lineTo(x * 4,-1 * y * 4);
+myContext.stroke();
+
+myContext.beginPath();
+myContext.lineWidth = 1;
+myContext.moveTo(75, -300);
+myContext.lineTo(75, 300);
+myContext.stroke();
+
+myContext.beginPath();
+myContext.lineWidth = 1;
+myContext.moveTo(-75, -300);
+myContext.lineTo(-75, 300);
+myContext.stroke();
+
+document.getElementById('deg').innerHTML = 'Degrees: ' + i
+document.getElementById('rad').innerHTML = 'Radians: ' + theta
+
+let f = i
+let k = x + z + y
+let x1 = i
+let y1 = -1 * z
+
+myContext2.beginPath();
+myContext2.lineWidth = 1;   
+myContext2.strokeStyle = "red"   
+myContext2.arc(f,-1 * x,0.5,0,2*Math.PI);
+myContext2.stroke();
+
+myContext2.beginPath();
+myContext2.lineWidth = 1;
+myContext2.strokeStyle = "red"   
+myContext2.arc(f,-1 * y,0.5,0,2*Math.PI);
+myContext2.stroke();
+
+myContext2.beginPath();
+myContext2.lineWidth = 1;
+myContext2.strokeStyle = "red"   
+myContext2.arc(f,-1 * x,0.5,0,2*Math.PI);
+myContext2.stroke();
+
+if (i == 270 || i == 90) {
+    x1 = 4000
+    y1 = 4000
+    y2 = y1
+    x2 = x1
+    myContext2.beginPath();
+    myContext2.lineWidth = 1.5;   
+    myContext2.strokeStyle = "red"
+    myContext2.moveTo(x1, y1);
+    myContext2.lineTo(x2, y2)
+    myContext2.stroke();
+} else {
+    myContext2.beginPath();
+    myContext2.lineWidth = 1.5;   
+    myContext2.strokeStyle = "red"
+    myContext2.moveTo(x1, y1);
+    myContext2.lineTo(x2, y2)
+    myContext2.stroke();
+    x2 = x1
+    y2 = y1
+}
+
+let x3 = i
+let y3 = -1 * k
+
+if (i == 270 || i == 90) {
+    x3 = 4000
+    y3 = 4000
+    y4 = y3
+    x4 = x3
+    myContext2.beginPath();
+    myContext2.lineWidth = 3;   
+    myContext2.strokeStyle = "black"
+    myContext2.moveTo(x3, y3);
+    myContext2.lineTo(x4, y4)
+    myContext2.stroke();
+} else {
+    myContext2.beginPath();
+    myContext2.lineWidth = 3;   
+    myContext2.strokeStyle = "black"
+    myContext2.moveTo(x3, y3);
+    myContext2.lineTo(x4, y4)
+    myContext2.stroke();
+    x4 = x3
+    y4 = y3
+}
+
+// if (i == 360) {
+//     linesin()
+// }
+}
+
+}
+something()
+}
+
+//       function startsinM() {
+
+//         myContext.beginPath();
+//         myContext.lineWidth = 1;   
+//         myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+//         myContext.stroke();
+
+
+
+
+
+//         setInterval(linesinM, 1)
+//          }
+     
+         
+
+
+// function linesinM() {
+
+//     let j
+    
+    
+//     j = document.getElementById('degreeslide').value
+//     console.log(j)
+
+//     let r = 75
+//     let theta = (j * Math.PI) / 180
+//     let x = r * Math.cos(theta)
+//     let y = r * Math.sin(theta)
+//     console.log('theta: ', theta)
+
+        
+//         myContext.clearRect(-500, -500, 1000, 1000)
+//         myContext.beginPath();
+//         myContext.lineWidth = 1;   
+//         myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+//         myContext.stroke();
+    
+//         myContext.beginPath();
+//         myContext.lineWidth = 1;   
+//         myContext.moveTo(0,0);
+//         myContext.lineTo(x, -1 * y);
+//         myContext.stroke();
+
+//         document.getElementById('deg').innerHTML = 'Degrees: ' + j
+//         document.getElementById('rad').innerHTML = 'Radians: ' + theta
+
+// let f = j
+
+//         myContext2.beginPath();
+//         myContext2.lineWidth = 1;   
+//         myContext2.arc(f,-1 * y,1,0,2*Math.PI);
+//         myContext2.stroke();
+
+//         // if (i == 360) {
+//         //     linesin()
+//         // }
+//     }
+
+
+// function startcosM() {
+
+// myContext.beginPath();
+// myContext.lineWidth = 1;   
+// myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+// myContext.stroke();
+
+
+
+
+// setInterval(linecosM, 1)
+//  }
+
+// function linecosM() {
+//     let j
+    
+    
+//     j = document.getElementById('degreeslide').value
+//     console.log(j)
+
+// let r = 75
+// let theta = (j * Math.PI) / 180
+// let x = r * Math.cos(theta)
+// let y = r * Math.sin(theta)
+// console.log('theta: ', theta)
+
+
+// myContext.clearRect(-500, -500, 1000, 1000)
+// myContext.beginPath();
+// myContext.lineWidth = 1;   
+// myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+// myContext.stroke();
+
+// myContext.beginPath();
+// myContext.lineWidth = 1;   
+// myContext.moveTo(0,0);
+// myContext.lineTo(x, -1 * y);
+// myContext.stroke();
+
+// document.getElementById('deg').innerHTML = 'Degrees: ' + j
+// document.getElementById('rad').innerHTML = 'Radians: ' + theta
+
+// let f = j
+
+// myContext2.beginPath();
+// myContext2.lineWidth = 1;   
+// myContext2.arc(f,-1 * x, 1, 0, 2*Math.PI);
+// myContext2.stroke();
+
+
+// }
+
+
+// function starttanM() {
+
+// myContext.beginPath();
+// myContext.lineWidth = 1;   
+// myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+// myContext.stroke();
+
+
+
+// setInterval(linetanM, 1)
+//  }
+
+// function linetanM() {
+
+    
+
+
+// let j
+    
+    
+//     j = document.getElementById('degreeslide').value
+//     console.log(j)
+
+// let r = 75
+// let theta = (j * Math.PI) / 180
+// let x = r * Math.cos(theta)
+// let y = r * Math.sin(theta)
+// let z = r * Math.tan(theta)
+// console.log('theta: ', theta)
+
+
+// myContext.clearRect(-500, -500, 1000, 1000)
+// myContext.beginPath();
+// myContext.lineWidth = 1;   
+// myContext.arc(0, 0, 75, 0, 2 * Math.PI);
+// myContext.stroke();
+
+// myContext.beginPath();
+// myContext.lineWidth = 1;   
+// myContext.moveTo(0,0);
+// myContext.lineTo(x * 4,-1 * y * 4);
+// myContext.stroke();
+
+// myContext.beginPath();
+// myContext.lineWidth = 1;
+// myContext.moveTo(75, -300);
+// myContext.lineTo(75, 300);
+// myContext.stroke();
+
+// myContext.beginPath();
+// myContext.lineWidth = 1;
+// myContext.moveTo(-75, -300);
+// myContext.lineTo(-75, 300);
+// myContext.stroke();
+
+// document.getElementById('deg').innerHTML = 'Degrees: ' + j
+// document.getElementById('rad').innerHTML = 'Radians: ' + theta
+
+// let x1 = j
+// let y1 = -1 * z
+
+
+
+
+//     myContext2.beginPath();
+//     myContext2.lineWidth = 3;   
+//     myContext2.arc(x1, y1, 1, 0 , 2 * Math.PI)
+//     myContext2.stroke();
+
+
+// }
 
 
   </script>
