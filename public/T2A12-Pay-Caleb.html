@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='css.css'>
+        <stlye>
+
+        </stlye>
+    </head>
+    <body>
+
+<h1 align="center">Tax Calculator</h1>
+
+Dollars an hour<input type="number" id="dollarperhour" value="0" ><br>
+number of hours<input type="number" id="hours" value="0"><br>
+tax (in percent)<input type="number" id="tax" value="0"><br>
+<input type="button" onclick="calculate()" value="Calculate">
+
+<div id="DaySalary"></div>
+<div id="TakeHome"></div>
+<script>
+
+function calculate() {
+let D = document.getElementById('dollarperhour').value
+let H = document.getElementById('hours').value
+let T = document.getElementById('tax').value
+
+
+let daySalary = D * H
+let takeHome = 100 - (daySalary * (T / 100));
+
+document.getElementById('DaySalary').innerHTML = "day salary: " + daySalary
+document.getElementById('TakeHome').innerHTML = "take home: " + takeHome
+}
+
+</script>
+
+    </body>
+</html>
