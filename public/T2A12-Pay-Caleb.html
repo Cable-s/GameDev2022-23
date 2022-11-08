@@ -14,28 +14,100 @@ number of hours<input type="number" id="hours" value="0"><br>
 tax (in percent)<input type="number" id="tax" value="0"><br>
 <input type="button" onclick="calculate()" value="Calculate">
 
-<div id="DaySalary"></div>
-<div id="TakeHome"></div>
+<br><br>
+<table border="1">
+<tr>
+    <td>
+
+    </td>
+    <td>
+        Daily salary 
+    </td>
+    <td>
+        Weekly Salary
+    </td>
+    <td>
+        monthly Salary
+    </td>
+    <td>
+        yearly Salary
+    </td>
+</tr>
+<tr>
+    <td>
+        Salary
+    </td>
+    <td>
+        <div id="DaySalary"></div>
+    </td>
+    <td>
+        <div id="WeekSalary"></div>
+    </td>
+    <td>
+        <div id="MonthSalary"></div>
+    </td>
+    <td>
+        <div id="YearSalary"></div>
+    </td>
+
+</tr>
+<tr>
+    <td>
+        Take Home
+    </td>
+    <td>
+        <div id="TakeHomeD"></div>
+    </td>
+    <td>
+        <div id="TakeHomeW"></div>
+    </td>
+    <td>
+        <div id="TakeHomeM"></div>
+    </td>
+    <td>
+        <div id="TakeHomeY"></div>
+    </td>
+</tr>
+
+
+</table>
+
 <script>
 
 function calculate() {
 let D = document.getElementById('dollarperhour').value
 let H = document.getElementById('hours').value
 let T = document.getElementById('tax').value
+let takeHome;
 
 
 let daySalary = D * H
-let takeHome = 100 - (daySalary * (T / 100));
+
+
+if (T == 0) {
+    takeHome = daySalary
+} else {
+    takeHome = 100 - (daySalary * (T / 100));
+}
 
     if (H == 0 || D == 0) {
     takeHome = 0
     }
     
-document.getElementById('DaySalary').innerHTML = "day salary: " + daySalary
-document.getElementById('TakeHome').innerHTML = "take home: " + takeHome
+document.getElementById('DaySalary').innerHTML = daySalary
+document.getElementById('WeekSalary').innerHTML = daySalary * 5
+document.getElementById('MonthSalary').innerHTML = daySalary * 20
+document.getElementById('YearSalary').innerHTML = daySalary * 20 * 12
+
+document.getElementById('TakeHomeD').innerHTML = takeHome
+document.getElementById('TakeHomeW').innerHTML =  takeHome * 5
+document.getElementById('TakeHomeM').innerHTML =  takeHome * 20
+document.getElementById('TakeHomeY').innerHTML = takeHome * 20 * 12
+
 }
 
 </script>
 
+<h4> Note: Weekly - assuming 5 days/week, Month: Assuming 20 days/month, Year: Assuming each month is equal </h4>
     </body>
 </html>
