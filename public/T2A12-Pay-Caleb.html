@@ -87,7 +87,7 @@ let daySalary = D * H
 if (T == 0) {
     takeHome = daySalary
 } else {
-    takeHome = 100 - (daySalary * (T / 100));
+    takeHome = daySalary - (daySalary * (T / 100));
 }
 
     if (H == 0 || D == 0) {
