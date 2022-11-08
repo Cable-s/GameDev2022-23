@@ -27,6 +27,10 @@ let T = document.getElementById('tax').value
 let daySalary = D * H
 let takeHome = 100 - (daySalary * (T / 100));
 
+    if (H == 0 || D == 0) {
+    takeHome = 0
+    }
+    
 document.getElementById('DaySalary').innerHTML = "day salary: " + daySalary
 document.getElementById('TakeHome').innerHTML = "take home: " + takeHome
 }
