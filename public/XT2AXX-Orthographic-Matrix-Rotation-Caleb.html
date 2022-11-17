@@ -7,7 +7,7 @@
     </head>
     <body onload="document.getElementById('x').checked = false; document.getElementById('y').checked = false; document.getElementById('z').checked = false;">
 
-<h1 align="center">Orthographic Matrix Rotations</h1>
+<h1 align="center">Rotating Orthographic Cube Using Rotation Matrix</h1>
 
 <!-- <input type="button" id="ortho" onclick="orthographicx()" value="orthographic view (x-axis)">
 <input type="button" id="ortho" onclick="orthographicy()" value="orthographic view (y-axis)">
@@ -30,37 +30,37 @@ z-axis<input type="checkbox" id="z" onclick="zboolf()">
     var c = document.getElementById("ctx")
     var ctx = c.getContext("2d")
 
-    let x1 = 1
-    let y1 = 1
-    let z1 = 1
+    let x1 = 10
+    let y1 = 10
+    let z1 = 10
      
-    let x2 = -1
-    let y2 = 1
-    let z2 = 1
+    let x2 = -10
+    let y2 = 10
+    let z2 = 10
 
-    let x3 = -1
-    let y3 = -1
-    let z3 = 1
+    let x3 = -10
+    let y3 = -10
+    let z3 = 10
 
-    let x4 = 1
-    let y4 = -1
-    let z4 = 1
+    let x4 = 10
+    let y4 = -10
+    let z4 = 10
 
-    let x5 = 1
-    let y5 = 1
-    let z5 = -1
+    let x5 = 10
+    let y5 = 10
+    let z5 = -10
      
-    let x6 = -1
-    let y6 = 1
-    let z6 = -1
+    let x6 = -10
+    let y6 = 10
+    let z6 = -10
 
-    let x7 = -1
-    let y7 = -1
-    let z7 = -1
+    let x7 = -10
+    let y7 = -10
+    let z7 = -10
 
-    let x8 = 1
-    let y8 = -1
-    let z8 = -1
+    let x8 = 10
+    let y8 = -10
+    let z8 = -10
 
     let cx = 250
     let cy = 250
@@ -103,7 +103,6 @@ z-axis<input type="checkbox" id="z" onclick="zboolf()">
         let y = ybool
         let z = zbool
 
-        console.log(x, y, z)
 
         if (x == 1 && y == 0 && z == 0) {            //100
             orthographicx()
@@ -145,74 +144,76 @@ const something = async () => {
     for (i = 0; i <= 360; i++){
         await sleep(1)
 
+        console.log(i)
         ctx.beginPath();
         ctx.clearRect(0, 0, 1000, 1000)
         ctx.stroke();
 
-        console.log(i)
-        i = (i * Math.PI * 2) / 360
+        theta = (0.5 * Math.PI) / 180
 
-        x1 = ((x1 * Math.cos(i)) - (y1 * Math.sin(i)))
-        y1 = ((x1 * Math.sin(i)) + (y1 * Math.cos(i)))
+        x1 = ((x1 * Math.cos(theta)) - (y1 * Math.sin(theta)))
+        y1 = ((x1 * Math.sin(theta)) + (y1 * Math.cos(theta)))
         z1 = (x1 * 0) + (y1 * 0) + (z1 * 1)
 
-        x2 = ((x2 * Math.cos(i)) - (y2 * Math.sin(i)))
-        y2 = ((x2 * Math.sin(i)) + (y2 * Math.cos(i)))
+        x2 = ((x2 * Math.cos(theta)) - (y2 * Math.sin(theta)))
+        y2 = ((x2 * Math.sin(theta)) + (y2 * Math.cos(theta)))
         z2 = (x2 * 0) + (y2 * 0) + (z2 * 1)
 
-        x3 = ((x3 * Math.cos(i)) - (y3 * Math.sin(i)))
-        y3 = ((x3 * Math.sin(i)) + (y3 * Math.cos(i)))
+        x3 = ((x3 * Math.cos(theta)) - (y3 * Math.sin(theta)))
+        y3 = ((x3 * Math.sin(theta)) + (y3 * Math.cos(theta)))
         z3 = (x3 * 0) + (y3 * 0) + (z3 * 1)
 
-        x4 = ((x4 * Math.cos(i)) - (y4 * Math.sin(i)))
-        y4 = ((x4 * Math.sin(i)) + (y4 * Math.cos(i)))
+        x4 = ((x4 * Math.cos(theta)) - (y4 * Math.sin(theta)))
+        y4 = ((x4 * Math.sin(theta)) + (y4 * Math.cos(theta)))
         z4 = (x4 * 0) + (y4 * 0) + (z4 * 1)
 
-        x5 = ((x5 * Math.cos(i)) - (y5 * Math.sin(i)))
-        y5 = ((x5 * Math.sin(i)) + (y5 * Math.cos(i)))
+        x5 = ((x5 * Math.cos(theta)) - (y5 * Math.sin(theta)))
+        y5 = ((x5 * Math.sin(theta)) + (y5 * Math.cos(theta)))
         z5 = (x5 * 0) + (y5 * 0) + (z5 * 1)
 
-        x6 = ((x6 * Math.cos(i)) - (y6 * Math.sin(i)))
-        y6 = ((x6 * Math.sin(i)) + (y6 * Math.cos(i)))
+        x6 = ((x6 * Math.cos(theta)) - (y6 * Math.sin(theta)))
+        y6 = ((x6 * Math.sin(theta)) + (y6 * Math.cos(theta)))
         z6 = (x6 * 0) + (y6 * 0) + (z6 * 1)
 
-        x7 = ((x7 * Math.cos(i)) - (y7 * Math.sin(i)))
-        y7 = ((x7 * Math.sin(i)) + (y7 * Math.cos(i)))
+        x7 = ((x7 * Math.cos(theta)) - (y7 * Math.sin(theta)))
+        y7 = ((x7 * Math.sin(theta)) + (y7 * Math.cos(theta)))
         z7 = (x7 * 0) + (y7 * 0) + (z7 * 1)
 
-        x8 = ((x8 * Math.cos(i)) - (y8 * Math.sin(i)))
-        y8 = ((x8 * Math.sin(i)) + (y8 * Math.cos(i)))
+        x8 = ((x8 * Math.cos(theta)) - (y8 * Math.sin(theta)))
+        y8 = ((x8 * Math.sin(theta)) + (y8 * Math.cos(theta)))
         z8 = (x8 * 0) + (y8 * 0) + (z8 * 1)
 
-        console.log(x1)
 
         ctx.beginPath();
-    ctx.moveTo(x1 * 50 + cx, y1 * 50 + cy, z1 * 50 + cz);
-    ctx.lineTo(x2 * 50 + cx, y2 * 50 + cy, z2 * 50 + cz);
-    ctx.lineTo(x3 * 50 + cx, y3 * 50 + cy, z3 * 50 + cz);
-    ctx.lineTo(x4 * 50 + cx, y4 * 50 + cy, z4 * 50 + cz);
-    ctx.lineTo(x1 * 50 + cx, y1 * 50 + cy, z1 * 50 + cz);
+    ctx.moveTo(x1 * 5 + cx, y1 * 5 + cy, z1 * 5 + cz);
+    ctx.lineTo(x2 * 5 + cx, y2 * 5 + cy, z2 * 5 + cz);
+    ctx.lineTo(x3 * 5 + cx, y3 * 5 + cy, z3 * 5 + cz);
+    ctx.lineTo(x4 * 5 + cx, y4 * 5 + cy, z4 * 5 + cz);
+    ctx.lineTo(x1 * 5 + cx, y1 * 5 + cy, z1 * 5 + cz);
 
-    ctx.moveTo(x5 * 50 + cx, y5 * 50 + cy, z5 * 50 + cz);
-    ctx.lineTo(x6 * 50 + cx, y6 * 50 + cy, z6 * 50 + cz);
-    ctx.lineTo(x7 * 50 + cx, y7 * 50 + cy, z7 * 50 + cz);
-    ctx.lineTo(x8 * 50 + cx, y8 * 50 + cy, z8 * 50 + cz);
-    ctx.lineTo(x5 * 50 + cx, y5 * 50 + cy, z5 * 50 + cz);
+    ctx.moveTo(x5 * 5 + cx, y5 * 5 + cy, z5 * 5 + cz);
+    ctx.lineTo(x6 * 5 + cx, y6 * 5 + cy, z6 * 5 + cz);
+    ctx.lineTo(x7 * 5 + cx, y7 * 5 + cy, z7 * 5 + cz);
+    ctx.lineTo(x8 * 5 + cx, y8 * 5 + cy, z8 * 5 + cz);
+    ctx.lineTo(x5 * 5 + cx, y5 * 5 + cy, z5 * 5 + cz);
 
-    ctx.moveTo(x1 * 50 + cx, y1 * 50 + cy, z1 * 50 + cz)
-    ctx.lineTo(x5 * 50 + cx, y5 * 50 + cy, z5 * 50 + cz)
+    ctx.moveTo(x1 * 5 + cx, y1 * 5 + cy, z1 * 5 + cz)
+    ctx.lineTo(x5 * 5 + cx, y5 * 5 + cy, z5 * 5 + cz)
 
-    ctx.moveTo(x2 * 50 + cx, y2 * 50 + cy, z2 * 50 + cz)
-    ctx.lineTo(x6 * 50 + cx, y6 * 50 + cy, z6 * 50 + cz)
+    ctx.moveTo(x2 * 5 + cx, y2 * 5 + cy, z2 * 5 + cz)
+    ctx.lineTo(x6 * 5 + cx, y6 * 5 + cy, z6 * 5 + cz)
 
-    ctx.moveTo(x3 * 50 + cx, y3 * 50 + cy, z3 * 50 + cz)
-    ctx.lineTo(x7 * 50 + cx, y7 * 50 + cy, z7 * 50 + cz)
+    ctx.moveTo(x3 * 5 + cx, y3 * 5 + cy, z3 * 5 + cz)
+    ctx.lineTo(x7 * 5 + cx, y7 * 5 + cy, z7 * 5 + cz)
 
-    ctx.moveTo(x4 * 50 + cx, y4 * 50 + cy, z4 * 50 + cz)
-    ctx.lineTo(x8 * 50 + cx, y8 * 50 + cy, z8 * 50 + cz)
+    ctx.moveTo(x4 * 5 + cx, y4 * 5 + cy, z4 * 5 + cz)
+    ctx.lineTo(x8 * 5 + cx, y8 * 5 + cy, z8 * 5 + cz)
 
     ctx.stroke();
 
+if (i == 360) {
+    i = 0
+}
 
     }
 
@@ -235,71 +236,73 @@ for (i = 0; i <= 360; i++){
     ctx.clearRect(0, 0, 1000, 1000)
     ctx.stroke();
 
-    console.log(i)
-    i = (i * Math.PI * 2) / 360
+    theta = (0.5 * Math.PI) / 180
 
-   x1 = (x1 * Math.cos(i) + (y1 * 0) + (z1 * Math.sin(i)))
+   x1 = (x1 * Math.cos(theta) + (y1 * 0) + (z1 * Math.sin(theta)))
    y1 = (x1 * 0) + (y1 * 1) + (z1 * 0)
-   z1 = (-x1 * Math.sin(i)) + (y1 * 0) + (z1 * Math.cos(i))
+   z1 = (-x1 * Math.sin(theta)) + (y1 * 0) + (z1 * Math.cos(theta))
 
-   x2 = (x2 * Math.cos(i) + (y2 * 0) + (z2 * Math.sin(i)))
+   x2 = (x2 * Math.cos(theta) + (y2 * 0) + (z2 * Math.sin(theta)))
    y2 = (x2 * 0) + (y2 * 1) + (z2 * 0)
-   z2 = (-x2 * Math.sin(i)) + (y2 * 0) + (z2 * Math.cos(i))
+   z2 = (-x2 * Math.sin(theta)) + (y2 * 0) + (z2 * Math.cos(theta))
 
-   x3 = (x3 * Math.cos(i) + (y3 * 0) + (z3 * Math.sin(i)))
+   x3 = (x3 * Math.cos(theta) + (y3 * 0) + (z3 * Math.sin(theta)))
    y3 = (x3 * 0) + (y3 * 1) + (z3 * 0)
-   z3 = (-x3 * Math.sin(i)) + (y3 * 0) + (z3 * Math.cos(i))
+   z3 = (-x3 * Math.sin(theta)) + (y3 * 0) + (z3 * Math.cos(theta))
 
-   x4 = (x4 * Math.cos(i) + (y4 * 0) + (z4 * Math.sin(i)))
+   x4 = (x4 * Math.cos(theta) + (y4 * 0) + (z4 * Math.sin(theta)))
    y4 = (x4 * 0) + (y4 * 1) + (z4 * 0)
-   z4 = (-x4 * Math.sin(i)) + (y4 * 0) + (z4 * Math.cos(i))
+   z4 = (-x4 * Math.sin(theta)) + (y4 * 0) + (z4 * Math.cos(theta))
 
-   x5 = (x5 * Math.cos(i) + (y5 * 0) + (z5 * Math.sin(i)))
+   x5 = (x5 * Math.cos(theta) + (y5 * 0) + (z5 * Math.sin(theta)))
    y5 = (x5 * 0) + (y5 * 1) + (z5 * 0)
-   z5 = (-x5 * Math.sin(i)) + (y5 * 0) + (z5 * Math.cos(i))
+   z5 = (-x5 * Math.sin(theta)) + (y5 * 0) + (z5 * Math.cos(theta))
 
-   x6 = (x6 * Math.cos(i) + (y6 * 0) + (z6 * Math.sin(i)))
+   x6 = (x6 * Math.cos(theta) + (y6 * 0) + (z6 * Math.sin(theta)))
    y6 = (x6 * 0) + (y6 * 1) + (z6 * 0)
-   z6 = (-x6 * Math.sin(i)) + (y6 * 0) + (z6 * Math.cos(i))
+   z6 = (-x6 * Math.sin(theta)) + (y6 * 0) + (z6 * Math.cos(theta))
 
-   x7 = (x7 * Math.cos(i) + (y7 * 0) + (z7 * Math.sin(i)))
+   x7 = (x7 * Math.cos(theta) + (y7 * 0) + (z7 * Math.sin(theta)))
    y7 = (x7 * 0) + (y7 * 1) + (z7 * 0)
-   z7 = (-x7 * Math.sin(i)) + (y7 * 0) + (z7 * Math.cos(i))
+   z7 = (-x7 * Math.sin(theta)) + (y7 * 0) + (z7 * Math.cos(theta))
 
-   x8 = (x8 * Math.cos(i) + (y8 * 0) + (z8 * Math.sin(i)))
+   x8 = (x8 * Math.cos(theta) + (y8 * 0) + (z8 * Math.sin(theta)))
    y8 = (x8 * 0) + (y8 * 1) + (z8 * 0)
-   z8 = (-x8 * Math.sin(i)) + (y8 * 0) + (z8 * Math.cos(i))
+   z8 = (-x8 * Math.sin(theta)) + (y8 * 0) + (z8 * Math.cos(theta))
 
 
-    console.log(x1)
+
 
     ctx.beginPath();
-    ctx.moveTo(x1 * 50 + cx, y1 * 50 + cy, z1 * 50 + cz);
-    ctx.lineTo(x2 * 50 + cx, y2 * 50 + cy, z2 * 50 + cz);
-    ctx.lineTo(x3 * 50 + cx, y3 * 50 + cy, z3 * 50 + cz);
-    ctx.lineTo(x4 * 50 + cx, y4 * 50 + cy, z4 * 50 + cz);
-    ctx.lineTo(x1 * 50 + cx, y1 * 50 + cy, z1 * 50 + cz);
+    ctx.moveTo(x1 * 5 + cx, y1 * 5 + cy, z1 * 5 + cz);
+    ctx.lineTo(x2 * 5 + cx, y2 * 5 + cy, z2 * 5 + cz);
+    ctx.lineTo(x3 * 5 + cx, y3 * 5 + cy, z3 * 5 + cz);
+    ctx.lineTo(x4 * 5 + cx, y4 * 5 + cy, z4 * 5 + cz);
+    ctx.lineTo(x1 * 5 + cx, y1 * 5 + cy, z1 * 5 + cz);
 
-    ctx.moveTo(x5 * 50 + cx, y5 * 50 + cy, z5 * 50 + cz);
-    ctx.lineTo(x6 * 50 + cx, y6 * 50 + cy, z6 * 50 + cz);
-    ctx.lineTo(x7 * 50 + cx, y7 * 50 + cy, z7 * 50 + cz);
-    ctx.lineTo(x8 * 50 + cx, y8 * 50 + cy, z8 * 50 + cz);
-    ctx.lineTo(x5 * 50 + cx, y5 * 50 + cy, z5 * 50 + cz);
+    ctx.moveTo(x5 * 5 + cx, y5 * 5 + cy, z5 * 5 + cz);
+    ctx.lineTo(x6 * 5 + cx, y6 * 5 + cy, z6 * 5 + cz);
+    ctx.lineTo(x7 * 5 + cx, y7 * 5 + cy, z7 * 5 + cz);
+    ctx.lineTo(x8 * 5 + cx, y8 * 5 + cy, z8 * 5 + cz);
+    ctx.lineTo(x5 * 5 + cx, y5 * 5 + cy, z5 * 5 + cz);
 
-    ctx.moveTo(x1 * 50 + cx, y1 * 50 + cy, z1 * 50 + cz)
-    ctx.lineTo(x5 * 50 + cx, y5 * 50 + cy, z5 * 50 + cz)
+    ctx.moveTo(x1 * 5 + cx, y1 * 5 + cy, z1 * 5 + cz)
+    ctx.lineTo(x5 * 5 + cx, y5 * 5 + cy, z5 * 5 + cz)
 
-    ctx.moveTo(x2 * 50 + cx, y2 * 50 + cy, z2 * 50 + cz)
-    ctx.lineTo(x6 * 50 + cx, y6 * 50 + cy, z6 * 50 + cz)
+    ctx.moveTo(x2 * 5 + cx, y2 * 5 + cy, z2 * 5 + cz)
+    ctx.lineTo(x6 * 5 + cx, y6 * 5 + cy, z6 * 5 + cz)
 
-    ctx.moveTo(x3 * 50 + cx, y3 * 50 + cy, z3 * 50 + cz)
-    ctx.lineTo(x7 * 50 + cx, y7 * 50 + cy, z7 * 50 + cz)
+    ctx.moveTo(x3 * 5 + cx, y3 * 5 + cy, z3 * 5 + cz)
+    ctx.lineTo(x7 * 5 + cx, y7 * 5 + cy, z7 * 5 + cz)
 
-    ctx.moveTo(x4 * 50 + cx, y4 * 50 + cy, z4 * 50 + cz)
-    ctx.lineTo(x8 * 50 + cx, y8 * 50 + cy, z8 * 50 + cz)
+    ctx.moveTo(x4 * 5 + cx, y4 * 5 + cy, z4 * 5 + cz)
+    ctx.lineTo(x8 * 5 + cx, y8 * 5 + cy, z8 * 5 + cz)
 
     ctx.stroke();
 
+    if (i == 360) {
+    i = 0
+}
 
 }
 
@@ -322,73 +325,75 @@ for (i = 0; i <= 360; i++){
     ctx.clearRect(0, 0, 1000, 1000)
     ctx.stroke();
 
-    console.log(i)
-    i = (i * Math.PI * 2) / 180
+    theta = (0.5 * Math.PI) / 180
 
     x1 = (x1 * 1) + (y1 * 0) + (z1 * 0)
-    y1 = (x1 * 0) + (y1 * Math.cos(i)) + (-z1 * Math.sin(i))
-    z1 = (x1 * 0) + (y1 * Math.sin(i)) + (z1 * Math.cos(i))
+    y1 = (x1 * 0) + (y1 * Math.cos(theta)) + (-z1 * Math.sin(theta))
+    z1 = (x1 * 0) + (y1 * Math.sin(theta)) + (z1 * Math.cos(theta))
 
     x2 = (x2 * 1) + (y2 * 0) + (z2 * 0)
-    y2 = (x2 * 0) + (y2 * Math.cos(i)) - (z2 * Math.sin(i))
-    z2 = (x2 * 0) + (y2 * Math.sin(i)) + (z2 * Math.cos(i))
+    y2 = (x2 * 0) + (y2 * Math.cos(theta)) - (z2 * Math.sin(theta))
+    z2 = (x2 * 0) + (y2 * Math.sin(theta)) + (z2 * Math.cos(theta))
     
     x3 = (x3 * 1) + (y3 * 0) + (z3 * 0)
-    y3 = (x3 * 0) + (y3 * Math.cos(i)) - (z3 * Math.sin(i))
-    z3 = (x3 * 0) + (y3 * Math.sin(i)) + (z3 * Math.cos(i))
+    y3 = (x3 * 0) + (y3 * Math.cos(theta)) - (z3 * Math.sin(theta))
+    z3 = (x3 * 0) + (y3 * Math.sin(theta)) + (z3 * Math.cos(theta))
     
     x4 = (x4 * 1) + (y4 * 0) + (z4 * 0)
-    y4 = (x4 * 0) + (y4 * Math.cos(i)) - (z4 * Math.sin(i))
-    z4 = (x4 * 0) + (y4 * Math.sin(i)) + (z4 * Math.cos(i))
+    y4 = (x4 * 0) + (y4 * Math.cos(theta)) - (z4 * Math.sin(theta))
+    z4 = (x4 * 0) + (y4 * Math.sin(theta)) + (z4 * Math.cos(theta))
 
     x5 = (x5 * 1) + (y5 * 0) + (z5 * 0)
-    y5 = (x5 * 0) + (y5 * Math.cos(i)) - (z5 * Math.sin(i))
-    z5 = (x5 * 0) + (y5 * Math.sin(i)) + (z5 * Math.cos(i))
+    y5 = (x5 * 0) + (y5 * Math.cos(theta)) - (z5 * Math.sin(theta))
+    z5 = (x5 * 0) + (y5 * Math.sin(theta)) + (z5 * Math.cos(theta))
     
     x6 = (x6 * 1) + (y6 * 0) + (z6 * 0)
-    y6 = (x6 * 0) + (y6 * Math.cos(i)) - (z6 * Math.sin(i))
-    z6 = (x6 * 0) + (y6 * Math.sin(i)) + (z6 * Math.cos(i))
+    y6 = (x6 * 0) + (y6 * Math.cos(theta)) - (z6 * Math.sin(theta))
+    z6 = (x6 * 0) + (y6 * Math.sin(theta)) + (z6 * Math.cos(theta))
     
     x7 = (x7 * 1) + (y7 * 0) + (z7 * 0)
-    y7 = (x7 * 0) + (y7 * Math.cos(i)) - (z7 * Math.sin(i))
-    z7 = (x7 * 0) + (y7 * Math.sin(i)) + (z7 * Math.cos(i))
+    y7 = (x7 * 0) + (y7 * Math.cos(theta)) - (z7 * Math.sin(theta))
+    z7 = (x7 * 0) + (y7 * Math.sin(theta)) + (z7 * Math.cos(theta))
     
     x8 = (x8 * 1) + (y8 * 0) + (z8 * 0)
-    y8 = (x8 * 0) + (y8 * Math.cos(i)) - (z8 * Math.sin(i))
-    z8 = (x8 * 0) + (y8 * Math.sin(i)) + (z8 * Math.cos(i))
+    y8 = (x8 * 0) + (y8 * Math.cos(theta)) - (z8 * Math.sin(theta))
+    z8 = (x8 * 0) + (y8 * Math.sin(theta)) + (z8 * Math.cos(theta))
   
 
-    console.log(x1)
-    console.log(y1)
+
 
 
     ctx.beginPath();
-    ctx.moveTo(x1 * 50 + cx, y1 * 50 + cy, z1 * 50 + cz);
-    ctx.lineTo(x2 * 50 + cx, y2 * 50 + cy, z2 * 50 + cz);
-    ctx.lineTo(x3 * 50 + cx, y3 * 50 + cy, z3 * 50 + cz);
-    ctx.lineTo(x4 * 50 + cx, y4 * 50 + cy, z4 * 50 + cz);
-    ctx.lineTo(x1 * 50 + cx, y1 * 50 + cy, z1 * 50 + cz);
+    
+    ctx.moveTo(x1 * 5 + cx, y1 * 5 + cy, z1 * 5 + cz);
+    ctx.lineTo(x2 * 5 + cx, y2 * 5 + cy, z2 * 5 + cz);
+    ctx.lineTo(x3 * 5 + cx, y3 * 5 + cy, z3 * 5 + cz);
+    ctx.lineTo(x4 * 5 + cx, y4 * 5 + cy, z4 * 5 + cz);
+    ctx.lineTo(x1 * 5 + cx, y1 * 5 + cy, z1 * 5 + cz);
 
-    ctx.moveTo(x5 * 50 + cx, y5 * 50 + cy, z5 * 50 + cz);
-    ctx.lineTo(x6 * 50 + cx, y6 * 50 + cy, z6 * 50 + cz);
-    ctx.lineTo(x7 * 50 + cx, y7 * 50 + cy, z7 * 50 + cz);
-    ctx.lineTo(x8 * 50 + cx, y8 * 50 + cy, z8 * 50 + cz);
-    ctx.lineTo(x5 * 50 + cx, y5 * 50 + cy, z5 * 50 + cz);
+    ctx.moveTo(x5 * 5 + cx, y5 * 5 + cy, z5 * 5 + cz);
+    ctx.lineTo(x6 * 5 + cx, y6 * 5 + cy, z6 * 5 + cz);
+    ctx.lineTo(x7 * 5 + cx, y7 * 5 + cy, z7 * 5 + cz);
+    ctx.lineTo(x8 * 5 + cx, y8 * 5 + cy, z8 * 5 + cz);
+    ctx.lineTo(x5 * 5 + cx, y5 * 5 + cy, z5 * 5 + cz);
 
-    ctx.moveTo(x1 * 50 + cx, y1 * 50 + cy, z1 * 50 + cz)
-    ctx.lineTo(x5 * 50 + cx, y5 * 50 + cy, z5 * 50 + cz)
+    ctx.moveTo(x1 * 5 + cx, y1 * 5 + cy, z1 * 5 + cz)
+    ctx.lineTo(x5 * 5 + cx, y5 * 5 + cy, z5 * 5 + cz)
 
-    ctx.moveTo(x2 * 50 + cx, y2 * 50 + cy, z2 * 50 + cz)
-    ctx.lineTo(x6 * 50 + cx, y6 * 50 + cy, z6 * 50 + cz)
+    ctx.moveTo(x2 * 5 + cx, y2 * 5 + cy, z2 * 5 + cz)
+    ctx.lineTo(x6 * 5 + cx, y6 * 5 + cy, z6 * 5 + cz)
 
-    ctx.moveTo(x3 * 50 + cx, y3 * 50 + cy, z3 * 50 + cz)
-    ctx.lineTo(x7 * 50 + cx, y7 * 50 + cy, z7 * 50 + cz)
+    ctx.moveTo(x3 * 5 + cx, y3 * 5 + cy, z3 * 5 + cz)
+    ctx.lineTo(x7 * 5 + cx, y7 * 5 + cy, z7 * 5 + cz)
 
-    ctx.moveTo(x4 * 50 + cx, y4 * 50 + cy, z4 * 50 + cz)
-    ctx.lineTo(x8 * 50 + cx, y8 * 50 + cy, z8 * 50 + cz)
+    ctx.moveTo(x4 * 5 + cx, y4 * 5 + cy, z4 * 5 + cz)
+    ctx.lineTo(x8 * 5 + cx, y8 * 5 + cy, z8 * 5 + cz)
 
     ctx.stroke();
 
+if (i == 360) {
+    i = 0
+}
 
 }
 
