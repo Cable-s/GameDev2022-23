@@ -1,0 +1,140 @@
+<html>
+   <head>
+       <link rel="stylesheet" href="css.css">
+   <style>
+     
+   </style>
+   </head>
+   <body>
+   <h2 align=center >x Grid Caleb</h2>
+
+   <input type="button" value="start" onclick="start()"><br>
+   <canvas id="ctx" width="500" height="500" style="border:0px solid #000000; background-color: rgb(230, 230, 230)"></canvas>
+
+
+   <script>
+
+    var c = document.getElementById("ctx")
+    var ctx = c.getContext("2d")
+    var numCells = 10
+    var xscale = Math.floor(document.getElementById("ctx").width / numCells)
+    var yscale = Math.floor(document.getElementById("ctx").height / numCells)
+    var xOffSet = xscale / 2
+    var yOffSet = yscale / 2
+    var color = "#FF0000"
+    let celli;
+    let cellj;
+    const cellsarr = [];
+
+    
+
+    class cells {
+        constructor(x, y, c, height, width, i, j){
+        this.x = x;
+        this.y = y;
+        this.c = c
+        this.height = height
+        this.width = width
+        this.i = i
+        this.j = j
+
+        }
+    }
+
+    class buttons  {
+            constructor(x, y, width, height) {
+            this.x = x
+            this.y = y
+            this.width = width
+            this.height = height 
+            }
+        }
+
+function update() {
+    setInterval(start, 1)
+}
+
+function start() {
+
+
+
+    for (var i = 0; i < numCells; i++) {
+        for (var j = 0; j < numCells; j++) {
+
+            cellsarr.push([i, j]) 
+            celli = i
+            cellj = j
+
+            // console.log(cellsarr)
+            
+            x1 = i * xscale
+            y1 = j * yscale
+            x2 = i + xscale * 10
+            y2 = j + yscale * 10
+
+// console.log(x1, y1, x2, y2)
+
+            ctx.beginPath();
+            ctx.moveTo(x1, y1)
+            ctx.lineTo(x1,y2)
+            ctx.lineTo(x2, y2)
+            ctx.lineTo(x2, y1)
+            ctx.lineTo(x1, y1)
+            ctx.stroke()
+
+
+
+            createNewCell()
+
+
+        }
+
+    }
+}
+
+
+
+
+function createNewCell() {
+    const cell = new cells(celli * xscale + xOffSet, cellj * yscale + yOffSet, color, yscale * cellj, xscale *  celli, celli, cellj)
+    
+        let r = Math.floor(Math.random() * 255)
+        let g = Math.floor(Math.random() * 255)
+        let b = Math.floor(Math.random() * 255);
+
+        ctx.beginPath()
+        ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")"
+        ctx.fillRect(x1, y1, x2, y2)
+        ctx.stroke()
+    
+    const button = new buttons(x1, y1, 50, 50)
+    console.log(button)
+}
+
+function mousePos(canvas, event) {
+    return {
+        x: event.offsetX,
+        y: event.offsetY
+    }
+}
+
+function insidePos(pos, button1) {
+    // console.log(button1.x, button1.y, button1.width, button1.height)
+
+    return pos.x > button1.x &&
+           pos.x < button1.x + button1.width && 
+           pos.y < button1.y + button1.height && 
+           pos.y > button1.y
+
+}
+
+c.addEventListener('click', function (e) {
+        
+        var getMousePos = mousePos(c, e)
+        if (insidePos(getMousePos,button)) {
+        }
+    })
+
+
+   </script>
+   </body>
