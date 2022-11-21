@@ -1,3 +1,4 @@
+
 <html>
     <head>
         <link rel='stylesheet' href='css.css'>
@@ -11,13 +12,13 @@
 
         <input type="button" value="start" onclick="check()"><br>
        
-        <input type="checkbox" id="check1">0<br>
-        <input type="checkbox" id="check2">pi/12 (15)<br>
-        <input type="checkbox" id="check3">pi/6  (30)<br>
-        <input type="checkbox" id="check4">pi/4 (45)<br>
-        <input type="checkbox" id="check5">pi/3 (60)<br>
-        <input type="checkbox" id="check6">15pi/36 (75)<br>
-        <input type="checkbox" id="check7">pi/2 (90)
+        <input type="radio" name="bruh" id="check1">0<br>
+        <input type="radio" name="bruh" id="check2">pi/12 (15)<br>
+        <input type="radio" name="bruh" id="check3">pi/6  (30)<br>
+        <input type="radio" name="bruh" id="check4">pi/4 (45)<br>
+        <input type="radio" name="bruh" id="check5">pi/3 (60)<br>
+        <input type="radio" name="bruh" id="check6">15pi/36 (75)<br>
+        <input type="radio" name="bruh" id="check7">pi/2 (90)
 
 
         <div id="div"></div>
@@ -36,6 +37,7 @@
             let angle;
 
             ctx.translate(250, h)
+            ctx.save()
 
             function check() {
                 let c1 = document.getElementById('check1').checked
@@ -47,40 +49,47 @@
                 let c7 = document.getElementById('check7').checked
 
 
-                if (c1 == true && c2 == false && c3 == false && c4 == false && c5 == false && c6 == false && c7 == false) {
+                if (c1 == true) {
                     document.getElementById('div').innerHTML = ""
                     console.log("c1")
                     angle = 0
+                    ctx.restore()
                     branch(length)
-                }else if (c1 == false && c2 == true && c3 == false && c4 == false && c5 == false && c6 == false && c7 == false) {
+                }else if (c2 == true) {
                     document.getElementById('div').innerHTML = ""
                     console.log("c2")
                     angle = Math.PI / 12
+                    ctx.restore()
                     branch(length)
-                }else if (c1 == false && c2 == false && c3 == true && c4 == false && c5 == false && c6 == false && c7 == false) {
+                }else if (c3 == true) {
                     document.getElementById('div').innerHTML = ""
                     console.log("c3")
                     angle = Math.PI / 6
+                    ctx.restore()
                     branch(length)
-                }else if (c1 == false && c2 == false && c3 == false && c4 == true && c5 == false && c6 == false && c7 == false) {
+                }else if (c4 == true) {
                     document.getElementById('div').innerHTML = ""
                     console.log("c4")
                     angle = Math.PI / 4
+                    ctx.restore()
                     branch(length)
-                }else if (c1 == false && c2 == false && c3 == false && c4 == false && c5 == true && c6 == false && c7 == false) {
+                }else if (c5 == true) {
                     document.getElementById('div').innerHTML = ""
                     console.log("c5")
                     angle = Math.PI / 3
+                    ctx.restore()
                     branch(length)
-                }else if (c1 == false && c2 == false && c3 == false && c4 == false && c5 == false && c6 == true && c7 == false) {
+                }else if (c6 == true) {
                     document.getElementById('div').innerHTML = ""
                     console.log("c6")
                     angle = 15 * Math.PI / 36
+                    ctx.restore()
                     branch(length)
-                }else if (c1 == false && c2 == false && c3 == false && c4 == false && c5 == false && c6 == false && c7 == true) {
+                }else if (c7 == true) {
                     document.getElementById('div').innerHTML = ""
                     console.log("c7")
                     angle = Math.PI / 2
+                    ctx.restore()
                     branch(length)
                 }else if (c1 == false && c2 == false && c3 == false && c4 == false && c5 == false && c6 == false && c7 == false) {
                     error1()
@@ -99,20 +108,18 @@
                 ctx.moveTo(0, 0)
                 ctx.lineTo(0, -length)
                 ctx.stroke()
-
                 ctx.translate(0, -length)
                 
                 if (length > 1) {
+                    ctx.save();
+                    ctx.rotate(angle);
+                    branch(length * 0.7);
+                    ctx.restore();
 
-                    ctx.save()
-                    ctx.rotate(angle)
-                    branch(length * 0.7)
-                    ctx.restore()
-
-                    ctx.save()
-                    ctx.rotate(-1 * angle)
-                    branch(length * 0.7)
-                    ctx.restore()
+                    ctx.save();
+                    ctx.rotate(-1 * angle);
+                    branch(length * 0.7);
+                    ctx.restore();
 
                 }
             }
