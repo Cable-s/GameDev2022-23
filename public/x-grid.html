@@ -21,15 +21,18 @@
     var yscale = Math.floor(document.getElementById("ctx").height / numCells)
     var xOffSet = xscale / 2
     var yOffSet = yscale / 2
-    var color = "#FF0000"
+    var color = "#8c8e8f"
     let celli;
     let cellj;
     const cellsarr = [];
-
+    const buttonarr= [];
+    var getMousePos;
+    var button;
+    var bombcount = 0
     
 
     class cells {
-        constructor(x, y, c, height, width, i, j){
+        constructor(x, y, c, height, width, i, j, bomb){
         this.x = x;
         this.y = y;
         this.c = c
@@ -37,16 +40,18 @@
         this.width = width
         this.i = i
         this.j = j
+        this.bomb = bomb
 
         }
     }
 
     class buttons  {
-            constructor(x, y, width, height) {
+            constructor(x, y, width, height, bomb) {
             this.x = x
             this.y = y
             this.width = width
             this.height = height 
+            this.bomb = bomb
             }
         }
 
@@ -61,7 +66,7 @@ function start() {
     for (var i = 0; i < numCells; i++) {
         for (var j = 0; j < numCells; j++) {
 
-            cellsarr.push([i, j]) 
+            cellsarr.push([i] [j]) 
             celli = i
             cellj = j
 
@@ -69,8 +74,8 @@ function start() {
             
             x1 = i * xscale
             y1 = j * yscale
-            x2 = i + xscale * 10
-            y2 = j + yscale * 10
+            x2 = i + xscale * numCells
+            y2 = j + yscale * numCells
 
 // console.log(x1, y1, x2, y2)
 
@@ -86,7 +91,7 @@ function start() {
 
             createNewCell()
 
-
+            console.log(buttonarr)
         }
 
     }
@@ -96,19 +101,27 @@ function start() {
 
 
 function createNewCell() {
-    const cell = new cells(celli * xscale + xOffSet, cellj * yscale + yOffSet, color, yscale * cellj, xscale *  celli, celli, cellj)
+    const cell = new cells(celli * xscale + xOffSet, cellj * yscale + yOffSet, color, yscale * cellj, xscale *  celli, celli, cellj, true)
     
-        let r = Math.floor(Math.random() * 255)
-        let g = Math.floor(Math.random() * 255)
-        let b = Math.floor(Math.random() * 255);
+
 
         ctx.beginPath()
-        ctx.fillStyle = "rgb(" + r + "," + g + "," + b + ")"
+        ctx.fillStyle = color
         ctx.fillRect(x1, y1, x2, y2)
         ctx.stroke()
     
-    const button = new buttons(x1, y1, 50, 50)
-    console.log(button)
+    button = new buttons(x1, y1, xscale, yscale, false)
+    for (k = 0; k < numCells; k++) {
+       ran =  Math.floor(Math.random() * numCells * 5)
+        if (ran == 1) {
+            button.bomb = true
+            bombcount++
+        }
+        if (bombcount == numCells * 2) {
+                break
+        }
+    }
+    buttonarr.push(button)
 }
 
 function mousePos(canvas, event) {
@@ -119,22 +132,106 @@ function mousePos(canvas, event) {
 }
 
 function insidePos(pos, button1) {
-    // console.log(button1.x, button1.y, button1.width, button1.height)
+
 
     return pos.x > button1.x &&
            pos.x < button1.x + button1.width && 
            pos.y < button1.y + button1.height && 
-           pos.y > button1.y
-
+           pos.y > button1.y;
 }
 
 c.addEventListener('click', function (e) {
-        
+      for (i = 0; i < buttonarr.length; i++) {  
         var getMousePos = mousePos(c, e)
-        if (insidePos(getMousePos,button)) {
+        if (insidePos(getMousePos,buttonarr[i])) {
+            reveal()
         }
+    }
     })
 
+function reveal() {
+            color = "#aaacac"
+            x1 = buttonarr[i].x
+            y1 = buttonarr[i].y
+            x2 = buttonarr[i].width
+            y2 = buttonarr[i].height
+            ctx.beginPath()
+            ctx.fillStyle = color
+            ctx.fillRect(x1, y1, x2 - 1, y2 - 1)
+            ctx.stroke()
 
+            if (buttonarr[i].bomb == true) {
+                ctx.beginPath()
+                ctx.arc(x1 + x2/2, y1 + y2/2, 10, 0, 2 * Math.PI)
+                ctx.stroke()
+            }
+            if (buttonarr[i].bomb == false) {
+                console.log(i+numCells-1, i+numCells, i+numCells+1)
+                console.log(i-1, i, i+1)
+                console.log(i-numCells-1, i-numCells, i-numCells+1)
+                console.log(buttonarr[i])
+                checkSurrounding()
+            }     
+}
+function checkSurrounding() {   
+
+    numbombs = 0
+if (i - 1 > 0 && i - 1 < numCells*numCells) {
+    if (buttonarr[i-1].bomb == true) {
+        numbombs++
+    }
+}
+if (i + 1 > 0 && i + 1 < numCells*numCells) {
+    if (buttonarr[i+1].bomb == true) {
+        numbombs++
+
+    }
+}
+if (i - numCells > 0 && i - numCells < numCells*numCells) {
+    if (buttonarr[i-numCells].bomb == true) {
+        numbombs++
+
+    }
+}
+if (i + numCells > 0 && i + numCells < numCells*numCells) {
+    if (buttonarr[i+numCells].bomb == true) {
+        numbombs++
+
+    }
+}
+if (i + numCells - 1 > 0 && i + numCells - 1 < numCells*numCells) {
+    if (buttonarr[i+numCells - 1].bomb == true) {
+        numbombs++
+
+    }
+}
+if (i + numCells + 1 > 0 && i + numCells + 1 < numCells*numCells) {
+    if (buttonarr[i+numCells + 1].bomb == true) {
+        numbombs++
+
+    }
+}
+if (i -numCells - 1 > 0 && i -numCells - 1 < numCells*numCells) {
+    if (buttonarr[i-numCells - 1].bomb == true) {
+        numbombs++
+
+    }
+}
+if (i - numCells + 1 > 0 && i - numCells + 1 < numCells*numCells) {
+    if (buttonarr[i-numCells + 1].bomb == true) {
+        numbombs++
+
+    }
+}
+
+    
+    if (numbombs > 0) {
+    ctx.font = "20px Arial ";
+    ctx.textBaseline = 'middle'
+    ctx.textAlign = 'center'
+    ctx.strokeText(numbombs, x1 + x2 / 2, y1 + y2 / 2);
+    }
+    
+}
    </script>
    </body>
