@@ -8,7 +8,8 @@
    <body>
    <h2 align=center >x Grid Caleb</h2>
 
-   <input type="button" value="start" onclick="start()"><br>
+   <input type="button" value="start" onclick="start()"> <input type="button" value="restart" onclick="restart()">
+   <br>
    <canvas id="ctx" width="500" height="500" style="border:0px solid #000000; background-color: rgb(230, 230, 230)"></canvas>
 
 
@@ -26,13 +27,14 @@
     let cellj;
     const cellsarr = [];
     const buttonarr= [];
+    const temparr = [];
     var getMousePos;
     var button;
     var bombcount = 0
     
 
     class cells {
-        constructor(x, y, c, height, width, i, j, bomb){
+        constructor(x, y, c, height, width, i, j, bomb, flag){
         this.x = x;
         this.y = y;
         this.c = c
@@ -41,22 +43,28 @@
         this.i = i
         this.j = j
         this.bomb = bomb
+        this.flag = flag
 
         }
     }
 
     class buttons  {
-            constructor(x, y, width, height, bomb) {
+            constructor(x, y, width, height, bomb, flag) {
             this.x = x
             this.y = y
             this.width = width
             this.height = height 
             this.bomb = bomb
+            this.flag = flag
             }
         }
 
 function update() {
     setInterval(start, 1)
+}
+
+function restart() {
+    window.location.reload()
 }
 
 function start() {
@@ -91,7 +99,7 @@ function start() {
 
             createNewCell()
 
-            console.log(buttonarr)
+            // console.log(buttonarr)
         }
 
     }
@@ -110,7 +118,7 @@ function createNewCell() {
         ctx.fillRect(x1, y1, x2, y2)
         ctx.stroke()
     
-    button = new buttons(x1, y1, xscale, yscale, false)
+    button = new buttons(x1, y1, xscale, yscale, false, false)
     for (k = 0; k < numCells; k++) {
        ran =  Math.floor(Math.random() * numCells * 5)
         if (ran == 1) {
@@ -118,7 +126,7 @@ function createNewCell() {
             bombcount++
         }
         if (bombcount == numCells * 2) {
-                break
+                break;
         }
     }
     buttonarr.push(button)
@@ -149,7 +157,45 @@ c.addEventListener('click', function (e) {
     }
     })
 
+c.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    for (i = 0; i < buttonarr.length; i++) {  
+        var getMousePos = mousePos(c, e)
+        if (insidePos(getMousePos,buttonarr[i])) {
+            flag()
+        }
+    }
+});
+
+function flag() {
+        if (buttonarr[i].flag == false) {
+            color = "#8c8e8f"
+            x1 = buttonarr[i].x
+            y1 = buttonarr[i].y
+            x2 = buttonarr[i].width
+            y2 = buttonarr[i].height
+            ctx.beginPath()
+            ctx.fillStyle = color
+            ctx.fillRect(x1, y1, x2 - 1, y2 - 1)
+            ctx.stroke()
+            buttonarr[i].flag = true
+        }
+        if (buttonarr[i].flag == true) {
+            color = "#FF0000"
+            x1 = buttonarr[i].x
+            y1 = buttonarr[i].y
+            x2 = buttonarr[i].width
+            y2 = buttonarr[i].height
+            ctx.beginPath()
+            ctx.fillStyle = color
+            ctx.fillRect(x1, y1, x2 - 1, y2 - 1)
+            ctx.stroke()
+            buttonarr[i].flag = false
+        }
+}
+
 function reveal() {
+
             color = "#aaacac"
             x1 = buttonarr[i].x
             y1 = buttonarr[i].y
@@ -164,74 +210,140 @@ function reveal() {
                 ctx.beginPath()
                 ctx.arc(x1 + x2/2, y1 + y2/2, 10, 0, 2 * Math.PI)
                 ctx.stroke()
+                revealall()
             }
             if (buttonarr[i].bomb == false) {
-                console.log(i+numCells-1, i+numCells, i+numCells+1)
-                console.log(i-1, i, i+1)
-                console.log(i-numCells-1, i-numCells, i-numCells+1)
-                console.log(buttonarr[i])
                 checkSurrounding()
             }     
 }
+function revealall() {
+    for (let k = 0; k < buttonarr.length; k++) {
+    buttonarr[k]
+    color = "#aaacac"
+            x1 = buttonarr[k].x
+            y1 = buttonarr[k].y
+            x2 = buttonarr[k].width
+            y2 = buttonarr[k].height
+            ctx.beginPath()
+            ctx.fillStyle = color
+            ctx.fillRect(x1, y1, x2 - 1, y2 - 1)
+            ctx.stroke()
+
+            if (buttonarr[k].bomb == true) {
+                ctx.beginPath()
+                ctx.arc(x1 + x2/2, y1 + y2/2, 10, 0, 2 * Math.PI)
+                ctx.stroke()
+            }
+            if (buttonarr[k].bomb == false) {
+                // console.log(i+numCells-1, i+numCells, i+numCells+1)
+                // console.log(i-1, i, i+1)
+                // console.log(i-numCells-1, i-numCells, i-numCells+1)
+                // console.log(buttonarr[k])
+            }     
+
+    }
+}
 function checkSurrounding() {   
 
+    temparr.length = 0
     numbombs = 0
 if (i - 1 > 0 && i - 1 < numCells*numCells) {
     if (buttonarr[i-1].bomb == true) {
         numbombs++
+    } else {
+        temparr.push(buttonarr[i - 1])
     }
+    
+
 }
 if (i + 1 > 0 && i + 1 < numCells*numCells) {
     if (buttonarr[i+1].bomb == true) {
         numbombs++
-
+    }
+    else {
+        temparr.push(buttonarr[i+1])
     }
 }
 if (i - numCells > 0 && i - numCells < numCells*numCells) {
     if (buttonarr[i-numCells].bomb == true) {
         numbombs++
-
+    }
+    else {
+        temparr.push(buttonarr[i-numCells])
     }
 }
 if (i + numCells > 0 && i + numCells < numCells*numCells) {
     if (buttonarr[i+numCells].bomb == true) {
         numbombs++
-
+    }
+    else {
+        temparr.push(buttonarr[i+numCells])
     }
 }
 if (i + numCells - 1 > 0 && i + numCells - 1 < numCells*numCells) {
     if (buttonarr[i+numCells - 1].bomb == true) {
         numbombs++
-
+    }
+    else {
+        temparr.push(buttonarr[i+numCells - 1])
     }
 }
 if (i + numCells + 1 > 0 && i + numCells + 1 < numCells*numCells) {
     if (buttonarr[i+numCells + 1].bomb == true) {
         numbombs++
-
     }
+    else {
+        temparr.push(buttonarr[i+numCells + 1])
+    }
+
 }
 if (i -numCells - 1 > 0 && i -numCells - 1 < numCells*numCells) {
     if (buttonarr[i-numCells - 1].bomb == true) {
         numbombs++
-
+    }
+    else {
+        temparr.push(buttonarr[i-numCells - 1])
     }
 }
 if (i - numCells + 1 > 0 && i - numCells + 1 < numCells*numCells) {
     if (buttonarr[i-numCells + 1].bomb == true) {
         numbombs++
+    }
+    else {
+        temparr.push(buttonarr[i-numCells + 1])
+    }
+}
+if (temparr.length == 8) {
+    for (l = 0; l < 8; l++) {
+        console.table(temparr[l])
+        let ycord = temparr[l].x / temparr[l].width
+        let xcord = temparr[l].y / temparr[l].height
 
+     console.log(xcord, ycord)
+
+        buttonarr.findIndex(temparr[l])
+        i = l
+        console.log(buttonarr)
+        reveal()
     }
 }
 
+
+
+
     
     if (numbombs > 0) {
-    ctx.font = "20px Arial ";
+    ctx.font = numCells * 2 + "px Arial ";
     ctx.textBaseline = 'middle'
     ctx.textAlign = 'center'
     ctx.strokeText(numbombs, x1 + x2 / 2, y1 + y2 / 2);
     }
+
+    if (numbombs == 0) {
+
+    }
     
 }
+
    </script>
    </body>
