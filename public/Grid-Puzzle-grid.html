@@ -1,0 +1,177 @@
+<html>
+    <head>
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <input type="button" id="start" value="start" onclick="start()">
+        <input type="button" id="move" value="move Up" onclick="MovementUp()">
+        <input type="button" id="move" value="move Down" onclick="MovementDown()">
+        <input type="button" id="move" value="move Left" onclick="MovementLeft()">
+        <input type="button" id="move" value="move Right" onclick="MovementRight()"><br>
+        <br>
+        <canvas id="ctx" width="600" height="600" style="border:0px solid #000000; background-color: rgb(230, 230, 230)"></canvas>
+        <script>
+            let rows = 10;
+            let cols = 10;
+            let size = Math.floor(document.getElementById("ctx").width) / 10
+            let gridArray = []
+            var c = document.getElementById("ctx")
+            var ctx = c.getContext("2d")
+
+            class Cell {
+                constructor(x, y, c, ifChar) {
+                    this.x = x
+                    this.y = y
+                    this.c = c
+                    this.ifChar = ifChar
+
+                }
+            }
+
+            function start() {
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    createCell(j, i)
+                    }
+                }
+                //console.log(gridArray)
+                setChars()
+
+            }
+
+            function createCell(x, y) {
+                x1 = x * size
+                y1 = y * size
+                cell = new Cell(x * rows, y * cols, 255, false)
+                ctx.fillStyle = 0
+                ctx.strokeRect(x1, y1, x1 + size, y1 + size);
+                gridArray.push(cell);
+
+            }
+
+            function setChars() {
+            for (let j = 0; j < 4; j++) {
+                let ranx = Math.floor(Math.random() * 10) * 10
+                let rany = Math.floor(Math.random() * 10) * 10
+                //console.log(ranx, rany)
+                for (i = 0; i < 100; i++) {
+                    if (gridArray[i].x == ranx && gridArray[i].y == rany) {
+                        gridArray[i].ifChar = true
+
+
+                        // setTimeout(Movement, 5000)
+                    }
+
+                }
+
+            }
+            drawChar()
+            }
+        function drawChar() {
+            for (i = 0; i < 100; i++) {
+                if (gridArray[i].ifChar == true) {
+                    ctx.beginPath()
+                    ctx.arc((gridArray[i].x * size / 10) + size / 2, (gridArray[i].y * size / 10) + size / 2, 5, 0, 2 * Math.PI)
+                    ctx.stroke()
+                }
+                else if (gridArray[i].ifChar == false) {
+                    //console.log(gridArray[i])
+                    ctx.beginPath();
+                    ctx.fillStyle = "white" //'rgb(' + 230+ ',' + 230 + ',' +  230 + ')'
+                    ctx.fillRect((gridArray[i].x * size / 10) + 1,
+                                 (gridArray[i].y * size / 10) + 1, 
+                                 58, 
+                                 58);
+                    ctx.stroke();
+                }
+            }
+        }
+        
+            function MovementUp() {
+                for(i = 0; i < 100; i++) {
+                    if (gridArray[i].ifChar == true) {
+                        if (gridArray[i-10].y <= 600 && gridArray[i-10].y >= 0) {
+                            if (gridArray[i-10].ifChar == false){
+                                gridArray[i].ifChar = false
+                                gridArray[i-10].ifChar = true
+                                    drawChar();
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+            function MovementDown() {
+                for(i = 0; i < 100; i++) {
+                    if (gridArray[i].ifChar == true) {
+                        if (gridArray[i+10].y <= 600 && gridArray[i-10].y >= 0) {
+                            if (gridArray[i+10].ifChar == false){
+                                gridArray[i].ifChar = false
+                                gridArray[i+10].ifChar = true
+                                    drawChar();
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+            function MovementLeft() {
+                for(i = 0; i < 100; i++) {
+                    if (gridArray[i].ifChar == true) {
+                        if (gridArray[i-1].x <= 600 && gridArray[i-10].x >= 0) {
+                            if (gridArray[i-1].ifChar == false){
+                                gridArray[i].ifChar = false
+                                gridArray[i-1].ifChar = true
+                                    drawChar();
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+            function MovementRight() {
+                for(i = 0; i < 100; i++) {
+                    if (gridArray[i].ifChar == true) {
+                        if (gridArray[i+1].x <= 600 && gridArray[i+1].x >= 0) {
+                            if (gridArray[i+1].ifChar == false){
+                                gridArray[i].ifChar = false
+                                gridArray[i+1].ifChar = true
+                                    drawChar();
+                            }
+
+                        }
+
+                    }
+
+                }
+
+            }
+            function update() {
+                for (i = 0; i < 10; i++) {
+                    ctx.beginPath()
+                    ctx.moveTo(gridArray[i].y * size, 0)
+                    ctx.lineTo(gridArray[i].y * size, 600)
+                    ctx.stroke()
+                }
+                for (j = 0; j < 10; j++) {
+                    ctx.beginPath()
+                    ctx.moveTo(0, gridArray[j].x * size)
+                    ctx.lineTo(600, gridArray[j].x * size)
+                    ctx.stroke()
+                }
+
+            }
+        </script>
+    </body>
+</html>
