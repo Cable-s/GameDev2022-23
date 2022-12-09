@@ -5,28 +5,49 @@
         </style>
     </head>
     <body>
-        <input type="button" id="start" value="start" onclick="start()">
-        <input type="button" id="move" value="move Up" onclick="MovementUp()">
-        <input type="button" id="move" value="move Down" onclick="MovementDown()">
-        <input type="button" id="move" value="move Left" onclick="MovementLeft()">
-        <input type="button" id="move" value="move Right" onclick="MovementRight()"><br>
+        <input type="button" id="start" value="start" onclick="start(); document.getElementById('start').style.display = 'none';" style="display: block">
+        <p>Click to Select character and move with WASD</p>
+        <div id="movecounter"></div>
         <br>
         <canvas id="ctx" width="600" height="600" style="border:0px solid #000000; background-color: rgb(230, 230, 230)"></canvas>
         <script>
-            let rows = 10;
-            let cols = 10;
-            let size = Math.floor(document.getElementById("ctx").width) / 10
+            let rows = 16;
+            let cols = 16;
+            let size = 37.5
             let gridArray = []
             var c = document.getElementById("ctx")
             var ctx = c.getContext("2d")
+            var getMousePos;
+            var ranx;
+            var rany;
+            var SelectedCell;
+            let keyA;
+            let keyW;
+            let keyS;
+            let keyD;
+            let MoveCounter = 0
+            let charcolor = 3
 
             class Cell {
-                constructor(x, y, c, ifChar) {
+                constructor(x, y, c, ifChar, charR, charY, charB, charG, posx, posy, leftWall, rightWall, upWall, downWall, redwin, greenwin, yellowwin, bluewin) {
                     this.x = x
                     this.y = y
                     this.c = c
                     this.ifChar = ifChar
-
+                    this.charB = charB
+                    this.charG = charG
+                    this.charY = charY
+                    this.charR = charR
+                    this.posx = posx
+                    this.posy = posy
+                    this.leftWall = leftWall
+                    this.rightWall = rightWall
+                    this.upWall = upWall
+                    this.downWall = downWall
+                    this.greenwin = greenwin
+                    this.redwin = redwin
+                    this.bluewin = bluewin
+                    this.yellowwin = yellowwin
                 }
             }
 
@@ -36,142 +57,479 @@
                     createCell(j, i)
                     }
                 }
-                //console.log(gridArray)
+                drawbackground()
                 setChars()
+                setWalls()
+                setWins()
 
             }
 
             function createCell(x, y) {
                 x1 = x * size
                 y1 = y * size
-                cell = new Cell(x * rows, y * cols, 255, false)
+                cell = new Cell(x * rows, y * cols, 255, false, false, false, false, false, x, y, false, false, false, false)
                 ctx.fillStyle = 0
                 ctx.strokeRect(x1, y1, x1 + size, y1 + size);
                 gridArray.push(cell);
 
             }
 
+            function setWalls() {
+                gridArray[5].rightWall = true
+                gridArray[6].leftWall = true
+                gridArray[8].rightWall = true
+                gridArray[9].leftWall = true
+                gridArray[25].rightWall = true
+                gridArray[26].leftWall = true
+                gridArray[26].downWall = true
+                gridArray[33].downWall = true
+                gridArray[42].upWall = true
+                gridArray[44].rightWall = true
+                gridArray[44].downWall = true
+                gridArray[45].leftWall = true
+                gridArray[48].rightWall = true
+                gridArray[49].leftWall = true
+                gridArray[49].upWall = true
+                gridArray[59].rightWall = true
+                gridArray[60].leftWall = true
+                gridArray[60].upWall = true
+                gridArray[70].downWall = true
+                gridArray[70].rightWall = true
+                gridArray[71].leftWall = true
+                gridArray[79].downWall = true
+                gridArray[80].downWall = true
+                gridArray[82].downWall = true
+                gridArray[86].upWall = true
+                gridArray[87].rightWall = true
+                gridArray[88].leftWall = true
+                gridArray[88].downWall = true
+                gridArray[93].downWall = true
+                gridArray[95].upWall = true
+                gridArray[96].upWall = true
+                gridArray[98].upWall = true
+                gridArray[98].rightWall = true
+                gridArray[99].leftWall = true
+                gridArray[99].downWall = true
+                gridArray[103].downWall = true
+                gridArray[104].downWall = true
+                gridArray[104].upWall = true
+                gridArray[109].upWall = true
+                gridArray[109].rightWall = true
+                gridArray[110].leftWall = true
+                gridArray[115].upWall = true
+                gridArray[118].rightWall = true
+                gridArray[119].leftWall = true
+                gridArray[119].upWall = true
+                gridArray[120].upWall = true
+                gridArray[120].rightWall = true
+                gridArray[121].leftWall = true
+                gridArray[134].rightWall = true
+                gridArray[135].downWall = true
+                gridArray[135].leftWall = true
+                gridArray[136].downWall = true
+                gridArray[136].rightWall = true
+                gridArray[137].leftWall = true
+                gridArray[145].rightWall = true
+                gridArray[146].leftWall = true
+                gridArray[146].downWall = true
+                gridArray[151].upWall = true
+                gridArray[152].upWall = true
+                gridArray[154].rightWall = true
+                gridArray[154].downWall = true
+                gridArray[155].leftWall = true
+                gridArray[162].upWall = true
+                gridArray[162].rightWall = true
+                gridArray[163].leftWall = true
+                gridArray[167].downWall = true
+                gridArray[170].upWall = true
+                gridArray[172].downWall = true
+                gridArray[182].rightWall = true
+                gridArray[183].leftWall = true
+                gridArray[183].upWall = true
+                gridArray[188].upWall = true
+                gridArray[188].rightWall = true
+                gridArray[189].leftWall = true
+                gridArray[189].downWall = true
+                gridArray[192].downWall = true
+                gridArray[201].downWall = true
+                gridArray[205].upWall = true
+                gridArray[207].downWall = true
+                gridArray[208].upWall = true
+                gridArray[216].rightWall = true
+                gridArray[217].upWall = true
+                gridArray[217].leftWall = true
+                gridArray[223].upWall = true
+                gridArray[229].rightWall = true
+                gridArray[229].downWall = true
+                gridArray[230].leftWall = true
+                gridArray[245].upWall = true
+                gridArray[246].rightWall = true
+                gridArray[247].leftWall = true
+                gridArray[250].rightWall = true
+                gridArray[251].leftWall = true
+                drawWalls()
+            }
+
+            function drawWalls() {
+                for (i = 0; i < gridArray.length; i++) {
+                    if (gridArray[i].leftWall == true) {
+                        ctx.beginPath()
+                        ctx.lineWidth = 3;
+                        ctx.strokeStyle = "black"
+                        ctx.moveTo((gridArray[i].x * size / rows) + 1, (gridArray[i].y * size / cols) + 1,)
+                        ctx.lineTo((gridArray[i].x * size / rows) + 1, (gridArray[i].y * size / rows) + size)
+                        ctx.stroke()
+                        ctx.closePath()
+
+                    }
+                    if (gridArray[i].rightWall == true) {
+                        ctx.beginPath()
+                        ctx.lineWidth = 3;
+                        ctx.strokeStyle = "black"
+                        ctx.moveTo((gridArray[i].x * size / rows) + 35, (gridArray[i].y * size / cols) + 1,)
+                        ctx.lineTo((gridArray[i].x * size / rows) + 35, (gridArray[i].y * size / rows) + size)
+                        ctx.stroke()
+                        ctx.closePath()
+
+                    }
+                    if (gridArray[i].upWall == true) {
+                        ctx.beginPath()
+                        ctx.lineWidth = 3;
+                        ctx.strokeStyle = "black"
+                        ctx.moveTo((gridArray[i].x * size / rows) + 1, (gridArray[i].y * size / cols) + 1,)
+                        ctx.lineTo((gridArray[i].x * size / rows) + size, (gridArray[i].y * size / rows) + 1)
+                        ctx.stroke()
+                        ctx.closePath()
+
+                    }                          
+                    if (gridArray[i].downWall == true) {
+                        ctx.beginPath()
+                        ctx.lineWidth = 3;
+                        ctx.strokeStyle = "black"
+                        ctx.moveTo((gridArray[i].x * size / rows) + 1, (gridArray[i].y * size / cols) + 35,)
+                        ctx.lineTo((gridArray[i].x * size / rows) + size, (gridArray[i].y * size / rows) + 35)
+                        ctx.stroke()
+                        ctx.closePath()
+                    }
+
+                }
+
+            }
+
+            function setWins() {
+                gridArray[26].redwin = true
+                gridArray[44].bluewin = true
+                gridArray[49].redwin = true
+                gridArray[60].greenwin = true
+                gridArray[70].yellowwin = true
+                gridArray[88].redwin = true
+                gridArray[88].greenwin = true
+                gridArray[88].yellowwin = true
+                gridArray[88].bluewin = true
+                gridArray[98].greenwin = true
+                gridArray[99].bluewin = true
+                gridArray[109].yellowwin = true
+                gridArray[146].yellowwin = true
+                gridArray[154].yellowwin = true
+                gridArray[162].greenwin = true
+                gridArray[183].bluewin = true
+                gridArray[188].redwin = true
+                gridArray[189].greenwin = true
+                gridArray[217].bluewin = true
+                gridArray[229].redwin = true
+                drawwins()
+            }
+            function drawwins() {
+                for (i = 0; i < gridArray.length; i++) {
+                    if (gridArray[i].bluewin == true) {
+                        ctx.beginPath()
+                        ctx.strokeStyle = "blue"
+                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 5, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+
+                    }
+                    if (gridArray[i].greenwin == true) {
+                        ctx.beginPath()
+                        ctx.strokeStyle = "green"
+                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 5, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+
+                    }
+                    if (gridArray[i].yellowwin == true) {
+                        ctx.beginPath()
+                        ctx.strokeStyle = "yellow"
+                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 5, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+
+                    }
+                    if (gridArray[i].redwin == true) {
+                        ctx.beginPath()
+                        ctx.strokeStyle = "red"
+                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 5, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+
+                    }
+                }
+
+            }
+
             function setChars() {
             for (let j = 0; j < 4; j++) {
-                let ranx = Math.floor(Math.random() * 10) * 10
-                let rany = Math.floor(Math.random() * 10) * 10
-                //console.log(ranx, rany)
-                for (i = 0; i < 100; i++) {
+                ranx = Math.floor(Math.random() * rows) * 16
+                rany = Math.floor(Math.random() * cols) * 16
+                for (i = 0; i < gridArray.length; i++) {
                     if (gridArray[i].x == ranx && gridArray[i].y == rany) {
                         gridArray[i].ifChar = true
-
-
-                        // setTimeout(Movement, 5000)
                     }
-
                 }
-
             }
+                for (let k = 0; k < gridArray.length; k++) {
+                    if (gridArray[k].ifChar == true && charcolor == 3) {
+                        gridArray[k].charR = true
+                        charcolor = 2
+                    }
+                    else if (gridArray[k].ifChar == true && charcolor == 2) {
+                        gridArray[k].charB = true
+                        charcolor = 1
+                    }
+                    else if (gridArray[k].ifChar == true && charcolor == 1) {
+                        gridArray[k].charG = true
+                        charcolor = 0
+                    }
+                    else if (gridArray[k].ifChar == true && charcolor == 0) {
+                        gridArray[k].charY = true
+                    }
+                }                
+
+            
             drawChar()
             }
-        function drawChar() {
-            for (i = 0; i < 100; i++) {
-                if (gridArray[i].ifChar == true) {
-                    ctx.beginPath()
-                    ctx.arc((gridArray[i].x * size / 10) + size / 2, (gridArray[i].y * size / 10) + size / 2, 5, 0, 2 * Math.PI)
-                    ctx.stroke()
-                }
-                else if (gridArray[i].ifChar == false) {
-                    //console.log(gridArray[i])
-                    ctx.beginPath();
-                    ctx.fillStyle = "white" //'rgb(' + 230+ ',' + 230 + ',' +  230 + ')'
-                    ctx.fillRect((gridArray[i].x * size / 10) + 1,
-                                 (gridArray[i].y * size / 10) + 1, 
-                                 58, 
-                                 58);
-                    ctx.stroke();
+            function drawChar() {
+                for (i = 0; i < gridArray.length; i++) {
+                    if (gridArray[i].ifChar == true && gridArray[i].charB == true ) {
+                        ctx.beginPath()
+                        ctx.strokeStyle = "blue"
+                        ctx.arc((gridArray[i].x * size / rows) + size / 2, (gridArray[i].y * size / cols) + size / 2, 5, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                    }
+                    else if (gridArray[i].ifChar == true && gridArray[i].charG == true ) {
+                        ctx.beginPath()
+                        ctx.strokeStyle = "Green"
+                        ctx.arc((gridArray[i].x * size / rows) + size / 2, (gridArray[i].y * size / cols) + size / 2, 5, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                    }
+                    else if (gridArray[i].ifChar == true && gridArray[i].charR == true ) {
+                        ctx.beginPath()
+                        ctx.strokeStyle = "red"
+                        ctx.arc((gridArray[i].x * size / rows) + size / 2, (gridArray[i].y * size / cols) + size / 2, 5, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                    }
+                    else if (gridArray[i].ifChar == true && gridArray[i].charY == true ) {
+                        ctx.beginPath()
+                        ctx.strokeStyle = "Yellow"
+                        ctx.arc((gridArray[i].x * size / rows) + size / 2, (gridArray[i].y * size / cols) + size / 2, 5, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                    }
                 }
             }
-        }
-        
-            function MovementUp() {
-                for(i = 0; i < 100; i++) {
-                    if (gridArray[i].ifChar == true) {
-                        if (gridArray[i-10].y <= 600 && gridArray[i-10].y >= 0) {
-                            if (gridArray[i-10].ifChar == false){
-                                gridArray[i].ifChar = false
-                                gridArray[i-10].ifChar = true
-                                    drawChar();
-                            }
-
-                        }
-
+            function drawbackground() {
+                for (i = 0; i < gridArray.length; i++) {
+                if (gridArray[i].ifChar == false) {
+                        ctx.beginPath();
+                        ctx.fillStyle = "#c4b597" //'rgb(' + 230+ ',' + 230 + ',' +  230 + ')'
+                        ctx.fillRect((gridArray[i].x * size / rows) + 1,
+                                    (gridArray[i].y * size / cols) + 1, 
+                                    35, 
+                                    35);
+                        ctx.stroke();
+                        ctx.closePath()
                     }
-
                 }
+            }
 
+            function MovementUp() {
+                for (j = 0; j < 15; j++) {
+                    i = (SelectedCell.posy * 16) + SelectedCell.posx
+                    if (SelectedCell.y > 0 && gridArray[i - cols].downWall == false) {
+                        if (gridArray[i - cols].ifChar == false){
+                            if (SelectedCell.charB == true) {
+                                gridArray[i - cols].charB = true
+                            }
+                            else if (SelectedCell.charG == true) {
+                                gridArray[i - cols].charG = true
+                            }
+                            else if (SelectedCell.charR == true) {
+                                gridArray[i - cols].charR = true
+                            }
+                            else if (SelectedCell.charY == true) {
+                                gridArray[i - cols].charY = true
+                            }
+                            SelectedCell.ifChar = false
+                            gridArray[i - cols].ifChar = true
+                            SelectedCell = gridArray[i - cols]
+                            drawbackground()
+                            drawWalls()
+                            drawwins()
+                            drawChar();
+                        }  
+                    }
+                }
+                MoveCounter++
+                document.getElementById('movecounter').innerHTML = "Moves: " + MoveCounter;
             }
             function MovementDown() {
-                for(i = 0; i < 100; i++) {
-                    if (gridArray[i].ifChar == true) {
-                        if (gridArray[i+10].y <= 600 && gridArray[i-10].y >= 0) {
-                            if (gridArray[i+10].ifChar == false){
-                                gridArray[i].ifChar = false
-                                gridArray[i+10].ifChar = true
-                                    drawChar();
+                for (j = 0; j < 15; j++) {
+                    i = (SelectedCell.posy * 16) + SelectedCell.posx
+                    if (SelectedCell.y < 240 && gridArray[i + cols].upWall == false) {
+                        if (gridArray[i + cols].ifChar == false){
+                            if (SelectedCell.charB == true) {
+                                gridArray[i + cols].charB = true
                             }
-
-                        }
-
-                    }
-
-                }
-
-            }
-            function MovementLeft() {
-                for(i = 0; i < 100; i++) {
-                    if (gridArray[i].ifChar == true) {
-                        if (gridArray[i-1].x <= 600 && gridArray[i-10].x >= 0) {
-                            if (gridArray[i-1].ifChar == false){
-                                gridArray[i].ifChar = false
-                                gridArray[i-1].ifChar = true
-                                    drawChar();
+                            else if (SelectedCell.charG == true) {
+                                gridArray[i + cols].charG = true
                             }
-
-                        }
-
+                            else if (SelectedCell.charR == true) {
+                                gridArray[i + cols].charR = true
+                            }
+                            else if (SelectedCell.charY == true) {
+                                gridArray[i + cols].charY = true
+                            }
+                            SelectedCell.ifChar = false
+                            gridArray[i + cols].ifChar = true
+                            SelectedCell = gridArray[i + cols]
+                            drawbackground()
+                            drawWalls()
+                            drawwins()
+                            drawChar();
+                        }  
                     }
-
                 }
-
+                MoveCounter++
+                document.getElementById('movecounter').innerHTML = "Moves: " + MoveCounter;
             }
             function MovementRight() {
-                for(i = 0; i < 100; i++) {
-                    if (gridArray[i].ifChar == true) {
-                        if (gridArray[i+1].x <= 600 && gridArray[i+1].x >= 0) {
-                            if (gridArray[i+1].ifChar == false){
-                                gridArray[i].ifChar = false
-                                gridArray[i+1].ifChar = true
-                                    drawChar();
+                for (j = 0; j < 15; j++) {
+                    i = (SelectedCell.posy * 16) + SelectedCell.posx
+                    if (SelectedCell.x > 0 && gridArray[i - 1].rightWall == false) {
+                        if (gridArray[i - 1].ifChar == false){
+                            if (SelectedCell.charB == true) {
+                                gridArray[i - 1].charB = true
                             }
+                            else if (SelectedCell.charG == true) {
+                                gridArray[i - 1].charG = true
+                            }
+                            else if (SelectedCell.charR == true) {
+                                gridArray[i - 1].charR = true
+                            }
+                            else if (SelectedCell.charY == true) {
+                                gridArray[i - 1].charY = true
+                            }
+                            SelectedCell.ifChar = false
+                            gridArray[i - 1].ifChar = true
+                            SelectedCell = gridArray[i - 1]
 
-                        }
-
+                            drawbackground()
+                            drawWalls()
+                            drawwins()
+                            drawChar();
+                        }  
                     }
-
                 }
+                MoveCounter++
+                document.getElementById('movecounter').innerHTML = "Moves: " + MoveCounter;
+            }
+            function MovementLeft() {
+                for (j = 0; j < 15; j++) {
+                    i = (SelectedCell.posy * 16) + SelectedCell.posx
+                    if (SelectedCell.x < 240 && gridArray[i + 1].leftWall == false) {
+                        if (gridArray[i + 1].ifChar == false){
+                            if (SelectedCell.charB == true) {
+                                gridArray[i + 1].charB = true
+                            }
+                            else if (SelectedCell.charG == true) {
+                                gridArray[i + 1].charG = true
+                            }
+                            else if (SelectedCell.charR == true) {
+                                gridArray[i + 1].charR = true
+                            }
+                            else if (SelectedCell.charY == true) {
+                                gridArray[i + 1].charY = true
+                            }
+                            SelectedCell.ifChar = false
+                            gridArray[i + 1].ifChar = true
+                            SelectedCell = gridArray[i + 1]
+
+                            drawbackground()
+                            drawWalls()
+                            drawwins()
+                            drawChar();
+                        }  
+                    }
+                }
+                MoveCounter++
+                document.getElementById('movecounter').innerHTML = "Moves: " + MoveCounter;
+            }
+            function mapRange(value, a, b, c, d) {
+                value = (value - a) / (b - a);
+                return c + value * (d - c);
 
             }
-            function update() {
-                for (i = 0; i < 10; i++) {
-                    ctx.beginPath()
-                    ctx.moveTo(gridArray[i].y * size, 0)
-                    ctx.lineTo(gridArray[i].y * size, 600)
-                    ctx.stroke()
-                }
-                for (j = 0; j < 10; j++) {
-                    ctx.beginPath()
-                    ctx.moveTo(0, gridArray[j].x * size)
-                    ctx.lineTo(600, gridArray[j].x * size)
-                    ctx.stroke()
-                }
 
+            function mousePos(canvas, event) {
+                return {
+                x: mapRange(event.offsetX, 0, 600, 0, 256),
+                y: mapRange(event.offsetY, 0, 600, 0, 256)
+                }
             }
+
+            function insidePos(pos, button1) {
+                //console.log(button1.x *2.5)
+            return pos.x > button1.x &&
+                pos.x < button1.x+ 35 && 
+                pos.y < button1.y + 35 && 
+                pos.y > button1.y;
+            }
+
+            c.addEventListener('click', function (e) {
+                for (i = 0; i < gridArray.length; i++) {  
+                var getMousePos = mousePos(c, e)
+                //console.log(getMousePos)
+                    if (insidePos(getMousePos,gridArray[i])) {
+                        if (gridArray[i].ifChar == true) {
+                        SelectedCell = gridArray[i]
+                        //console.log(SelectedCell)
+                        }
+                    }
+                }
+            })
+
+            window.addEventListener("keydown", onKeyDown, false);
+            function onKeyDown(event){
+            var keyCode = event.keyCode;
+            switch(keyCode){
+                case 68:  //d
+                    MovementLeft()
+                break;
+                case 83:  //s
+                    MovementDown()
+                break;
+                case 65:  //a
+                    MovementRight()
+                break;
+                case 87: //w
+                    MovementUp()
+                break;
+            }
+            }
+
         </script>
     </body>
 </html>
