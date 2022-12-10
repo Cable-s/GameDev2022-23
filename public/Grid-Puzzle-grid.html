@@ -29,7 +29,7 @@
             let charcolor = 3
 
             class Cell {
-                constructor(x, y, c, ifChar, charR, charY, charB, charG, posx, posy, leftWall, rightWall, upWall, downWall, redwin, greenwin, yellowwin, bluewin) {
+                constructor(x, y, c, ifChar, charR, charY, charB, charG, rainbow, posx, posy, leftWall, rightWall, upWall, downWall, redwin, greenwin, yellowwin, bluewin, id) {
                     this.x = x
                     this.y = y
                     this.c = c
@@ -38,6 +38,7 @@
                     this.charG = charG
                     this.charY = charY
                     this.charR = charR
+                    this.rainbow = rainbow
                     this.posx = posx
                     this.posy = posy
                     this.leftWall = leftWall
@@ -48,6 +49,7 @@
                     this.redwin = redwin
                     this.bluewin = bluewin
                     this.yellowwin = yellowwin
+                    this.id = id
                 }
             }
 
@@ -66,10 +68,12 @@
 
             function createCell(x, y) {
                 x1 = x * size
-                y1 = y * size
-                cell = new Cell(x * rows, y * cols, 255, false, false, false, false, false, x, y, false, false, false, false)
-                ctx.fillStyle = 0
+                y1 = y * size//(x,        y,       color,ifchar, blue, Green, yelo,  red,  rainbow,posx,posy,left,right,up ,  down,  redW,  GreenW, yeloW, blueW, id )
+                cell = new Cell(x * rows, y * cols, 255, false, false, false, false, false, false, x, y, false, false, false, false, false, false, false, false, 0)
+                ctx.beginPath()
+                ctx.strokeStyle = "black"
                 ctx.strokeRect(x1, y1, x1 + size, y1 + size);
+                ctx.closePath()
                 gridArray.push(cell);
 
             }
@@ -222,10 +226,7 @@
                 gridArray[49].redwin = true
                 gridArray[60].greenwin = true
                 gridArray[70].yellowwin = true
-                gridArray[88].redwin = true
-                gridArray[88].greenwin = true
-                gridArray[88].yellowwin = true
-                gridArray[88].bluewin = true
+                gridArray[88].rainbow = true
                 gridArray[98].greenwin = true
                 gridArray[99].bluewin = true
                 gridArray[109].yellowwin = true
@@ -237,6 +238,28 @@
                 gridArray[189].greenwin = true
                 gridArray[217].bluewin = true
                 gridArray[229].redwin = true
+                gridArray[26].id = 1 //r
+                gridArray[49].id = 2 //r
+                gridArray[188].id = 3 //r
+                gridArray[229].id = 4 //r
+                gridArray[44].id = 5 //b
+                gridArray[99].id = 6 //b
+                gridArray[183].id = 7 //b
+                gridArray[217].id = 8 //b
+                gridArray[60].id = 9 //g
+                gridArray[162].id = 10 //g
+                gridArray[189].id = 11 //g
+                gridArray[98].id = 12 //g
+                gridArray[109].id = 13 //y
+                gridArray[70].id = 14 //y
+                gridArray[146].id = 15 //y
+                gridArray[154].id = 16 //y
+                gridArray[88].id = 17 //rainbow
+
+
+
+
+
                 drawwins()
             }
             function drawwins() {
@@ -244,35 +267,174 @@
                     if (gridArray[i].bluewin == true) {
                         ctx.beginPath()
                         ctx.strokeStyle = "blue"
-                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 5, 0, 2 * Math.PI)
+                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 10, 0, 2 * Math.PI)
                         ctx.stroke()
                         ctx.closePath()
-
+                        if (gridArray[i].id % 4 == 0) {
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2) - 10 , (gridArray[i].y * size / rows + size / 2))
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2) + 10 , (gridArray[i].y * size / rows + size / 2))
+                            ctx.stroke()
+                            ctx.closePath()
+                        }
+                        if (gridArray[i].id % 4 == 1) {
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) - 10)
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) + 10)
+                            ctx.stroke()
+                            ctx.closePath()
+                        }
+                        if (gridArray[i].id % 4 == 2) {
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) - 10)
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) + 10)
+                            ctx.stroke()
+                            ctx.closePath()
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2) + 10, (gridArray[i].y * size / rows + size / 2))
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2) - 10, (gridArray[i].y * size / rows + size / 2))
+                            ctx.stroke()
+                            ctx.closePath()
+                        }
                     }
                     if (gridArray[i].greenwin == true) {
                         ctx.beginPath()
                         ctx.strokeStyle = "green"
-                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 5, 0, 2 * Math.PI)
+                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 10, 0, 2 * Math.PI)
                         ctx.stroke()
                         ctx.closePath()
-
+                        if (gridArray[i].id % 4 == 0) {
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2) - 10 , (gridArray[i].y * size / rows + size / 2))
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2) + 10 , (gridArray[i].y * size / rows + size / 2))
+                            ctx.stroke()
+                            ctx.closePath()
+                        }
+                        if (gridArray[i].id % 4 == 1) {
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) - 10)
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) + 10)
+                            ctx.stroke()
+                            ctx.closePath()
+                        }
+                        if (gridArray[i].id % 4 == 2) {
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) - 10)
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) + 10)
+                            ctx.stroke()
+                            ctx.closePath()
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2) + 10, (gridArray[i].y * size / rows + size / 2))
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2) - 10, (gridArray[i].y * size / rows + size / 2))
+                            ctx.stroke()
+                            ctx.closePath()
+                        }
                     }
                     if (gridArray[i].yellowwin == true) {
                         ctx.beginPath()
                         ctx.strokeStyle = "yellow"
-                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 5, 0, 2 * Math.PI)
+                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 10, 0, 2 * Math.PI)
                         ctx.stroke()
                         ctx.closePath()
-
+                        if (gridArray[i].id % 4 == 0) {
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2) - 10 , (gridArray[i].y * size / rows + size / 2))
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2) + 10 , (gridArray[i].y * size / rows + size / 2))
+                            ctx.stroke()
+                            ctx.closePath()
+                        }
+                        if (gridArray[i].id % 4 == 1) {
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) - 10)
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) + 10)
+                            ctx.stroke()
+                            ctx.closePath()
+                        }
+                        if (gridArray[i].id % 4 == 2) {
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) - 10)
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) + 10)
+                            ctx.stroke()
+                            ctx.closePath()
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2) + 10, (gridArray[i].y * size / rows + size / 2))
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2) - 10, (gridArray[i].y * size / rows + size / 2))
+                            ctx.stroke()
+                            ctx.closePath()
+                        }
                     }
                     if (gridArray[i].redwin == true) {
                         ctx.beginPath()
                         ctx.strokeStyle = "red"
-                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 5, 0, 2 * Math.PI)
+                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 10, 0, 2 * Math.PI)
                         ctx.stroke()
                         ctx.closePath()
-
+                        if (gridArray[i].id % 4 == 0) {
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2) - 10 , (gridArray[i].y * size / rows + size / 2))
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2) + 10 , (gridArray[i].y * size / rows + size / 2))
+                            ctx.stroke()
+                            ctx.closePath()
+                        }
+                        if (gridArray[i].id % 4 == 1) {
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) - 10)
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) + 10)
+                            ctx.stroke()
+                            ctx.closePath()
+                        }
+                        if (gridArray[i].id % 4 == 2) {
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) - 10)
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) + 10)
+                            ctx.stroke()
+                            ctx.closePath()
+                            ctx.beginPath()
+                            ctx.strokeStyle = "black"
+                            ctx.moveTo((gridArray[i].x * size / rows + size / 2) + 10, (gridArray[i].y * size / rows + size / 2))
+                            ctx.lineTo((gridArray[i].x * size / rows + size / 2) - 10, (gridArray[i].y * size / rows + size / 2))
+                            ctx.stroke()
+                            ctx.closePath()
+                        }
                     }
+                    if (gridArray[i].rainbow == true) {
+                        ctx.beginPath()
+                        ctx.strokeStyle = "red"
+                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 10, 0, Math.PI / 2)
+                        ctx.stroke()
+                        ctx.closePath()
+                        ctx.beginPath()
+                        ctx.strokeStyle = "green"
+                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 10, Math.PI / 2, Math.PI )
+                        ctx.stroke()
+                        ctx.closePath()
+                        ctx.beginPath()
+                        ctx.strokeStyle = "blue"
+                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 10, Math.PI, 3 * Math.PI / 2)
+                        ctx.stroke()
+                        ctx.closePath()
+                        ctx.beginPath()
+                        ctx.strokeStyle = "yellow"
+                        ctx.arc(gridArray[i].x * size / rows + size / 2, gridArray[i].y * size / rows + size / 2, 10, 3 * Math.PI / 2, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                    }
+                    
                 }
 
             }
@@ -316,25 +478,45 @@
                         ctx.arc((gridArray[i].x * size / rows) + size / 2, (gridArray[i].y * size / cols) + size / 2, 5, 0, 2 * Math.PI)
                         ctx.stroke()
                         ctx.closePath()
+                        ctx.beginPath()
+                        ctx.strokeStyle = "black"
+                        ctx.arc((gridArray[i].x * size / rows) + size / 2, (gridArray[i].y * size / cols) + size / 2, 1.5, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
                     }
-                    else if (gridArray[i].ifChar == true && gridArray[i].charG == true ) {
+                    if (gridArray[i].ifChar == true && gridArray[i].charG == true ) {
                         ctx.beginPath()
                         ctx.strokeStyle = "Green"
                         ctx.arc((gridArray[i].x * size / rows) + size / 2, (gridArray[i].y * size / cols) + size / 2, 5, 0, 2 * Math.PI)
                         ctx.stroke()
                         ctx.closePath()
+                        ctx.beginPath()
+                        ctx.strokeStyle = "black"
+                        ctx.arc((gridArray[i].x * size / rows) + size / 2, (gridArray[i].y * size / cols) + size / 2, 1.5, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
                     }
-                    else if (gridArray[i].ifChar == true && gridArray[i].charR == true ) {
+                    if (gridArray[i].ifChar == true && gridArray[i].charR == true ) {
                         ctx.beginPath()
                         ctx.strokeStyle = "red"
                         ctx.arc((gridArray[i].x * size / rows) + size / 2, (gridArray[i].y * size / cols) + size / 2, 5, 0, 2 * Math.PI)
                         ctx.stroke()
                         ctx.closePath()
+                        ctx.beginPath()
+                        ctx.strokeStyle = "black"
+                        ctx.arc((gridArray[i].x * size / rows) + size / 2, (gridArray[i].y * size / cols) + size / 2, 1.5, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
                     }
-                    else if (gridArray[i].ifChar == true && gridArray[i].charY == true ) {
+                    if (gridArray[i].ifChar == true && gridArray[i].charY == true ) {
                         ctx.beginPath()
                         ctx.strokeStyle = "Yellow"
                         ctx.arc((gridArray[i].x * size / rows) + size / 2, (gridArray[i].y * size / cols) + size / 2, 5, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                        ctx.beginPath()
+                        ctx.strokeStyle = "black"
+                        ctx.arc((gridArray[i].x * size / rows) + size / 2, (gridArray[i].y * size / cols) + size / 2, 1.5, 0, 2 * Math.PI)
                         ctx.stroke()
                         ctx.closePath()
                     }
@@ -362,16 +544,28 @@
                         if (gridArray[i - cols].ifChar == false){
                             if (SelectedCell.charB == true) {
                                 gridArray[i - cols].charB = true
+                                
+
                             }
-                            else if (SelectedCell.charG == true) {
+                            if (SelectedCell.charG == true) {
                                 gridArray[i - cols].charG = true
+                                
+
                             }
-                            else if (SelectedCell.charR == true) {
+                            if (SelectedCell.charR == true) {
                                 gridArray[i - cols].charR = true
+                                
+
                             }
-                            else if (SelectedCell.charY == true) {
+                            if (SelectedCell.charY == true) {
                                 gridArray[i - cols].charY = true
+                                
+
                             }
+                            SelectedCell.charB = false
+                            SelectedCell.charG = false
+                            SelectedCell.charR = false
+                            SelectedCell.charY = false
                             SelectedCell.ifChar = false
                             gridArray[i - cols].ifChar = true
                             SelectedCell = gridArray[i - cols]
@@ -392,16 +586,28 @@
                         if (gridArray[i + cols].ifChar == false){
                             if (SelectedCell.charB == true) {
                                 gridArray[i + cols].charB = true
+                                
+
                             }
-                            else if (SelectedCell.charG == true) {
+                            if (SelectedCell.charG == true) {
                                 gridArray[i + cols].charG = true
+                                
+
                             }
-                            else if (SelectedCell.charR == true) {
+                            if (SelectedCell.charR == true) {
                                 gridArray[i + cols].charR = true
+                                
+
                             }
-                            else if (SelectedCell.charY == true) {
+                            if (SelectedCell.charY == true) {
                                 gridArray[i + cols].charY = true
+                                
+
                             }
+                            SelectedCell.charB = false
+                            SelectedCell.charG = false
+                            SelectedCell.charR = false
+                            SelectedCell.charY = false
                             SelectedCell.ifChar = false
                             gridArray[i + cols].ifChar = true
                             SelectedCell = gridArray[i + cols]
@@ -422,20 +628,28 @@
                         if (gridArray[i - 1].ifChar == false){
                             if (SelectedCell.charB == true) {
                                 gridArray[i - 1].charB = true
+                                
                             }
-                            else if (SelectedCell.charG == true) {
+                            if (SelectedCell.charG == true) {
                                 gridArray[i - 1].charG = true
+                                
                             }
-                            else if (SelectedCell.charR == true) {
+                            if (SelectedCell.charR == true) {
                                 gridArray[i - 1].charR = true
+                                
                             }
-                            else if (SelectedCell.charY == true) {
+                            if (SelectedCell.charY == true) {
                                 gridArray[i - 1].charY = true
+                                
+
                             }
+                            SelectedCell.charB = false
+                            SelectedCell.charG = false
+                            SelectedCell.charR = false
+                            SelectedCell.charY = false
                             SelectedCell.ifChar = false
                             gridArray[i - 1].ifChar = true
                             SelectedCell = gridArray[i - 1]
-
                             drawbackground()
                             drawWalls()
                             drawwins()
@@ -453,20 +667,31 @@
                         if (gridArray[i + 1].ifChar == false){
                             if (SelectedCell.charB == true) {
                                 gridArray[i + 1].charB = true
+                                
+
                             }
-                            else if (SelectedCell.charG == true) {
+                            if (SelectedCell.charG == true) {
                                 gridArray[i + 1].charG = true
+                                
+
                             }
-                            else if (SelectedCell.charR == true) {
+                            if (SelectedCell.charR == true) {
                                 gridArray[i + 1].charR = true
+                                
+
                             }
-                            else if (SelectedCell.charY == true) {
+                            if (SelectedCell.charY == true) {
                                 gridArray[i + 1].charY = true
+                                
+
                             }
+                            SelectedCell.charB = false
+                            SelectedCell.charG = false
+                            SelectedCell.charR = false
+                            SelectedCell.charY = false  
                             SelectedCell.ifChar = false
                             gridArray[i + 1].ifChar = true
                             SelectedCell = gridArray[i + 1]
-
                             drawbackground()
                             drawWalls()
                             drawwins()
