@@ -9,12 +9,13 @@
         <p>Click to Select character and move with WASD</p>
         <div id="movecounter"></div>
         <br>
-        <canvas id="ctx" width="600" height="600" style="border:0px solid #000000; background-color: rgb(230, 230, 230)"></canvas>
+        <canvas id="ctx" width="600" height="600" style="border:0px solid #000000; background-color: rgb(230, 230, 230)"></canvas> <div id="windiv"></div>
         <script>
             let rows = 16;
             let cols = 16;
             let size = 37.5
             let gridArray = []
+            let winArray = []
             var c = document.getElementById("ctx")
             var ctx = c.getContext("2d")
             var getMousePos;
@@ -27,6 +28,9 @@
             let keyD;
             let MoveCounter = 0
             let charcolor = 3
+            let randomPickedCell;
+            let winCount = 17
+            let randomPick
 
             class Cell {
                 constructor(x, y, c, ifChar, charR, charY, charB, charG, rainbow, posx, posy, leftWall, rightWall, upWall, downWall, redwin, greenwin, yellowwin, bluewin, id) {
@@ -63,7 +67,7 @@
                 setChars()
                 setWalls()
                 setWins()
-
+                PickRandomWin()
             }
 
             function createCell(x, y) {
@@ -220,6 +224,176 @@
 
             }
 
+            function PickRandomWin() {
+                randomPick = Math.floor(Math.random() * winCount)
+                if (randomPick > 0) {
+                    for (i = 0; i < winArray.length; i++) {
+                        if (winArray[i].id == randomPick) { // PLEASE FIND HOW TO GET THE INDEX RATHER THAN USING ID AS SOMTIMES THE ID ISN't POSSIBLE TO GRAB
+                            randomPickedCell = winArray[i] 
+                            console.log(randomPickedCell)
+                            switch(randomPickedCell.id) {
+                                case 1:
+                                    document.getElementById('windiv').innerHTML = "Red Vertical"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 2:
+                                    document.getElementById('windiv').innerHTML = "Red Cross"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 3:
+                                    document.getElementById('windiv').innerHTML = "Red Circle"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 4:
+                                    document.getElementById('windiv').innerHTML = "Red Horizontal"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 5:
+                                    document.getElementById('windiv').innerHTML = "Blue Vertical"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 6:
+                                    document.getElementById('windiv').innerHTML = "Blue Cross"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 7:
+                                    document.getElementById('windiv').innerHTML = "Blue Circle"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 8:
+                                    document.getElementById('windiv').innerHTML = "Blue Horizontal"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 9:
+                                    document.getElementById('windiv').innerHTML = "Green Vertical"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 10:
+                                    document.getElementById('windiv').innerHTML = "Green Cross"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 11:
+                                    document.getElementById('windiv').innerHTML = "Green Circle"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 12:
+                                    document.getElementById('windiv').innerHTML = "Green Horizontal"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 13:
+                                    document.getElementById('windiv').innerHTML = "Yellow Vertical"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 14:
+                                    document.getElementById('windiv').innerHTML = "Yellow Cross"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 15:
+                                    document.getElementById('windiv').innerHTML = "Yellow Circle"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 16:
+                                    document.getElementById('windiv').innerHTML = "Yellow Horizontal"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                                case 17:
+                                    document.getElementById('windiv').innerHTML = "Rainbow"
+                                    winCount--
+                                    index = winArray.indexOf(randomPickedCell);
+                                    if (index > -1) {
+                                    winArray.splice(index, 1);
+                                    }
+                                    //winArray.splice(randomPickedCell, 1)
+                                break;
+                            }
+                        }
+                    }
+                }
+                else {
+                PickRandomWin()
+                }
+            }
+
             function setWins() {
                 gridArray[26].redwin = true
                 gridArray[44].bluewin = true
@@ -255,7 +429,23 @@
                 gridArray[146].id = 15 //y
                 gridArray[154].id = 16 //y
                 gridArray[88].id = 17 //rainbow
-
+                winArray.push(gridArray[26],
+                              gridArray[49],
+                              gridArray[188],
+                              gridArray[229],
+                              gridArray[44],
+                              gridArray[99],
+                              gridArray[183],
+                              gridArray[217],
+                              gridArray[60],
+                              gridArray[162],
+                              gridArray[189],
+                              gridArray[98],
+                              gridArray[109],
+                              gridArray[70],
+                              gridArray[146],
+                              gridArray[154],
+                              gridArray[88])
 
 
 
@@ -544,23 +734,15 @@
                         if (gridArray[i - cols].ifChar == false){
                             if (SelectedCell.charB == true) {
                                 gridArray[i - cols].charB = true
-                                
-
                             }
                             if (SelectedCell.charG == true) {
                                 gridArray[i - cols].charG = true
-                                
-
                             }
                             if (SelectedCell.charR == true) {
                                 gridArray[i - cols].charR = true
-                                
-
                             }
                             if (SelectedCell.charY == true) {
                                 gridArray[i - cols].charY = true
-                                
-
                             }
                             SelectedCell.charB = false
                             SelectedCell.charG = false
