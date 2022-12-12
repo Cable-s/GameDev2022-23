@@ -1,15 +1,35 @@
 <html>
     <head>
         <style>
+            .flex-container {
+                display: flex;
+            }
 
+            .flex-container > div {
+                padding-left: 5;
+                padding-top: -20;
+                font-size: 20px;
+            }
         </style>
     </head>
     <body>
         <input type="button" id="start" value="start" onclick="start(); document.getElementById('start').style.display = 'none';" style="display: block">
         <p>Click to Select character and move with WASD</p>
-        <div id="movecounter"></div>
         <br>
-        <canvas id="ctx" width="600" height="600" style="border:0px solid #000000; background-color: rgb(230, 230, 230)"></canvas> <div id="windiv"></div>
+        <div id="flexbox" class="flex-container">
+            <div>
+                <canvas id="ctx" width="600" height="600" style="display:block; border:0px solid #000000; background-color: rgb(230, 230, 230)"></canvas>
+                <div id="YouWin"></div>
+            </div>
+            <div>
+                <h2 stlye="margin-top: 5px;" style="
+                    margin-top: -7;
+                    "> UP NEXT </h2>
+                <canvas id="ctx2" width="144" height="144" style="border:0px solid #000000; background-color: rgb(230, 230, 230)"></canvas> 
+                <div id="movecounter">Moves: 0 Total Moves: 0</div>
+            </div>
+        </div>
+        <div id="windiv"></div>
         <script>
             let rows = 16;
             let cols = 16;
@@ -18,6 +38,9 @@
             let winArray = []
             var c = document.getElementById("ctx")
             var ctx = c.getContext("2d")
+            var c2 = document.getElementById("ctx2")
+            var ctx2 = c2.getContext("2d")
+            let width2 = document.getElementById("ctx2").width
             var getMousePos;
             var ranx;
             var rany;
@@ -238,6 +261,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 2:
@@ -246,6 +270,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 3:
@@ -254,6 +279,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 4:
@@ -262,6 +288,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 5:
@@ -270,6 +297,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 6:
@@ -278,6 +306,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 7:
@@ -286,6 +315,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 8:
@@ -294,6 +324,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 9:
@@ -302,6 +333,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 10:
@@ -310,6 +342,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 11:
@@ -318,6 +351,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 12:
@@ -326,6 +360,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 13:
@@ -334,6 +369,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 14:
@@ -342,6 +378,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 15:
@@ -350,6 +387,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 16:
@@ -358,6 +396,7 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                                 case 17:
@@ -366,12 +405,210 @@
                                     index = winArray.indexOf(randomPickedCell);
                                     if (index > -1) {
                                     winArray.splice(index, 1);
+                                    drawWinsIndicator()
                                     }
                                 break;
                             }
                         }
                     }
                 }
+
+            function drawWinsIndicator() {
+                if (randomPickedCell.bluewin == true) {
+                        ctx2.beginPath()
+                        ctx2.strokeStyle = "blue"
+                        ctx2.lineWidth = 10
+                        ctx2.arc(width2 / 2, width2 / 2, 60, 0, 2 * Math.PI)
+                        ctx2.stroke()
+                        ctx2.closePath()
+                        if (randomPickedCell.id % 4 == 0) {
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2 + 60, width2 / 2)
+                            ctx2.lineTo(width2 / 2 - 60, width2 / 2)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                        }
+                        if (randomPickedCell.id % 4 == 1) {
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2, width2 / 2 + 60)
+                            ctx2.lineTo(width2 / 2, width2 / 2 - 60)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                        }
+                        if (randomPickedCell.id % 4 == 2) {
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2 + 60, width2 / 2)
+                            ctx2.lineTo(width2 / 2 - 60, width2 / 2)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2, width2 / 2 + 60)
+                            ctx2.lineTo(width2 / 2, width2 / 2 - 60)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                        }
+                    }
+                    if (randomPickedCell.greenwin == true) {
+                        ctx2.beginPath()
+                        ctx2.strokeStyle = "green"
+                        ctx2.lineWidth = 10
+                        ctx2.arc(width2 / 2, width2 / 2, 60, 0, 2 * Math.PI)
+                        ctx2.stroke()
+                        ctx2.closePath()
+                        if (randomPickedCell.id % 4 == 0) {
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2 + 60, width2 / 2)
+                            ctx2.lineTo(width2 / 2 - 60, width2 / 2)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                        }
+                        if (randomPickedCell.id % 4 == 1) {
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2, width2 / 2 + 60)
+                            ctx2.lineTo(width2 / 2, width2 / 2 - 60)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                        }
+                        if (randomPickedCell.id % 4 == 2) {
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2 + 60, width2 / 2)
+                            ctx2.lineTo(width2 / 2 - 60, width2 / 2)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2, width2 / 2 + 60)
+                            ctx2.lineTo(width2 / 2, width2 / 2 - 60)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                        }
+                    }
+                    if (randomPickedCell.yellowwin == true) {
+                        ctx2.beginPath()
+                        ctx2.strokeStyle = "yellow"
+                        ctx2.lineWidth = 10
+                        ctx2.arc(width2 / 2, width2 / 2, 60, 0, 2 * Math.PI)
+                        ctx2.stroke()
+                        ctx2.closePath()
+                        if (randomPickedCell.id % 4 == 0) {
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2 + 60, width2 / 2)
+                            ctx2.lineTo(width2 / 2 - 60, width2 / 2)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                        }
+                        if (randomPickedCell.id % 4 == 1) {
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2, width2 / 2 + 60)
+                            ctx2.lineTo(width2 / 2, width2 / 2 - 60)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                        }
+                        if (randomPickedCell.id % 4 == 2) {
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2 + 60, width2 / 2)
+                            ctx2.lineTo(width2 / 2 - 60, width2 / 2)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2, width2 / 2 + 60)
+                            ctx2.lineTo(width2 / 2, width2 / 2 - 60)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                        }
+                    }
+                    if (randomPickedCell.redwin == true) {
+                        ctx2.beginPath()
+                        ctx2.strokeStyle = "red"
+                        ctx2.lineWidth = 10
+                        ctx2.arc(width2 / 2, width2 / 2, 60, 0, 2 * Math.PI)
+                        ctx2.stroke()
+                        ctx2.closePath()
+                        if (randomPickedCell.id % 4 == 0) {
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2 + 60, width2 / 2)
+                            ctx2.lineTo(width2 / 2 - 60, width2 / 2)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                        }
+                        if (randomPickedCell.id % 4 == 1) {
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2, width2 / 2 + 60)
+                            ctx2.lineTo(width2 / 2, width2 / 2 - 60)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                        }
+                        if (randomPickedCell.id % 4 == 2) {
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2 + 60, width2 / 2)
+                            ctx2.lineTo(width2 / 2 - 60, width2 / 2)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                            ctx2.beginPath()
+                            ctx2.strokeStyle = "black"
+                            ctx2.lineWidth = 10
+                            ctx2.moveTo(width2 / 2, width2 / 2 + 60)
+                            ctx2.lineTo(width2 / 2, width2 / 2 - 60)
+                            ctx2.stroke()
+                            ctx2.closePath()
+                        }
+                    }
+                    if (randomPickedCell.rainbow == true) {
+                        ctx2.beginPath()
+                        ctx2.strokeStyle = "red"
+                        ctx2.lineWidth = 10
+                        ctx2.arc(width2 / 2, width2 / 2, 60, 0, Math.PI / 2)
+                        ctx2.stroke()
+                        ctx2.closePath()
+                        ctx2.beginPath()
+                        ctx2.strokeStyle = "green"
+                        ctx2.lineWidth = 10
+                        ctx2.arc(width2 / 2, width2 / 2, 60, Math.PI / 2, Math.PI )
+                        ctx2.stroke()
+                        ctx2.closePath()
+                        ctx2.beginPath()
+                        ctx2.strokeStyle = "blue"
+                        ctx2.lineWidth = 10
+                        ctx2.arc(width2 / 2, width2 / 2, 60, Math.PI, 3 * Math.PI / 2)
+                        ctx2.stroke()
+                        ctx2.closePath()
+                        ctx2.beginPath()
+                        ctx2.strokeStyle = "yellow"
+                        ctx2.lineWidth = 10
+                        ctx2.arc(width2 / 2, width2 / 2, 60, 3 * Math.PI / 2, 2 * Math.PI)
+                        ctx2.stroke()
+                        ctx2.closePath()
+                    }
+            }
 
             function setWins() {
                 gridArray[26].redwin = true
@@ -716,7 +953,12 @@
                             console.log("win")
                             PickRandomWin()
                             MoveCounter = -1
-
+                            if (winArray.length == 0) {
+                                document.getElementById('ctx').style.display = "none"
+                                document.getElementById('flexbox').style.display = "none"
+                                document.getElementById('YouWin').innerHTML = "You Won in " + MoveCounterTotal
+                                document.getElementById('YouWin').style.display = "block"
+                            }
                         }
                     }
                 }
@@ -756,7 +998,7 @@
                 }
                 MoveCounter++
                 MoveCounterTotal++
-                document.getElementById('movecounter').innerHTML = "Moves: " + MoveCounter + "  total moves: " + MoveCounterTotal;
+                document.getElementById('movecounter').innerHTML = "Moves: " + MoveCounter + "  Total Moves: " + MoveCounterTotal;
             }
             function MovementDown() {
                 for (j = 0; j < 15; j++) {
@@ -793,7 +1035,7 @@
                 }
                 MoveCounter++
                 MoveCounterTotal++
-                document.getElementById('movecounter').innerHTML = "Moves: " + MoveCounter + "  total moves: " + MoveCounterTotal;
+                document.getElementById('movecounter').innerHTML = "Moves: " + MoveCounter + "  Total Moves: " + MoveCounterTotal;
             }
             function MovementRight() {
                 for (j = 0; j < 15; j++) {
@@ -830,7 +1072,7 @@
                 }
                 MoveCounter++
                 MoveCounterTotal++
-                document.getElementById('movecounter').innerHTML = "Moves: " + MoveCounter + "  total moves: " + MoveCounterTotal;
+                document.getElementById('movecounter').innerHTML = "Moves: " + MoveCounter + "  Total Moves: " + MoveCounterTotal;
             }
             function MovementLeft() {
                 for (j = 0; j < 15; j++) {
@@ -867,7 +1109,7 @@
                 }
                 MoveCounter++
                 MoveCounterTotal++
-                document.getElementById('movecounter').innerHTML = "Moves: " + MoveCounter + "  total moves: " + MoveCounterTotal;            
+                document.getElementById('movecounter').innerHTML = "Moves: " + MoveCounter + "  Total Moves: " + MoveCounterTotal;            
             }
             function mapRange(value, a, b, c, d) {
                 value = (value - a) / (b - a);
