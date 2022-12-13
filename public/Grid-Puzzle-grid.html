@@ -31,6 +31,28 @@
                 <canvas id="ctx2" width="144" height="144" style="border:0px solid #000000; background-color: rgb(230, 230, 230)"></canvas> 
                 <div id="movecounter">Moves: 0 Total Moves: 0</div>
             </div>
+            <div>
+                <hr> How To Play <hr>
+                
+                <li>move the characters (colours with black dot in the middle) to the corresonding win tile shown on the right of the game</li>
+                <li>the colours of the character and win tile must be the same </li>
+                <li>the multi-coloured win tile can take any character</li>
+                <li>Characters cannot go through each other so use them to block to your advantage</li>
+                
+                <hr>
+
+                Control binds<hr>
+                W - move character up <Br>
+                A - move character left <br>
+                S - move character down <br>
+                D - move character Right <br>
+                Q - quick save <br>
+                E - quick load <br>
+                1 - selects the red character <br>
+                2 - selects the yellow character <br>
+                3 - selects the blue character <br>
+                4 - selects the green character <br>
+            </div>
         </div>
         <div id="windiv"></div>
         <script>
@@ -62,6 +84,8 @@
             charsSaveY = localStorage.getItem('charSaveY')
             charsSaveB = localStorage.getItem('charSaveB')
             charsSaveG = localStorage.getItem('charSaveG')
+            moveCountersave = localStorage.getItem('moveCounterSave')
+            totalCountersave = localStorage.getItem('totalCounterSave')
             winSaved = localStorage.getItem('winSave')
 
 
@@ -104,6 +128,7 @@
                 PickRandomWin()
                 localStorage.clear()
                 saveState()
+                loadState()
             }
 
             function createCell(x, y) {
@@ -990,7 +1015,11 @@
                         localStorage.setItem('charSaveG', JSON.stringify(gridArray[i]))
                     }
                 }
+                localStorage.setItem('moveCounterSave', MoveCounter)
+                localStorage.setItem('totalCounterSave', MoveCounterTotal)
                 localStorage.setItem('winSave', JSON.stringify(randomPickedCell))
+                moveCountersave = localStorage.getItem('moveCounterSave')
+                totalCountersave = localStorage.getItem('totalCounterSave')
                 charsSaveR = localStorage.getItem('charSaveR')
                 charsSaveY = localStorage.getItem('charSaveY')
                 charsSaveB = localStorage.getItem('charSaveB')
@@ -1004,7 +1033,6 @@
                     gridArray[i].charY = false
                     gridArray[i].charR = false
                     gridArray[i].charG = false
-
                 }
                 let tempR = JSON.parse(charsSaveR)
                 let tempB = JSON.parse(charsSaveB)
@@ -1028,6 +1056,9 @@
                         gridArray[j].charG = true
                     }
                 }
+                MoveCounter = moveCountersave
+                MoveCounterTotal = totalCountersave
+                document.getElementById('movecounter').innerHTML = "Moves: " + MoveCounter + "  Total Moves: " + MoveCounterTotal;
                 drawbackground()
                 drawWalls()
                 drawwins()
@@ -1259,9 +1290,14 @@
                         }
                     }
                 break;
+                case 81:
+                    saveState()
+                break;
+                case 69:
+                    loadState()
+                break;
             }
             }
-
         </script>
     </body>
 </html>
