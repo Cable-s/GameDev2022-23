@@ -15,6 +15,9 @@
     <body>
         <input type="button" id="start" value="start" onclick="start(); document.getElementById('start').style.display = 'none';" style="display: block">
         <p>Click to Select character and move with WASD</p>
+        <input type="button" id="save" value="Save State" onclick="saveState()"><input type="button" id="load" value="Load State" onclick="loadState()">
+
+
         <br>
         <div id="flexbox" class="flex-container">
             <div>
@@ -55,6 +58,13 @@
             let randomPickedCell;
             let winCount = 17
             let randomPick
+            charsSaveR = localStorage.getItem('charSaveR')
+            charsSaveY = localStorage.getItem('charSaveY')
+            charsSaveB = localStorage.getItem('charSaveB')
+            charsSaveG = localStorage.getItem('charSaveG')
+            winSaved = localStorage.getItem('winSave')
+
+
 
             class Cell {
                 constructor(x, y, c, ifChar, charR, charY, charB, charG, rainbow, posx, posy, leftWall, rightWall, upWall, downWall, redwin, greenwin, yellowwin, bluewin, id) {
@@ -92,6 +102,8 @@
                 setWalls()
                 setWins()
                 PickRandomWin()
+                localStorage.clear()
+                saveState()
             }
 
             function createCell(x, y) {
@@ -253,7 +265,6 @@
                     for (i = 0; i < winArray.length; i++) {
                         if (winArray.indexOf(winArray[i]) == randomPick) { 
                             randomPickedCell = winArray[i] 
-                            console.log(randomPickedCell)
                             switch(randomPickedCell.id) {
                                 case 1:
                                     document.getElementById('windiv').innerHTML = "Red Vertical"
@@ -950,9 +961,9 @@
                         || randomPickedCell.greenwin == true && SelectedCell.charG == true 
                         || randomPickedCell.bluewin == true && SelectedCell.charB == true 
                         || randomPickedCell.yellowwin == true && SelectedCell.charY == true ) {
-                            console.log("win")
                             PickRandomWin()
                             MoveCounter = -1
+                            saveState()
                             if (winArray.length == 0) {
                                 document.getElementById('ctx').style.display = "none"
                                 document.getElementById('flexbox').style.display = "none"
@@ -962,6 +973,65 @@
                         }
                     }
                 }
+            }
+
+            function saveState() {
+                for (i = 0; i < gridArray.length; i++) {
+                    if (gridArray[i].ifChar == true && gridArray[i].charR == true) {
+                        localStorage.setItem('charSaveR', JSON.stringify(gridArray[i]))
+                    }
+                    if (gridArray[i].ifChar == true && gridArray[i].charY == true) {
+                        localStorage.setItem('charSaveY', JSON.stringify(gridArray[i]))
+                    }
+                    if (gridArray[i].ifChar == true && gridArray[i].charB == true) {
+                        localStorage.setItem('charSaveB', JSON.stringify(gridArray[i]))
+                    }
+                    if (gridArray[i].ifChar == true && gridArray[i].charG == true) {
+                        localStorage.setItem('charSaveG', JSON.stringify(gridArray[i]))
+                    }
+                }
+                localStorage.setItem('winSave', JSON.stringify(randomPickedCell))
+                charsSaveR = localStorage.getItem('charSaveR')
+                charsSaveY = localStorage.getItem('charSaveY')
+                charsSaveB = localStorage.getItem('charSaveB')
+                charsSaveG = localStorage.getItem('charSaveG')
+                winSaved = localStorage.getItem('winSave')
+            }
+            function loadState() {
+                for (i = 0; i < gridArray.length; i++) {
+                    gridArray[i].ifChar = false
+                    gridArray[i].charB = false
+                    gridArray[i].charY = false
+                    gridArray[i].charR = false
+                    gridArray[i].charG = false
+
+                }
+                let tempR = JSON.parse(charsSaveR)
+                let tempB = JSON.parse(charsSaveB)
+                let tempY = JSON.parse(charsSaveY)
+                let tempG = JSON.parse(charsSaveG)
+                for (j = 0; j < gridArray.length; j++) {
+                    if (gridArray[j].x == tempR.x && gridArray[j].y == tempR.y) {
+                        gridArray[j].ifChar = true
+                        gridArray[j].charR = true
+                    }
+                    if (gridArray[j].x == tempB.x && gridArray[j].y == tempB.y) {
+                        gridArray[j].ifChar = true
+                        gridArray[j].charB = true
+                    }
+                    if (gridArray[j].x == tempY.x && gridArray[j].y == tempY.y) {
+                        gridArray[j].ifChar = true
+                        gridArray[j].charY = true
+                    }
+                    if (gridArray[j].x == tempG.x && gridArray[j].y == tempG.y) {
+                        gridArray[j].ifChar = true
+                        gridArray[j].charG = true
+                    }
+                }
+                drawbackground()
+                drawWalls()
+                drawwins()
+                drawChar();
             }
 
             function MovementUp() {
