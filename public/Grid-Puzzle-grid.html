@@ -12,7 +12,7 @@
             }
         </style>
     </head>
-    <body>
+    <body onload="start()">
         <input type="button" id="start" value="start" onclick="start(); document.getElementById('start').style.display = 'none';" style="display: block">
         <p>Click to Select character and move with WASD</p>
         <input type="button" id="save" value="Save State" onclick="saveState()"><input type="button" id="load" value="Load State" onclick="loadState()">
