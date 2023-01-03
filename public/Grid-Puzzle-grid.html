@@ -19,10 +19,10 @@
 
 
         <br>
+        <div id="YouWin"></div>
         <div id="flexbox" class="flex-container">
             <div>
                 <canvas id="ctx" width="600" height="600" style="display:block; border:0px solid #000000; background-color: rgb(230, 230, 230)"></canvas>
-                <div id="YouWin"></div>
             </div>
             <div>
                 <h2 stlye="margin-top: 5px;" style="
@@ -45,13 +45,14 @@
                 W - move character up <Br>
                 A - move character left <br>
                 S - move character down <br>
-                D - move character Right <br>
+                D - move character right <br>
                 Q - quick save <br>
                 E - quick load <br>
                 1 - selects the red character <br>
                 2 - selects the yellow character <br>
                 3 - selects the blue character <br>
                 4 - selects the green character <br>
+                RMB - selected a character that you clicked on <br>
             </div>
         </div>
         <div id="windiv"></div>
@@ -86,7 +87,6 @@
             charsSaveG = localStorage.getItem('charSaveG')
             moveCountersave = localStorage.getItem('moveCounterSave')
             totalCountersave = localStorage.getItem('totalCounterSave')
-            winSaved = localStorage.getItem('winSave')
 
 
 
@@ -450,6 +450,7 @@
                 }
 
             function drawWinsIndicator() {
+                ctx2.clearRect(0, 0, 1000 ,1000)
                 if (randomPickedCell.bluewin == true) {
                         ctx2.beginPath()
                         ctx2.strokeStyle = "blue"
@@ -466,7 +467,7 @@
                             ctx2.stroke()
                             ctx2.closePath()
                         }
-                        if (randomPickedCell.id % 4 == 1) {
+                        if (randomPickedCell.id % 4 == 1 && randomPickedCell.rainbow == false) {
                             ctx2.beginPath()
                             ctx2.strokeStyle = "black"
                             ctx2.lineWidth = 10
@@ -508,7 +509,7 @@
                             ctx2.stroke()
                             ctx2.closePath()
                         }
-                        if (randomPickedCell.id % 4 == 1) {
+                        if (randomPickedCell.id % 4 == 1 && randomPickedCell.rainbow == false) {
                             ctx2.beginPath()
                             ctx2.strokeStyle = "black"
                             ctx2.lineWidth = 10
@@ -550,7 +551,7 @@
                             ctx2.stroke()
                             ctx2.closePath()
                         }
-                        if (randomPickedCell.id % 4 == 1) {
+                        if (randomPickedCell.id % 4 == 1 && randomPickedCell.rainbow == false) {
                             ctx2.beginPath()
                             ctx2.strokeStyle = "black"
                             ctx2.lineWidth = 10
@@ -592,7 +593,7 @@
                             ctx2.stroke()
                             ctx2.closePath()
                         }
-                        if (randomPickedCell.id % 4 == 1) {
+                        if (randomPickedCell.id % 4 == 1  && randomPickedCell.rainbow == false) {
                             ctx2.beginPath()
                             ctx2.strokeStyle = "black"
                             ctx2.lineWidth = 10
@@ -653,6 +654,11 @@
                 gridArray[60].greenwin = true
                 gridArray[70].yellowwin = true
                 gridArray[88].rainbow = true
+                gridArray[88].yellowin = true
+                gridArray[88].greenwin = true
+                gridArray[88].redwin = true
+                gridArray[88].bluewin = true
+
                 gridArray[98].greenwin = true
                 gridArray[99].bluewin = true
                 gridArray[109].yellowwin = true
@@ -720,7 +726,7 @@
                             ctx.stroke()
                             ctx.closePath()
                         }
-                        if (gridArray[i].id % 4 == 1) {
+                        if (gridArray[i].id % 4 == 1 && gridArray[i].rainbow == false) {
                             ctx.beginPath()
                             ctx.strokeStyle = "black"
                             ctx.moveTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) - 10)
@@ -757,7 +763,7 @@
                             ctx.stroke()
                             ctx.closePath()
                         }
-                        if (gridArray[i].id % 4 == 1) {
+                        if (gridArray[i].id % 4 == 1 && gridArray[i].rainbow == false) {
                             ctx.beginPath()
                             ctx.strokeStyle = "black"
                             ctx.moveTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) - 10)
@@ -794,7 +800,7 @@
                             ctx.stroke()
                             ctx.closePath()
                         }
-                        if (gridArray[i].id % 4 == 1) {
+                        if (gridArray[i].id % 4 == 1 && gridArray[i].rainbow == false) {
                             ctx.beginPath()
                             ctx.strokeStyle = "black"
                             ctx.moveTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) - 10)
@@ -831,7 +837,7 @@
                             ctx.stroke()
                             ctx.closePath()
                         }
-                        if (gridArray[i].id % 4 == 1) {
+                        if (gridArray[i].id % 4 == 1 && gridArray[i].rainbow == false) {
                             ctx.beginPath()
                             ctx.strokeStyle = "black"
                             ctx.moveTo((gridArray[i].x * size / rows + size / 2), (gridArray[i].y * size / rows + size / 2) - 10)
@@ -886,10 +892,22 @@
                 ranx = Math.floor(Math.random() * rows) * 16
                 rany = Math.floor(Math.random() * cols) * 16
                 for (i = 0; i < gridArray.length; i++) {
+                    if (ranx == 112 && rany == 112 || ranx == 128 && rany == 128 || ranx == 112 && rany == 128 || ranx == 128 && rany == 112) {
+                        tempran = Math.floor(Math.random() * 2)
+                        if (tempran == 1) {
+                            ranx =  Math.floor(Math.random() * rows) * 7
+                            rany = Math.floor(Math.random() * rows) * 7
+                        }
+                        else {
+                            ranx =  Math.floor(Math.random() * (10 - 16)) + 10
+                            rany = Math.floor(Math.random() * (10 - 16)) + 10
+                        }
+                    }
                     if (gridArray[i].x == ranx && gridArray[i].y == rany) {
                         gridArray[i].ifChar = true
                     }
                 }
+
             }
                 for (let k = 0; k < gridArray.length; k++) {
                     if (gridArray[k].ifChar == true && charcolor == 3) {
@@ -992,8 +1010,11 @@
                             if (winArray.length == 0) {
                                 document.getElementById('ctx').style.display = "none"
                                 document.getElementById('flexbox').style.display = "none"
-                                document.getElementById('YouWin').innerHTML = "You Won in " + MoveCounterTotal
+                                document.getElementById('YouWin').innerHTML = "You Won in " + MoveCounterTotal + " Moves"
+                                document.getElementById('YouWin').style.fontSize = 60 + "px"
                                 document.getElementById('YouWin').style.display = "block"
+                                document.getElementById('movecounter').innerHTML = " "
+                                document.getElementById('windiv').style.display = "none"
                             }
                         }
                     }
@@ -1017,14 +1038,12 @@
                 }
                 localStorage.setItem('moveCounterSave', MoveCounter)
                 localStorage.setItem('totalCounterSave', MoveCounterTotal)
-                localStorage.setItem('winSave', JSON.stringify(randomPickedCell))
                 moveCountersave = localStorage.getItem('moveCounterSave')
                 totalCountersave = localStorage.getItem('totalCounterSave')
                 charsSaveR = localStorage.getItem('charSaveR')
                 charsSaveY = localStorage.getItem('charSaveY')
                 charsSaveB = localStorage.getItem('charSaveB')
                 charsSaveG = localStorage.getItem('charSaveG')
-                winSaved = localStorage.getItem('winSave')
             }
             function loadState() {
                 for (i = 0; i < gridArray.length; i++) {
