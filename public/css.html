@@ -1,0 +1,111 @@
+<html>
+    <Head>
+        <style>
+
+
+
+
+#sun {
+    --sunColor: #fff800;
+    --sunRadius: 20;
+}
+
+#mercury {
+    --mecuryColor: #7b8481;
+    --radius: ;
+    --orbit: ;
+
+}
+
+#venus {
+    --venusColor: #c66b39;
+    --radius: ;
+    --orbit: ;
+
+}
+
+#earth {
+    --earthColor: #263ad9;
+    --radius: ;
+    --orbit: ;
+
+}
+    
+#mars {
+    --marsColor: #d10b02;
+    --radius: ;
+    --orbit: ;
+}
+
+#jupiter {
+    --jupiterColor: #e5821a;
+    --radius: ;
+    --orbit: ;
+
+}
+
+#saturn {
+    --saturnColor: #d3982c;
+    --radius: ;
+    --orbit: ;
+
+}
+
+#uranus {
+    --uranusColor: #7297a0;
+    --radius: ;
+    --orbit: ;
+
+}
+
+#neptune {
+    --neptuneColor: #000fff;
+    --radius: ;
+    --orbit: ;
+
+}
+
+/* .body {
+    background-color: #2c2d2d; 
+} */
+
+
+
+        </style>
+    </Head>
+    <body class="body">
+
+        <canvas id="ctx" height="757" width="1300" style="display:block;  border: 0px solid #000000; background-color: #2c2d2d; margin-left: auto; margin-right: auto;"></canvas>
+
+        <div id="sun"> </div>
+        <div id="mecury"> </div>
+        <div id="venus"> </div>
+        <div id="earth"> </div>
+        <div id="mars"> </div>
+        <div id="jupiter"> </div>
+        <div id="saturn"> </div>
+        <div id="uranus"> </div>
+        <div id="neptune"> </div>
+
+        <script>
+            var c = document.getElementById("ctx")
+            var ctx = c.getContext("2d")        
+            let height = document.getElementById('ctx').offsetHeight
+            let width = document.getElementById('ctx').offsetWidth
+
+
+            let sunColor = getComputedStyle(document.getElementById("sun")).getPropertyValue("--sunColor")
+
+
+
+
+            ctx.beginPath();
+            ctx.strokeStyle = "white"
+            ctx.fillStyle = sunColor
+            ctx.arc(width / 2, height / 2, 20, 0, 2 * Math.PI)
+            ctx.stroke()
+            ctx.fill()
+
+        </script>
+    </body>
+</html>
