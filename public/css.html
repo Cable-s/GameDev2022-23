@@ -2,72 +2,69 @@
     <Head>
         <style>
 
+            #sun {
+                --sunColor: #fff800;
+                --sunRadius: 3;
+            }
 
+            #mercury {
+                --mercuryColor: #7b8481;
+                --radius: .48;
+                --orbit: 34.5;
 
+            }
 
-#sun {
-    --sunColor: #fff800;
-    --sunRadius: 20;
-}
+            #venus {
+                --venusColor: #c66b39;
+                --radius: 1.21;
+                --orbit: 41;
 
-#mercury {
-    --mecuryColor: #7b8481;
-    --radius: ;
-    --orbit: ;
+            }
 
-}
+            #earth {
+                --earthColor: #263ad9;
+                --radius: 1.27;
+                --orbit: 45;
 
-#venus {
-    --venusColor: #c66b39;
-    --radius: ;
-    --orbit: ;
+            }
+                
+            #mars {
+                --marsColor: #d10b02;
+                --radius: .68;
+                --orbit: 51;
+            }
 
-}
+            #jupiter {
+                --jupiterColor: #e5821a;
+                --radius: 13.98;
+                --orbit: 105.5;
 
-#earth {
-    --earthColor: #263ad9;
-    --radius: ;
-    --orbit: ;
+            }
 
-}
-    
-#mars {
-    --marsColor: #d10b02;
-    --radius: ;
-    --orbit: ;
-}
+            #saturn {
+                --saturnColor: #d3982c;
+                --radius: 11.65;
+                --orbit: 169.5;
 
-#jupiter {
-    --jupiterColor: #e5821a;
-    --radius: ;
-    --orbit: ;
+            }
 
-}
+            #uranus {
+                --uranusColor: #7297a0;
+                --radius: 5.07;
+                --orbit: 313;
 
-#saturn {
-    --saturnColor: #d3982c;
-    --radius: ;
-    --orbit: ;
+            }
 
-}
+            #neptune {
+                --neptuneColor: #000fff;
+                --radius: 4.92;
+                --orbit: 496.5;
 
-#uranus {
-    --uranusColor: #7297a0;
-    --radius: ;
-    --orbit: ;
+            }
 
-}
-
-#neptune {
-    --neptuneColor: #000fff;
-    --radius: ;
-    --orbit: ;
-
-}
-
-/* .body {
-    background-color: #2c2d2d; 
-} */
+            /* .body {
+                background-color: #2c2d2d; 
+            } */
 
 
 
@@ -75,10 +72,10 @@
     </Head>
     <body class="body">
 
-        <canvas id="ctx" height="757" width="1300" style="display:block;  border: 0px solid #000000; background-color: #2c2d2d; margin-left: auto; margin-right: auto;"></canvas>
+        <canvas id="ctx" height="1000" width="1000" style="display:block;  border: 0px solid #000000; background-color: #141414; margin-left: auto; margin-right: auto;"></canvas>
 
         <div id="sun"> </div>
-        <div id="mecury"> </div>
+        <div id="mercury"> </div>
         <div id="venus"> </div>
         <div id="earth"> </div>
         <div id="mars"> </div>
@@ -95,16 +92,176 @@
 
 
             let sunColor = getComputedStyle(document.getElementById("sun")).getPropertyValue("--sunColor")
+            let mercuryColor = getComputedStyle(document.getElementById("mercury")).getPropertyValue("--mercuryColor")
+            let venusColor = getComputedStyle(document.getElementById("venus")).getPropertyValue("--venusColor")
+            let earthColor = getComputedStyle(document.getElementById("earth")).getPropertyValue("--earthColor")
+            let marsColor = getComputedStyle(document.getElementById("mars")).getPropertyValue("--marsColor")
+            let jupiterColor = getComputedStyle(document.getElementById("jupiter")).getPropertyValue("--jupiterColor")
+            let saturnColor = getComputedStyle(document.getElementById("saturn")).getPropertyValue("--saturnColor")
+            let uranusColor = getComputedStyle(document.getElementById("uranus")).getPropertyValue("--uranusColor")
+            let neptuneColor = getComputedStyle(document.getElementById("neptune")).getPropertyValue("--neptuneColor")
 
+            let sunRadius = getComputedStyle(document.getElementById("sun")).getPropertyValue("--sunRadius")
+            let mercuryOrbit = getComputedStyle(document.getElementById("mercury")).getPropertyValue("--orbit")
+            let venusOrbit = getComputedStyle(document.getElementById("venus")).getPropertyValue("--orbit")
+            let earthOrbit = getComputedStyle(document.getElementById("earth")).getPropertyValue("--orbit")
+            let marsOrbit = getComputedStyle(document.getElementById("mars")).getPropertyValue("--orbit")
+            let jupiterOrbit = getComputedStyle(document.getElementById("jupiter")).getPropertyValue("--orbit")
+            let saturnOrbit = getComputedStyle(document.getElementById("saturn")).getPropertyValue("--orbit")
+            let uranusOrbit = getComputedStyle(document.getElementById("uranus")).getPropertyValue("--orbit")
+            let neptuneOrbit = getComputedStyle(document.getElementById("neptune")).getPropertyValue("--orbit")
 
-
+            let mercuryRadius = getComputedStyle(document.getElementById("mercury")).getPropertyValue("--radius")
+            let venusRadius = getComputedStyle(document.getElementById("venus")).getPropertyValue("--radius")
+            let earthRadius = getComputedStyle(document.getElementById("earth")).getPropertyValue("--radius")
+            let marsRadius = getComputedStyle(document.getElementById("mars")).getPropertyValue("--radius")
+            let jupiterRadius = getComputedStyle(document.getElementById("jupiter")).getPropertyValue("--radius")
+            let saturnRadius = getComputedStyle(document.getElementById("saturn")).getPropertyValue("--radius")
+            let uranusRadius = getComputedStyle(document.getElementById("uranus")).getPropertyValue("--radius")
+            let neptuneRadius = getComputedStyle(document.getElementById("neptune")).getPropertyValue("--radius")
 
             ctx.beginPath();
             ctx.strokeStyle = "white"
             ctx.fillStyle = sunColor
-            ctx.arc(width / 2, height / 2, 20, 0, 2 * Math.PI)
-            ctx.stroke()
+            ctx.arc(width / 2, height / 2, sunRadius, 0, 2 * Math.PI)
             ctx.fill()
+            ctx.stroke()
+            ctx.closePath()
+
+            for (i = 0; i < 8; i++) {
+                switch(i) {
+                    case 0:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.arc(width / 2, height / 2, mercuryOrbit, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 1:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.arc(width / 2, height / 2, venusOrbit, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 2:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.arc(width / 2, height / 2, earthOrbit, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 3:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.arc(width / 2, height / 2, marsOrbit, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 4:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.arc(width / 2, height / 2, jupiterOrbit, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 5:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.arc(width / 2, height / 2, saturnOrbit, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 6:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.arc(width / 2, height / 2, uranusOrbit, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 7:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.arc(width / 2, height / 2, neptuneOrbit, 0, 2 * Math.PI)
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                }
+                switch(i) {
+                    case 0:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.fillStyle = mercuryColor
+                        ctx.arc(width / 2, (height / 2) - mercuryOrbit, mercuryRadius, 0, 2 * Math.PI)
+                        ctx.fill()
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 1:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.fillStyle = venusColor
+                        ctx.arc(width / 2, (height / 2) - venusOrbit, venusRadius, 0, 2 * Math.PI)
+                        ctx.fill()
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 2:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.fillStyle = earthColor
+                        ctx.arc(width / 2, (height / 2) - earthOrbit, earthRadius, 0, 2 * Math.PI)
+                        ctx.fill()
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 3:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.fillStyle = marsColor
+                        ctx.arc(width / 2, (height / 2) - marsOrbit, marsRadius, 0, 2 * Math.PI)
+                        ctx.fill()
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 4:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.fillStyle = jupiterColor
+                        ctx.arc(width / 2, (height / 2) - jupiterOrbit, jupiterRadius, 0, 2 * Math.PI)
+                        ctx.fill()
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 5:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.fillStyle = saturnColor
+                        ctx.arc(width / 2, (height / 2) - saturnOrbit, saturnRadius, 0, 2 * Math.PI)
+                        ctx.fill()
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 6:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.fillStyle = uranusColor
+                        ctx.arc(width / 2, (height / 2) - uranusOrbit, uranusRadius, 0, 2 * Math.PI)
+                        ctx.fill()
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                    case 7:
+                        ctx.beginPath();
+                        ctx.strokeStyle = "white"
+                        ctx.fillStyle = neptuneColor
+                        ctx.arc(width / 2, (height / 2) - neptuneOrbit, neptuneRadius, 0, 2 * Math.PI)
+                        ctx.fill()
+                        ctx.stroke()
+                        ctx.closePath()
+                        break;
+                }
+            }
 
         </script>
     </body>
