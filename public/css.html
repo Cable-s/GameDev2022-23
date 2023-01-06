@@ -4,61 +4,61 @@
 
             #sun {
                 --sunColor: #fff800;
-                --sunRadius: 3;
+                --sunRadius: 14;
             }
 
             #mercury {
                 --mercuryColor: #7b8481;
-                --radius: .48;
+                --radius: 5.48;
                 --orbit: 34.5;
 
             }
 
             #venus {
                 --venusColor: #c66b39;
-                --radius: 1.21;
-                --orbit: 41;
+                --radius: 6.21;
+                --orbit: 51;
 
             }
 
             #earth {
                 --earthColor: #263ad9;
-                --radius: 1.27;
-                --orbit: 45;
+                --radius: 6.27;
+                --orbit: 80;
 
             }
                 
             #mars {
                 --marsColor: #d10b02;
-                --radius: .68;
-                --orbit: 51;
+                --radius: 5.68;
+                --orbit: 101;
             }
 
             #jupiter {
                 --jupiterColor: #e5821a;
-                --radius: 13.98;
-                --orbit: 105.5;
+                --radius: 18.98;
+                --orbit: 215.5;
 
             }
 
             #saturn {
                 --saturnColor: #d3982c;
-                --radius: 11.65;
-                --orbit: 169.5;
+                --radius: 16.65;
+                --orbit: 319.5;
 
             }
 
             #uranus {
                 --uranusColor: #7297a0;
-                --radius: 5.07;
-                --orbit: 313;
+                --radius: 10.07;
+                --orbit: 423;
 
             }
 
             #neptune {
                 --neptuneColor: #000fff;
-                --radius: 4.92;
-                --orbit: 496.5;
+                --radius: 9.92;
+                --orbit: 476.5;
 
             }
 
@@ -70,7 +70,7 @@
 
         </style>
     </Head>
-    <body class="body">
+    <body class="body" onload="draw()">
 
         <canvas id="ctx" height="1000" width="1000" style="display:block;  border: 0px solid #000000; background-color: #141414; margin-left: auto; margin-right: auto;"></canvas>
 
@@ -120,6 +120,11 @@
             let uranusRadius = getComputedStyle(document.getElementById("uranus")).getPropertyValue("--radius")
             let neptuneRadius = getComputedStyle(document.getElementById("neptune")).getPropertyValue("--radius")
 
+            let x
+            let y
+            let theta;
+
+        function draw() {
             ctx.beginPath();
             ctx.strokeStyle = "white"
             ctx.fillStyle = sunColor
@@ -187,82 +192,120 @@
                         ctx.closePath()
                         break;
                 }
-                switch(i) {
+                loop()
+            }
+        }
+        function loop() {
+            const sleep = (time) => {
+            return new Promise((resolve) => setTimeout(resolve, 10))
+        }   
+
+        const something = async () => {
+        for (let i = 0; i < 360; i++) {
+        await sleep(10)
+        
+        let theta = (i * Math.PI) / 180
+
+        
+        for(j=0; j<8; j++) {
+            switch(j) {
                     case 0:
+                        x = parseInt(mercuryOrbit) * Math.cos(theta) + width / 2
+                        y = parseInt(mercuryOrbit) * Math.sin(theta) + height / 2
                         ctx.beginPath();
                         ctx.strokeStyle = "white"
                         ctx.fillStyle = mercuryColor
-                        ctx.arc(width / 2, (height / 2) - mercuryOrbit, mercuryRadius, 0, 2 * Math.PI)
+                        ctx.arc(x, y, mercuryRadius, 0, 2 * Math.PI)
                         ctx.fill()
                         ctx.stroke()
                         ctx.closePath()
                         break;
                     case 1:
+                        x = parseInt(venusOrbit) * Math.cos(theta) + width / 2
+                        y = parseInt(venusOrbit) * Math.sin(theta) + height / 2
                         ctx.beginPath();
                         ctx.strokeStyle = "white"
                         ctx.fillStyle = venusColor
-                        ctx.arc(width / 2, (height / 2) - venusOrbit, venusRadius, 0, 2 * Math.PI)
+                        ctx.arc(x, y, venusRadius, 0, 2 * Math.PI)
                         ctx.fill()
                         ctx.stroke()
                         ctx.closePath()
                         break;
                     case 2:
+                        x = parseInt(earthOrbit) * Math.cos(theta) + width / 2
+                        y = parseInt(earthOrbit) * Math.sin(theta) + height / 2
                         ctx.beginPath();
                         ctx.strokeStyle = "white"
                         ctx.fillStyle = earthColor
-                        ctx.arc(width / 2, (height / 2) - earthOrbit, earthRadius, 0, 2 * Math.PI)
+                        ctx.arc(x, y, earthRadius, 0, 2 * Math.PI)
                         ctx.fill()
                         ctx.stroke()
                         ctx.closePath()
                         break;
                     case 3:
+                        x = parseInt(marsOrbit) * Math.cos(theta) + width / 2
+                        y = parseInt(marsOrbit) * Math.sin(theta) + height / 2
                         ctx.beginPath();
                         ctx.strokeStyle = "white"
                         ctx.fillStyle = marsColor
-                        ctx.arc(width / 2, (height / 2) - marsOrbit, marsRadius, 0, 2 * Math.PI)
+                        ctx.arc(x, y, marsRadius, 0, 2 * Math.PI)
                         ctx.fill()
                         ctx.stroke()
                         ctx.closePath()
                         break;
                     case 4:
+                        x = parseInt(jupiterOrbit) * Math.cos(theta) + width / 2
+                        y = parseInt(jupiterOrbit) * Math.sin(theta) + height / 2
                         ctx.beginPath();
                         ctx.strokeStyle = "white"
                         ctx.fillStyle = jupiterColor
-                        ctx.arc(width / 2, (height / 2) - jupiterOrbit, jupiterRadius, 0, 2 * Math.PI)
+                        ctx.arc(x, y, jupiterRadius, 0, 2 * Math.PI)
                         ctx.fill()
                         ctx.stroke()
                         ctx.closePath()
                         break;
                     case 5:
+                        x = parseInt(saturnOrbit) * Math.cos(theta) + width / 2
+                        y = parseInt(saturnOrbit) * Math.sin(theta) + height / 2
                         ctx.beginPath();
                         ctx.strokeStyle = "white"
                         ctx.fillStyle = saturnColor
-                        ctx.arc(width / 2, (height / 2) - saturnOrbit, saturnRadius, 0, 2 * Math.PI)
+                        ctx.arc(x, y, saturnRadius, 0, 2 * Math.PI)
                         ctx.fill()
                         ctx.stroke()
                         ctx.closePath()
                         break;
                     case 6:
+                        x = parseInt(uranusOrbit) * Math.cos(theta) + width / 2
+                        y = parseInt(uranusOrbit) * Math.sin(theta) + height / 2
                         ctx.beginPath();
                         ctx.strokeStyle = "white"
                         ctx.fillStyle = uranusColor
-                        ctx.arc(width / 2, (height / 2) - uranusOrbit, uranusRadius, 0, 2 * Math.PI)
+                        ctx.arc(x, y, uranusRadius, 0, 2 * Math.PI)
                         ctx.fill()
                         ctx.stroke()
                         ctx.closePath()
                         break;
                     case 7:
+                        x = parseInt(neptuneOrbit) * Math.cos(theta) + width / 2
+                        y = parseInt(neptuneOrbit) * Math.sin(theta) + height / 2
                         ctx.beginPath();
                         ctx.strokeStyle = "white"
                         ctx.fillStyle = neptuneColor
-                        ctx.arc(width / 2, (height / 2) - neptuneOrbit, neptuneRadius, 0, 2 * Math.PI)
+                        ctx.arc(x, y, neptuneRadius, 0, 2 * Math.PI)
                         ctx.fill()
                         ctx.stroke()
                         ctx.closePath()
                         break;
                 }
-            }
+        }
 
+
+        }
+    }
+    something()
+
+}
         </script>
     </body>
 </html>
