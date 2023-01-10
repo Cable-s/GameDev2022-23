@@ -79,7 +79,7 @@
 
         </style>
     </Head>
-    <body class="body" onload="draw(); loop()">
+    <body class="body" onload="draw(); checkBrowser(); loop()">
 
         <div class="flexbox">
             <div>
@@ -145,6 +145,55 @@
             let saturnOrbitalSpeed = getComputedStyle(document.getElementById("saturn")).getPropertyValue("--orbitalSpeed")
             let uranusOrbitalSpeed = getComputedStyle(document.getElementById("uranus")).getPropertyValue("--orbitalSpeed")
             let neptuneOrbitalSpeed = getComputedStyle(document.getElementById("neptune")).getPropertyValue("--orbitalSpeed")
+
+
+            function checkBrowser() {
+          
+            // Get the user-agent string
+            let userAgentString = 
+                navigator.userAgent;
+          
+            // Detect Chrome
+            let chromeAgent = 
+                userAgentString.indexOf("Chrome") > -1;
+          
+            // Detect Internet Explorer
+            let IExplorerAgent = 
+                userAgentString.indexOf("MSIE") > -1 || 
+                userAgentString.indexOf("rv:") > -1;
+          
+            // Detect Firefox
+            let firefoxAgent = 
+                userAgentString.indexOf("Firefox") > -1;
+          
+            // Detect Safari
+            let safariAgent = 
+                userAgentString.indexOf("Safari") > -1;
+                  
+            // Discard Safari since it also matches Chrome
+            if ((chromeAgent) && (safariAgent)) 
+                safariAgent = false;
+          
+            // Detect Opera
+            let operaAgent = 
+                userAgentString.indexOf("OP") > -1;
+                  
+            // Discard Chrome since it also matches Opera     
+            if ((chromeAgent) && (operaAgent)) 
+                chromeAgent = false;
+          
+            isSafari = safariAgent;
+            
+            isChrome = chromeAgent;
+            
+            isExplorer = IExplorerAgent;
+            
+            isOpera = operaAgent;
+            
+            isFirefox = firefoxAgent;
+        }
+
+
         function draw() {
             ctx.beginPath();
             ctx.strokeStyle = "white"
@@ -217,7 +266,15 @@
             }
         }
         function loop() {
-
+if (isFirefox == true) {
+            mercuryOrbitalSpeed = 1
+            venusOrbitalSpeed = 1
+            earthOrbitalSpeed = 1
+            marsOrbitalSpeed = 1
+            jupiterOrbitalSpeed = 1
+            saturnOrbitalSpeed = 1
+            uranusOrbitalSpeed = 1
+            neptuneOrbitalSpeed = 1
             mercuryOrbitLoop()
             venusOrbitLoop()
             earthOrbitLoop()
@@ -227,6 +284,26 @@
             uranusOrbitLoop()
             neptuneOrbitLoop()
 
+}
+if (isChrome == true || isSafari == true || isOpera == true) {
+            mercuryOrbitalSpeed = 20
+            venusOrbitalSpeed = 20
+            earthOrbitalSpeed = 20.22
+            marsOrbitalSpeed = 20
+            jupiterOrbitalSpeed = 20
+            saturnOrbitalSpeed = 20
+            uranusOrbitalSpeed = 20
+            neptuneOrbitalSpeed = 20
+
+            mercuryOrbitLoop2()
+            venusOrbitLoop2()
+            earthOrbitLoop2()
+            marsOrbitLoop2()
+            jupiterOrbitLoop2()
+            saturnOrbitLoop2()
+            uranusOrbitLoop2()
+            neptuneOrbitLoop2()
+}
                 }
         
 
@@ -242,8 +319,7 @@
                 for (let i = 0; i < 75; i++) {
                     await sleep(parseInt(mercuryOrbitalSpeed))
 
-                    ctx.clearRect(-1000, -1000, 10000, 100000)
-                    draw()
+                    clear()
                     let theta = 4.787 * (i * Math.PI) / 180
 
                     let x = parseInt(mercuryOrbit) * Math.cos(theta) + width / 2
@@ -272,6 +348,7 @@
             const something2 = async () => {
                 for (let i = 0; i < 103; i++) {
                     await sleep2(parseInt(venusOrbitalSpeed))
+
                     let theta = 3.502 * (i * Math.PI) / 180
                     let x = parseInt(venusOrbit) * Math.cos(theta) + width / 2
                     let y = parseInt(venusOrbit) * Math.sin(theta) + height / 2
@@ -442,6 +519,228 @@
                         i = 0;
                     }
 
+                }
+            }
+            something8()
+        }
+
+
+
+        function clear() {
+            ctx.clearRect(-1000, -1000, 10000, 100000)
+                    draw()
+        }
+
+
+        
+        const sleep9 = (time) => {
+            return new Promise((resolve) => setTimeout(resolve, parseInt(mercuryOrbitalSpeed)))
+        }   
+
+        function mercuryOrbitLoop2() {
+            const something = async () => {
+                for (let i = 0; i < 75; i++) {
+                    await sleep9(parseInt(mercuryOrbitalSpeed))
+                    clear() 
+                    
+                    let theta = 4.787 * (i * Math.PI) / 180
+
+                    let x = parseInt(mercuryOrbit) * Math.cos(theta) + width / 2
+                    let y = parseInt(mercuryOrbit) * Math.sin(theta) + height / 2
+                    ctx.beginPath();
+                    ctx.strokeStyle = "white"
+                    ctx.fillStyle = mercuryColor
+                    ctx.arc(x, y, mercuryRadius, 0, 2 * Math.PI)
+                    ctx.fill()
+                    ctx.stroke()
+                    ctx.closePath()
+
+                    if (i == 74) {
+                        i = 0;
+                    }
+                }
+            }
+            something()
+        }
+
+        const sleep10 = (time) => {
+            return new Promise((resolve2) => setTimeout(resolve2, parseInt(venusOrbitalSpeed)))
+        }   
+
+        function venusOrbitLoop2() {
+            const something2 = async () => {
+                for (let i = 0; i < 103; i++) {
+                    await sleep10(parseInt(venusOrbitalSpeed))
+                    
+                    let theta = 3.502 * (i * Math.PI) / 180
+                    let x = parseInt(venusOrbit) * Math.cos(theta) + width / 2
+                    let y = parseInt(venusOrbit) * Math.sin(theta) + height / 2
+                    ctx.beginPath();
+                    ctx.strokeStyle = "white"
+                    ctx.fillStyle = venusColor
+                    ctx.arc(x, y, venusRadius, 0, 2 * Math.PI)
+                    ctx.fill()
+                    ctx.stroke()
+                    ctx.closePath()
+                    if (i == 102) {
+                        i = 0;
+                    }
+                }
+            }
+            something2()
+        }
+
+        const sleep11 = (time) => {
+            return new Promise((resolve3) => setTimeout(resolve3, parseInt(earthOrbitalSpeed)))
+        }   
+
+        function earthOrbitLoop2() {
+            const something3 = async () => {
+                for (let i = 0; i < 120; i++) {
+                    await sleep11(parseInt(earthOrbitalSpeed))
+                    let theta = 3 * (i * Math.PI) / 180
+                    let x = parseInt(earthOrbit) * Math.cos(theta) + width / 2
+                    let y = parseInt(earthOrbit) * Math.sin(theta) + height / 2
+                    ctx.beginPath();
+                    ctx.strokeStyle = "white"
+                    ctx.fillStyle = earthColor
+                    ctx.arc(x, y, earthRadius, 0, 2 * Math.PI)
+                    ctx.fill()
+                    ctx.stroke()
+                    ctx.closePath()
+                    if (i == 119) {
+                        i = 0;
+                    }
+                }
+            }
+            something3()
+        }
+
+        const sleep12 = (time) => {
+            return new Promise((resolve4) => setTimeout(resolve4, parseInt(marsOrbitalSpeed)))
+        }   
+
+        function marsOrbitLoop2() {
+            const something4 = async () => {
+                for (let i = 0; i < 150; i++) {
+                    await sleep12(parseInt(marsOrbitalSpeed))
+                    let theta = 2.407 * (i * Math.PI) / 180
+                    let x = parseInt(marsOrbit) * Math.cos(theta) + width / 2
+                    let y = parseInt(marsOrbit) * Math.sin(theta) + height / 2
+                    ctx.beginPath();
+                    ctx.strokeStyle = "white"
+                    ctx.fillStyle = marsColor
+                    ctx.arc(x, y, marsRadius, 0, 2 * Math.PI)
+                    ctx.fill()
+                    ctx.stroke()
+                    ctx.closePath()
+                    if (i == 149) {
+                        i = 0;
+                    }
+                }
+            }
+            something4()
+        }
+
+        const sleep13 = (time) => {
+            return new Promise((resolve5) => setTimeout(resolve5, parseInt(jupiterOrbitalSpeed)))
+        }   
+
+        function jupiterOrbitLoop2() {
+            const something5 = async () => {
+                for (let i = 0; i < 275; i++) {
+                    await sleep13(parseInt(jupiterOrbitalSpeed))
+                    let theta = 1.307 * (i * Math.PI) / 180
+                    let x = parseInt(jupiterOrbit) * Math.cos(theta) + width / 2
+                    let y = parseInt(jupiterOrbit) * Math.sin(theta) + height / 2
+                    ctx.beginPath();
+                    ctx.strokeStyle = "white"
+                    ctx.fillStyle = jupiterColor
+                    ctx.arc(x, y, jupiterRadius, 0, 2 * Math.PI)
+                    ctx.fill()
+                    ctx.stroke()
+                    ctx.closePath()
+                    if (i == 274) {
+                        i = 0;
+                    }
+                }
+            }
+            something5()
+        }
+
+        const sleep14 = (time) => {
+            return new Promise((resolve6) => setTimeout(resolve6, parseInt(saturnOrbitalSpeed)))
+        }   
+
+        function saturnOrbitLoop2() {
+            const something6 = async () => {
+                for (let i = 0; i < 372; i++) {
+                    await sleep14(parseInt(saturnOrbitalSpeed))
+                    let theta = 0.969 * (i * Math.PI) / 180
+                    let x = parseInt(saturnOrbit) * Math.cos(theta) + width / 2
+                    let y = parseInt(saturnOrbit) * Math.sin(theta) + height / 2
+                    ctx.beginPath();
+                    ctx.strokeStyle = "white"
+                    ctx.fillStyle = saturnColor
+                    ctx.arc(x, y, saturnRadius, 0, 2 * Math.PI)
+                    ctx.fill()
+                    ctx.stroke()
+                    ctx.closePath()
+                    if (i == 371) {
+                        i = 0;
+                    }
+                }
+            }
+            something6()
+        }
+
+        const sleep15 = (time) => {
+            return new Promise((resolve7) => setTimeout(resolve7, parseInt(uranusOrbitalSpeed)))
+        }   
+
+        function uranusOrbitLoop2() {
+            const something7 = async () => {
+                for (let i = 0; i < 529; i++) {
+                    await sleep15(parseInt(uranusOrbitalSpeed))
+                    let theta = 0.681 * (i * Math.PI) / 180
+                    let x = parseInt(uranusOrbit) * Math.cos(theta) + width / 2
+                    let y = parseInt(uranusOrbit) * Math.sin(theta) + height / 2
+                    ctx.beginPath();
+                    ctx.strokeStyle = "white"
+                    ctx.fillStyle = uranusColor
+                    ctx.arc(x, y, uranusRadius, 0, 2 * Math.PI)
+                    ctx.fill()
+                    ctx.stroke()
+                    ctx.closePath()
+                    if (i == 528) {
+                        i = 0;
+                    }
+                }
+            }
+            something7()
+        }
+
+        const sleep16 = (time) => {
+            return new Promise((resolve8) => setTimeout(resolve8, parseInt(neptuneOrbitalSpeed)))
+        }   
+
+        function neptuneOrbitLoop2() {
+            const something8 = async () => {
+                for (let i = 0; i < 663; i++) {
+                    await sleep16(parseInt(neptuneOrbitalSpeed))
+                    let theta = 0.543 * (i * Math.PI) / 180
+                    let x = parseInt(neptuneOrbit) * Math.cos(theta) + width / 2
+                    let y = parseInt(neptuneOrbit) * Math.sin(theta) + height / 2
+                    ctx.beginPath();
+                    ctx.strokeStyle = "white"
+                    ctx.fillStyle = neptuneColor
+                    ctx.arc(x, y, neptuneRadius, 0, 2 * Math.PI)
+                    ctx.fill()
+                    ctx.stroke()
+                    ctx.closePath()
+                    if (i == 662) {
+                        i = 0;
+                    }
                 }
             }
             something8()
