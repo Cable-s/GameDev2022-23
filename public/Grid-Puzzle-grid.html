@@ -13,13 +13,14 @@
         </style>
     </head>
     <body onload="start()">
-        <input type="button" id="start" value="start" onclick="start(); document.getElementById('start').style.display = 'none';" style="display: block">
+        <h1 align="center">Marching Machines</h1>
         <p>Click to Select character and move with WASD</p>
         <input type="button" id="save" value="Save State" onclick="saveState()"><input type="button" id="load" value="Load State" onclick="loadState()">
 
 
         <br>
         <div id="YouWin"></div>
+        <img id="img" style="display: none" src="https://i.pinimg.com/originals/2b/53/07/2b5307b95fc6334402678b7f88c10067.jpg">
         <div id="flexbox" class="flex-container">
             <div>
                 <canvas id="ctx" width="600" height="600" style="display:block; border:0px solid #000000; background-color: rgb(230, 230, 230)"></canvas>
@@ -1011,6 +1012,7 @@
                                 document.getElementById('ctx').style.display = "none"
                                 document.getElementById('flexbox').style.display = "none"
                                 document.getElementById('YouWin').innerHTML = "You Won in " + MoveCounterTotal + " Moves"
+                                document.getElementById('img').style.display = "block"
                                 document.getElementById('YouWin').style.fontSize = 60 + "px"
                                 document.getElementById('YouWin').style.display = "block"
                                 document.getElementById('movecounter').innerHTML = " "
