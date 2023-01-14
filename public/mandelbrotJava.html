@@ -82,6 +82,26 @@ void mouseWheel(MouseEvent event) {
     }
 }
 
+        void mouseClicked() {
+            if (mouseButton == LEFT) {
+                float e = -1;
+            }
+            if (mouseButton == RIGHT) {
+                e = 1;
+            }
+            float zoomX = (mouseX - width / 2) / (0.5 * zoom * width) + moveX;
+            float zoomY = (mouseY - height / 2) / (0.5 * zoom * height) + moveY;
+            moveX -= (zoomX - moveX) * e / 10;
+            moveY -= (zoomY - moveY) * e / 10;
+            zoom -= e / 10;
+              if (e < 0) {
+              zoom += zoom / 10;
+              }
+              if (e > 0) {
+              zoom = sqrt(zoom) / 10;
+              }
+        }
+
     </script>
     <canvas id="ctx"></canvas>
 
