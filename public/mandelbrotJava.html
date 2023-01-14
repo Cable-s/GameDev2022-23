@@ -12,97 +12,75 @@
     <h2>USE THE MOUSE</h2>
     <script type="text/processing">
 
-        float ca;
-        float cb;
-        
-        void setup() {
-          size(1280, 720);
-          colorMode(RGB, 1);
-          
-        }
-        
-        void draw() {
-          
-        
-        background(0);
-        
-          float w = 5;
-        float h = (w * height) / width;
-        
-        //amin: -1.5, bmin: 1.5
-        //amin: -0.65, bmin: 0.4
-        //amin: -0.544, bmin: 0.544
-        float xmin = -w/2;    //regular -w/2
-        float ymin = -h/2;    //regular -h/2
-        
-        loadPixels();
-        
-        int maxIterations = 64;
-        float xmax = xmin + w;
-        float ymax = ymin + h;
-        float dx = (xmax - xmin) / width;
-        float dy = (ymax - ymin) / height;
-        
-        float y = ymin;
-        for (int j = 0; j < height; j++) {
-          float x = xmin;
-          for (int i = 0; i < width; i++) {
-            float a = x;
-            float b = y;
-            int n = 0;
-            
-        
-            if (mousePressed && (mouseButton == LEFT)) {
-              ca = map(mouseX, 0, width, -2, 1);
-              cb = map(mouseY, 0, height, -2, 2);
-            }else if (mousePressed && (mouseButton == RIGHT)) {
-              ca = x;
-              cb = y;
-            }else {
-              ca = x;
-              cb = y;
-            }
-            while (n < maxIterations) {
-              float aa = a * a;
-              float bb = b * b;
-              float twoab = 2.0 * a * b;
-              a = aa - bb + ca;
-              b = twoab + cb;
-              
-              if (aa*aa + bb*bb > 100.0) {
-                break;
-              }
-              n++;
-            }
-          
-            if (n == maxIterations) {
-              pixels[i+j*width] = color(0,0,0);
-            }else if (n > 0 && n < (maxIterations / 6)) {
-              pixels[i+j*width] = color(0,0,0);
-              
-            } else if (n > (maxIterations / 6) && n < ((2 * maxIterations) / 6)) {
-              pixels[i+j*width] = color(255, 0, 0);
-              
-            } else if (n > ((2 * maxIterations) / 6) && n < ((3 * maxIterations) / 6)) {
-              pixels[i+j*width] = color(255, 255, 0);
-              
-            } else if (n > ((3 * maxIterations) / 6) && n < ((4 * maxIterations) / 6)) {
-              pixels[i+j*width] = color(0, 255, 0);
-              
-            } else if (n > ((4 * maxIterations) / 6) && n < ((5 * maxIterations) / 6)) {
-              pixels[i+j*width] = color(0, 255, 255);
-              
-            } else {
-              pixels[i+j*width] = color(0, 0, 255);
-            }
-        
-            x += dx;
-          }
-          y += dy;
-        }
-        
-        updatePixels();
-        }
+        int maxIterations = 256;
+float bailout = 2;
+float zoom = 1;
+float moveX = 0;
+float moveY = 0;
+
+
+void setup() {
+  size(800, 800);
+}
+
+void draw() {
+  loadPixels();
+  for (int x = 0; x < width; x++) {
+    for (int y = 0; y < height; y++) {
+      float cx = (x - width / 2) / (0.5 * zoom * width) + moveX;
+      float cy = (y - height / 2) / (0.5 * zoom * height) + moveY;
+
+      float zx = cx;
+      float zy = cy;
+      int iteration = 0;
+      float distanceSquared;
+      while (iteration < maxIterations && (distanceSquared = zx * zx + zy * zy) < bailout) {
+        float newX = zx * zx - zy * zy + cx;
+        float newY = 2 * zx * zy + cy;
+        zx = newX;
+        zy = newY;
+        iteration++;
+      }
+
+      float c = iteration == maxIterations ? 0 : iteration;
+      int index = x + y * width;
+      pixels[index] = color(c, c, c);
+    }
+  }
+  updatePixels();
+}
+
+void keyPressed() {
+  
+  if (keyCode == LEFT) {
+    moveX -= 0.1 / zoom;
+  }
+  if (keyCode == RIGHT) {
+    moveX += 0.1 / zoom;
+  }
+  if (keyCode == DOWN) {
+    moveY += 0.1 / zoom;
+  }
+  if (keyCode == UP) {
+    moveY -= 0.1 / zoom;
+  }
+}
+
+void mouseWheel(MouseEvent event) {
+  float e = event.getCount();
+  float zoomX = (mouseX - width / 2) / (0.5 * zoom * width) + moveX;
+  float zoomY = (mouseY - height / 2) / (0.5 * zoom * height) + moveY;
+  moveX -= (zoomX - moveX) * e / 10;
+  moveY -= (zoomY - moveY) * e / 10;
+  zoom -= e / 10;
+  println(e);
+    if (e < 0) {
+    zoom += zoom / 10;
+    }
+    if (e > 0) {
+    zoom = sqrt(zoom) / 10;
+    }
+}
 
     </script>
     <canvas id="ctx"></canvas>
